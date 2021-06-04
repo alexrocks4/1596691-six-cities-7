@@ -1,11 +1,11 @@
 import React from 'react';
-import Home from '../home/home';
+import Main from '../main/main';
 import PropTypes from 'prop-types';
 
 function App(props) {
   const { offersCount } = props;
 
-  return <Home offersCount={ offersCount }/>;
+  return <Main offersCount={ offersCount }/>;
 }
 
 App.propTypes = {

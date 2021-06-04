@@ -2,7 +2,7 @@ import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import PropTypes from 'prop-types';
 
-function Home(props) {
+function Main(props) {
   const { offersCount = 0 } = props;
   const offersKeys = new Array(offersCount).fill(null).map((_, idx) => idx + 1);
 
@@ -107,8 +107,8 @@ function Home(props) {
   );
 }
 
-Home.propTypes = {
+Main.propTypes = {
   offersCount: PropTypes.number,
 };
 
-export default Home;
+export default Main;
