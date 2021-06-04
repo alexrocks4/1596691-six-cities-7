@@ -6,7 +6,7 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFound from '../not-found/not-found';
-import AppRoute from '../../const';
+import { AppRoute } from '../../const';
 
 function App(props) {
   const { offersCount } = props;
