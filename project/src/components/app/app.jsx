@@ -15,15 +15,15 @@ function App(props) {
     <Router>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main offersCount={ offersCount }/>
+          <Main offersCount={offersCount}/>
         </Route>
-        <Route path={AppRoute.LOGIN}exact>
+        <Route path={AppRoute.LOGIN} exact>
           <SignIn></SignIn>
         </Route>
         <Route path={AppRoute.FAVORITES} exact>
           <Favorites></Favorites>
         </Route>
-        <Route path={AppRoute.ROOM}exact>
+        <Route path={AppRoute.ROOM} exact>
           <Room></Room>
         </Route>
         <Route>
