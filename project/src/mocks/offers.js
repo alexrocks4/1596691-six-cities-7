@@ -122,7 +122,7 @@ const jsonOffers = `[
     },
     "id": 3,
     "images": ["img/room.jpg", "img/apartment-02.jpg"],
-    "is_favorite": false,
+    "is_favorite": true,
     "is_premium": false,
     "location": {
       "latitude": 52.35514938496178,
@@ -156,7 +156,7 @@ const jsonOffers = `[
     },
     "id": 4,
     "images": ["img/apartment-01.jpg", "img/apartment-02.jpg"],
-    "is_favorite": false,
+    "is_favorite": true,
     "is_premium": false,
     "location": {
       "latitude": 50.850402336285125,
@@ -224,7 +224,7 @@ const jsonOffers = `[
     },
     "id": 6,
     "images": ["img/apartment-01.jpg", "img/apartment-02.jpg"],
-    "is_favorite": false,
+    "is_favorite": true,
     "is_premium": false,
     "location": {
       "latitude": 52.35514938496378,
