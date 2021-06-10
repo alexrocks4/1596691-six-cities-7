@@ -14,6 +14,7 @@ ReactDOM.render(
       offersCount={Setting.OFFERS_COUNT}
       offers={offers}
       reviews={reviews}
+      favoriteOffers={offers.filter((offer) => offer.isFavorite)}
     />
   </React.StrictMode>,
   document.getElementById('root'));
