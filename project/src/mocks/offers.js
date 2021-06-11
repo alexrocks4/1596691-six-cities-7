@@ -55,7 +55,7 @@ const jsonOffers = `[
     "id": 1,
     "images": ["img/apartment-01.jpg", "img/apartment-02.jpg"],
     "is_favorite": false,
-    "is_premium": false,
+    "is_premium": true,
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
@@ -123,7 +123,7 @@ const jsonOffers = `[
     "id": 3,
     "images": ["img/room.jpg", "img/apartment-02.jpg"],
     "is_favorite": true,
-    "is_premium": false,
+    "is_premium": true,
     "location": {
       "latitude": 52.35514938496178,
       "longitude": 4.673877537499048,
