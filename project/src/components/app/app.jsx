@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
@@ -11,16 +10,13 @@ import { offersProp } from '../../prop-types/offers.prop';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 
 function App(props) {
-  const { offersCount, offers, reviews, favoriteOffers } = props;
+  const { offers, reviews, favoriteOffers } = props;
 
   return (
     <Router>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main
-            offersCount={offersCount}
-            offers={offers}
-          />
+          <Main offers={offers} />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <SignIn />
@@ -40,7 +36,6 @@ function App(props) {
 }
 
 App.propTypes = {
-  offersCount: PropTypes.number,
   offers: offersProp,
   reviews: reviewsProp,
   favoriteOffers: offersProp,

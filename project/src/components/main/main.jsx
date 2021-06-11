@@ -1,11 +1,10 @@
 import React from 'react';
 import PlaceCard from '../place-card/place-card';
-import PropTypes from 'prop-types';
 import HeaderLogo from '../header-logo/header-logo';
+import { offersProp } from '../../prop-types/offers.prop';
 
 function Main(props) {
-  const { offersCount = 0 } = props;
-  const offersKeys = new Array(offersCount).fill(null).map((_, idx) => idx + 1);
+  const { offers } = props;
 
   return (
     <div className="page page--gray page--main">
@@ -93,7 +92,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                { offersKeys.map((key) => <PlaceCard key={key}/>) }
+                { offers.map((offer) => <PlaceCard key={offer.id} offer={offer} />) }
               </div>
             </section>
             <div className="cities__right-section">
@@ -107,7 +106,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  offersCount: PropTypes.number,
+  offers: offersProp,
 };
 
 export default Main;

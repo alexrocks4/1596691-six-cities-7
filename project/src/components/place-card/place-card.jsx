@@ -1,6 +1,9 @@
 import React from 'react';
+import { offerProp } from '../../prop-types/offers.prop';
 
-function PlaceCard() {
+function PlaceCard(props) {
+  const { offer } = props;
+
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
@@ -38,5 +41,9 @@ function PlaceCard() {
     </article>
   );
 }
+
+PlaceCard.propTypes = {
+  offer: offerProp,
+};
 
 export default PlaceCard;
