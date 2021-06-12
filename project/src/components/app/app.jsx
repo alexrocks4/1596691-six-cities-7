@@ -8,6 +8,7 @@ import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
 import { offersProp } from '../../prop-types/offers.prop';
 import { reviewsProp } from '../../prop-types/reviews.prop';
+import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 
 function App(props) {
   const { offers, reviews, favoriteOffers } = props;
@@ -38,7 +39,7 @@ function App(props) {
 App.propTypes = {
   offers: offersProp,
   reviews: reviewsProp,
-  favoriteOffers: offersProp,
+  favoriteOffers: favoriteOffersProp,
 };
 
 export default App;

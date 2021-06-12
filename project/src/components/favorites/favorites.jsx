@@ -1,7 +1,8 @@
 import React from 'react';
 import HeaderLogo from '../header-logo/header-logo';
+import { favoriteOffersProp } from '../../prop-types/favoriteOffers.prop';
 
-function Favorites() {
+function Favorites({ favoriteOffers }) {
   return (
     <div className="page">
       <header className="header">
@@ -161,5 +162,9 @@ function Favorites() {
     </div>
   );
 }
+
+Favorites.propTypes = {
+  favoriteOffers: favoriteOffersProp,
+};
 
 export default Favorites;
