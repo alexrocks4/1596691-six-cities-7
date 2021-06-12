@@ -2,6 +2,7 @@ import React from 'react';
 import { offerProp } from '../../prop-types/offers.prop';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { capitalizeFirstLetter } from '../../utils/util';
+import PropTypes from 'prop-types';
 
 const MAX_RATING = 5;
 const PERCENTS_BASE = 100;
@@ -11,10 +12,22 @@ function convertRatingToPercents(rating) {
 }
 
 function PlaceCard(props) {
-  const { offer } = props;
+  const { offer, onCardMouseEnter, onCardMouseLeave } = props;
+
+  function handleCardMouseEnter() {
+    onCardMouseEnter(offer.id);
+  }
+
+  function handleCardMouseLeave() {
+    onCardMouseLeave();
+  }
 
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
+    >
       {offer.isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -51,6 +64,8 @@ function PlaceCard(props) {
 
 PlaceCard.propTypes = {
   offer: offerProp,
+  onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;
