@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceCard from '../place-card/place-card';
+import PlaceCardList from '../place-card-list/place-card-list';
 import HeaderLogo from '../header-logo/header-logo';
 import { offersProp } from '../../prop-types/offers.prop';
 
@@ -92,7 +92,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                { offers.map((offer) => <PlaceCard key={offer.id} offer={offer} />) }
+                <PlaceCardList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
