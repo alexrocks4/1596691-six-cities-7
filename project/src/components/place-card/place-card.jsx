@@ -1,14 +1,13 @@
 import React from 'react';
 import { offerProp } from '../../prop-types/offers.prop';
+import PlaceCardMark from '../place-card-mark/place-card-mark';
 
 function PlaceCard(props) {
   const { offer } = props;
 
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {offer.isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
