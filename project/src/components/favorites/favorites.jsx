@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderLogo from '../header-logo/header-logo';
-import { favoriteOffersProp } from '../../prop-types/favoriteOffers.prop';
+import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 
 function Favorites({ favoriteOffers }) {
   return (
