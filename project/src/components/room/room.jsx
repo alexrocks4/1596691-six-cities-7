@@ -1,7 +1,20 @@
 import React from 'react';
 import HeaderLogo from '../header-logo/header-logo';
+import { reviewsProp } from '../../prop-types/reviews.prop';
+import { offersProp } from '../../prop-types/offers.prop';
+import { useParams } from 'react-router-dom';
+import NotFound from '../not-found/not-found';
+import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
+import RoomMark from '../room-mark/room-mark';
 
-function Room() {
+function Room({ reviews, offers }) {
+  const { id } = useParams();
+  const targetOffer = offers.find((offer) => offer.id.toString() === id);
+
+  if (!targetOffer) {
+    return <NotFound />;
+  }
+
   return (
     <div className="page">
       <header className="header">
@@ -33,36 +46,20 @@ function Room() {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio" />
-              </div>
+              {targetOffer.images.map((url, index) => {
+                const keyId = `${index}-${url}`;
+                return <RoomGalleryItem key={keyId} imageSrc={url} />;
+              })}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {targetOffer.isPremium && <RoomMark />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {targetOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button ${targetOffer.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -325,5 +322,10 @@ function Room() {
     </div>
   );
 }
+
+Room.propTypes = {
+  reviews: reviewsProp,
+  offers: offersProp,
+};
 
 export default Room;
