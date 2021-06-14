@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { offersProp } from '../../prop-types/offers.prop';
 import PlaceCard from '../place-card/place-card';
 
+const PlaceCardConfig = {
+  className: {
+    card: 'cities__place-card',
+    imageWrapper: 'cities__image-wrapper',
+  },
+};
+
 function PlaceCardList({ offers }) {
   const [ activeOfferId, setActiveOfferId ] = useState(null);
 
@@ -19,6 +26,7 @@ function PlaceCardList({ offers }) {
       offer={offer}
       onCardMouseEnter={handleCardMouseEnter}
       onCardMouseLeave={handleCardMouseLeave}
+      config={PlaceCardConfig}
     />
   ));
 }

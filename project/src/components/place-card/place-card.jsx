@@ -6,13 +6,23 @@ import PropTypes from 'prop-types';
 
 const MAX_RATING = 5;
 const PERCENTS_BASE = 100;
+const DEFAULT_IMAGE_WIDTH = 260;
+const DEFAULT_IMAGE_HEIGHT = 200;
 
 function convertRatingToPercents(rating) {
   return rating / MAX_RATING * PERCENTS_BASE;
 }
 
 function PlaceCard(props) {
-  const { offer, onCardMouseEnter, onCardMouseLeave } = props;
+  const {
+    offer,
+    onCardMouseEnter,
+    onCardMouseLeave,
+    config,
+  } = props;
+
+  const imageWidth = config?.image ? config.image.width : DEFAULT_IMAGE_WIDTH;
+  const imageHeight = config?.image ? config.image.height : DEFAULT_IMAGE_HEIGHT;
 
   function handleCardMouseEnter() {
     onCardMouseEnter(offer.id);
@@ -24,14 +34,14 @@ function PlaceCard(props) {
 
   return (
     <article
-      className="cities__place-card place-card"
-      onMouseEnter={handleCardMouseEnter}
-      onMouseLeave={handleCardMouseLeave}
+      className={`${config?.className?.card} place-card`}
+      onMouseEnter={onCardMouseEnter ? handleCardMouseEnter : undefined}
+      onMouseLeave={onCardMouseLeave ? handleCardMouseLeave : undefined}
     >
       {offer.isPremium && <PlaceCardMark />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${config?.className?.imageWrapper} place-card__image-wrapper`} >
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width={260} height={200} alt="Place" />
+          <img className="place-card__image" src={offer.previewImage} width={imageWidth} height={imageHeight} alt="Place" />
         </a>
       </div>
       <div className="place-card__info">
@@ -64,8 +74,18 @@ function PlaceCard(props) {
 
 PlaceCard.propTypes = {
   offer: offerProp,
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
+  onCardMouseEnter: PropTypes.func,
+  onCardMouseLeave: PropTypes.func,
+  config: PropTypes.shape({
+    className: PropTypes.shape({
+      card: PropTypes.string,
+      imageWrapper: PropTypes.string,
+    }),
+    image: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+    }),
+  }),
 };
 
 export default PlaceCard;
