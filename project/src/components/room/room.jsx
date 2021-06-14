@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import NotFound from '../not-found/not-found';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
+import Rating from '../rating/rating';
 
 function Room({ reviews, offers }) {
   const { id } = useParams();
@@ -14,6 +15,14 @@ function Room({ reviews, offers }) {
   if (!targetOffer) {
     return <NotFound />;
   }
+
+  const RatingConfig = {
+    className: {
+      rating: 'property__rating',
+      ratingStars: 'property__stars',
+      ratingValue: 'property__rating-value',
+    },
+  };
 
   return (
     <div className="page">
@@ -66,13 +75,11 @@ function Room({ reviews, offers }) {
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}} />
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">4.8</span>
-              </div>
+              <Rating
+                rating={targetOffer.rating}
+                isRatingValueVisible
+                config={RatingConfig}
+              />
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
                   Apartment

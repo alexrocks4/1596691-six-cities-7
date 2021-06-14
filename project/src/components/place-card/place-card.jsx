@@ -3,15 +3,17 @@ import { offerProp } from '../../prop-types/offers.prop';
 import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { capitalizeFirstLetter } from '../../utils/util';
 import PropTypes from 'prop-types';
+import Rating from '../rating/rating';
 
-const MAX_RATING = 5;
-const PERCENTS_BASE = 100;
 const DEFAULT_IMAGE_WIDTH = 260;
 const DEFAULT_IMAGE_HEIGHT = 200;
 
-function convertRatingToPercents(rating) {
-  return rating / MAX_RATING * PERCENTS_BASE;
-}
+const RatingConfig = {
+  className: {
+    rating: 'place-card__rating',
+    ratingStars: 'place-card__stars',
+  },
+};
 
 function PlaceCard(props) {
   const {
@@ -57,12 +59,10 @@ function PlaceCard(props) {
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: `${convertRatingToPercents(offer.rating)}%`}} />
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating
+          rating={offer.rating}
+          config={RatingConfig}
+        />
         <h2 className="place-card__name">
           <a href="#">{offer.title}</a>
         </h2>
