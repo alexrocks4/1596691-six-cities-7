@@ -4,6 +4,8 @@ import PlaceCardMark from '../place-card-mark/place-card-mark';
 import { capitalizeFirstLetter } from '../../utils/util';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 const DEFAULT_IMAGE_WIDTH = 260;
 const DEFAULT_IMAGE_HEIGHT = 200;
@@ -42,9 +44,9 @@ function PlaceCard(props) {
     >
       {offer.isPremium && <PlaceCardMark />}
       <div className={`${config?.className?.imageWrapper} place-card__image-wrapper`} >
-        <a href="#">
+        <Link to={`${AppRoute.ROOM_BASE}/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width={imageWidth} height={imageHeight} alt="Place" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -64,7 +66,7 @@ function PlaceCard(props) {
           config={RatingConfig}
         />
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={`${AppRoute.ROOM_BASE}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(offer.type)}</p>
       </div>
