@@ -10,6 +10,7 @@ const PlaceCardConfig = {
 };
 
 function PlaceCardList({ offers }) {
+  // eslint-disable-next-line no-unused-vars
   const [ activeOfferId, setActiveOfferId ] = useState(null);
 
   function handleCardMouseEnter(id) {
