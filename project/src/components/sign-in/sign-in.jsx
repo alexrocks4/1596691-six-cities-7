@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HeaderLogo from '../header-logo/header-logo';
+import { AppRoute } from '../../const';
 
 function SignIn() {
   return (
@@ -13,11 +15,14 @@ function SignIn() {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link
+                    to={`${AppRoute.LOGIN}`}
+                    className="header__nav-link header__nav-link--profile"
+                  >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__login">Sign in</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -42,9 +47,12 @@ function SignIn() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link
+                to={`${AppRoute.MAIN}`}
+                className="locations__item-link"
+              >
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
