@@ -43,7 +43,7 @@ const jsonReviews = `[
   },
   {
     "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-    "date": "2019-05-010T14:13:56.569Z",
+    "date": "2019-05-10T14:13:56.569Z",
     "id": 3,
     "rating": 4,
     "user": {
