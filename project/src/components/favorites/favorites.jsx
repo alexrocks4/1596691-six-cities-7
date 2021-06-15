@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HeaderLogo from '../header-logo/header-logo';
 import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 import FavoritesLocationsItem from '../favorites-locations-item/favorites-locations-item';
+import { AppRoute } from '../../const';
 
 function Favorites({ favoriteOffers }) {
   return (
@@ -15,16 +17,21 @@ function Favorites({ favoriteOffers }) {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
+                  <Link
+                    to={`${AppRoute.FAVORITES}`}
+                    className="header__nav-link header__nav-link--profile"
+                  >
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link
+                    to={`${AppRoute.LOGIN}`}
+                    className="header__nav-link"
+                  >
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -49,9 +56,9 @@ function Favorites({ favoriteOffers }) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link to={AppRoute.MAIN} className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-        </a>
+        </Link>
       </footer>
     </div>
   );
