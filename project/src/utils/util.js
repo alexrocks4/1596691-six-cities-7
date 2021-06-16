@@ -24,7 +24,12 @@ function getFavoriteOffers(offers) {
   return groupOffersByCities(filteredOffers);
 }
 
+function pluralize(count) {
+  return count > 1 ? 's' : '';
+}
+
 export {
   capitalizeFirstLetter,
-  getFavoriteOffers
+  getFavoriteOffers,
+  pluralize
 };

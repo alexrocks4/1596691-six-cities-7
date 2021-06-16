@@ -8,7 +8,7 @@ import NotFound from '../not-found/not-found';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
-import { capitalizeFirstLetter } from '../../utils/util';
+import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import ReviewsItem from '../reviews-item/reviews-item';
 import { AppRoute } from '../../const';
 import ReviewsForm from '../reviews-form/reviews-form';
@@ -95,10 +95,10 @@ function Room({ reviews, offers }) {
                   {capitalizeFirstLetter(targetOffer.type)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {targetOffer.bedrooms} {`Bedroom${targetOffer.bedrooms > 1 ? 's' : ''}`}
+                  {targetOffer.bedrooms} {`Bedroom${pluralize(targetOffer.bedrooms)}`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {targetOffer.maxAdults} {`adult${targetOffer.maxAdults > 1 ? 's' : ''}`}
+                  Max {targetOffer.maxAdults} {`adult${pluralize(targetOffer.maxAdults)}`}
                 </li>
               </ul>
               <div className="property__price">
