@@ -1,21 +1,21 @@
 const capitalizeFirstLetter = (string) => string[0].toUpperCase() + string.slice(1);
 
-// Transform offers from array to object
+// Transform offers from array to Map
 // with key -> city name and value -> array of corresponding offers:
 // { cityName: [offers] }
 
 function groupOffersByCities(offers) {
-  return offers.reduce((transformedOffers, offer) => {
+  const groupedOffers = new Map();
+
+  offers.forEach((offer) => {
     const { city: { name: cityName} } = offer;
+    const oldOffers = groupedOffers.get(cityName);
+    const newOffers = oldOffers ? [ ...oldOffers, offer ] : [ offer ];
 
-    if (transformedOffers[cityName]) {
-      transformedOffers[cityName].push(offer);
-    } else {
-      transformedOffers[cityName] = [offer];
-    }
+    groupedOffers.set(cityName, newOffers);
+  });
 
-    return transformedOffers;
-  }, {});
+  return groupedOffers;
 }
 
 function getFavoriteOffers(offers) {
