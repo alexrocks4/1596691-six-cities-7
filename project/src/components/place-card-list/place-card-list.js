@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { offersProp } from '../../prop-types/offers.prop';
-import PlaceCard from '../place-card/place-card';
-
-const PlaceCardConfig = {
-  className: {
-    card: 'cities__place-card',
-    imageWrapper: 'cities__image-wrapper',
-  },
-};
+import PlaceCardMain from '../place-card-main/place-card-main';
 
 function PlaceCardList({ offers }) {
   // eslint-disable-next-line no-unused-vars
@@ -22,12 +15,11 @@ function PlaceCardList({ offers }) {
   }
 
   return offers.map((offer) => (
-    <PlaceCard
+    <PlaceCardMain
       key={offer.id}
       offer={offer}
       onCardMouseEnter={handleCardMouseEnter}
       onCardMouseLeave={handleCardMouseLeave}
-      config={PlaceCardConfig}
     />
   ));
 }
