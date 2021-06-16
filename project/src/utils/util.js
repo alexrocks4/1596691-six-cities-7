@@ -4,7 +4,7 @@ const capitalizeFirstLetter = (string) => string[0].toUpperCase() + string.slice
 // with key -> city name and value -> array of corresponding offers:
 // { cityName: [offers] }
 
-function getTransformedOffers(offers) {
+function groupOffersByCities(offers) {
   return offers.reduce((transformedOffers, offer) => {
     const { city: { name: cityName} } = offer;
 
@@ -21,7 +21,7 @@ function getTransformedOffers(offers) {
 function getFavoriteOffers(offers) {
   const filteredOffers = offers.filter((offer) => offer.isFavorite);
 
-  return getTransformedOffers(filteredOffers);
+  return groupOffersByCities(filteredOffers);
 }
 
 export {
