@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 const MAX_RATING = 5;
 const PERCENTS_BASE = 100;
 
-function convertRatingToPercents(rating) {
-  return rating / MAX_RATING * PERCENTS_BASE;
-}
+const convertRatingToPercents = (rating) => rating / MAX_RATING * PERCENTS_BASE;
 
 function Rating(props) {
   const {

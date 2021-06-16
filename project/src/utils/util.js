@@ -4,7 +4,7 @@ const capitalizeFirstLetter = (string) => string[0].toUpperCase() + string.slice
 // with key -> city name and value -> array of corresponding offers:
 // { cityName: [offers] }
 
-function groupOffersByCities(offers) {
+const groupOffersByCities = (offers) => {
   const groupedOffers = new Map();
 
   offers.forEach((offer) => {
@@ -16,17 +16,15 @@ function groupOffersByCities(offers) {
   });
 
   return groupedOffers;
-}
+};
 
-function getFavoriteOffers(offers) {
+const getFavoriteOffers = (offers) => {
   const filteredOffers = offers.filter((offer) => offer.isFavorite);
 
   return groupOffersByCities(filteredOffers);
-}
+};
 
-function pluralize(count) {
-  return count > 1 ? 's' : '';
-}
+const pluralize = (count) => count > 1 ? 's' : '';
 
 export {
   capitalizeFirstLetter,
