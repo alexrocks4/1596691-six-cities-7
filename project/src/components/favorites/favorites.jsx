@@ -18,7 +18,7 @@ function Favorites({ favoriteOffers }) {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link
-                    to={`${AppRoute.FAVORITES}`}
+                    to={AppRoute.FAVORITES}
                     className="header__nav-link header__nav-link--profile"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
@@ -27,7 +27,7 @@ function Favorites({ favoriteOffers }) {
                 </li>
                 <li className="header__nav-item">
                   <Link
-                    to={`${AppRoute.LOGIN}`}
+                    to={AppRoute.LOGIN}
                     className="header__nav-link"
                   >
                     <span className="header__signout">Sign out</span>

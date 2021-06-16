@@ -16,7 +16,7 @@ function SignIn() {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link
-                    to={`${AppRoute.LOGIN}`}
+                    to={AppRoute.LOGIN}
                     className="header__nav-link header__nav-link--profile"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -48,7 +48,7 @@ function SignIn() {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link
-                to={`${AppRoute.MAIN}`}
+                to={AppRoute.MAIN}
                 className="locations__item-link"
               >
                 <span>Amsterdam</span>
