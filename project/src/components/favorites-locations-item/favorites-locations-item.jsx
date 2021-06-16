@@ -1,18 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { offersProp } from '../../prop-types/offers.prop';
-import PlaceCard from '../place-card/place-card';
-
-const PlaceCardConfig = {
-  className: {
-    card: 'favorites__card',
-    imageWrapper: 'favorites__image-wrapper',
-  },
-  image: {
-    width: 150,
-    height: 110,
-  },
-};
+import PlaceCardFavorites from '../place-card-favorites/place-card-favorites';
 
 function FavoritesLocationsItem({ cityName, offers }) {
   return (
@@ -26,10 +15,9 @@ function FavoritesLocationsItem({ cityName, offers }) {
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <PlaceCard
+          <PlaceCardFavorites
             key={offer.id}
             offer={offer}
-            config={PlaceCardConfig}
           />
         ))}
       </div>
