@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const Setting = {
-  OFFERS_COUNT: 5,
-};
+import offers from './mocks/offers';
+import reviews from './mocks/reviews';
+import { getFavoriteOffers } from './utils/util';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App offersCount={ Setting.OFFERS_COUNT }/>
+    <App
+      offers={offers}
+      reviews={reviews}
+      favoriteOffers={getFavoriteOffers(offers)}
+    />
   </React.StrictMode>,
   document.getElementById('root'));
