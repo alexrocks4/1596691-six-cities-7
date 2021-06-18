@@ -4,14 +4,10 @@ import PlaceCardMain from '../place-card-main/place-card-main';
 
 function PlaceCardList({ offers }) {
   // eslint-disable-next-line no-unused-vars
-  const [ activeOfferId, setActiveOfferId ] = useState(null);
+  const [ activeOffer, setActiveOffer ] = useState(null);
 
-  function handleCardMouseEnter(id) {
-    setActiveOfferId(id);
-  }
-
-  function handleCardMouseLeave() {
-    setActiveOfferId(null);
+  function handleCardMouseEnter(offer) {
+    setActiveOffer(offer);
   }
 
   return offers.map((offer) => (
@@ -19,7 +15,6 @@ function PlaceCardList({ offers }) {
       key={offer.id}
       offer={offer}
       onCardMouseEnter={handleCardMouseEnter}
-      onCardMouseLeave={handleCardMouseLeave}
     />
   ));
 }
