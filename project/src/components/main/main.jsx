@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import PlaceCardList from '../place-card-list/place-card-list';
 import HeaderLogo from '../header-logo/header-logo';
 import { offersProp } from '../../prop-types/offers.prop';
-import { AppRoute } from '../../const';
+import { AppRoute, City, CityName } from '../../const';
+import Map from '../map/map';
+import { filterOffersByCity } from '../../utils/util';
+
+const DEFAULT_CITY = CityName.AMSTERDAM;
 
 function Main(props) {
   const { offers } = props;
+  // TODO currentCity should be a state
+  const currentCity = DEFAULT_CITY;
+  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
+  // TODO lift up the selectedOffer state from PlaceCardList
+  const selectedOffer = filteredOffersByCity.pop();
 
   return (
     <div className="page page--gray page--main">
@@ -103,7 +112,13 @@ function Main(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map
+                  city={City[currentCity]}
+                  points={filteredOffersByCity}
+                  selectedPoint={selectedOffer}
+                />
+              </section>
             </div>
           </div>
         </div>
