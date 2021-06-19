@@ -109,7 +109,7 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 <PlaceCardList
-                  offers={offers}
+                  offers={filteredOffersByCity}
                   onCardMouseEnter={handleCardMouseEnter}
                 />
               </div>
