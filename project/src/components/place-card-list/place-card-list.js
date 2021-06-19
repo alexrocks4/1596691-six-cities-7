@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { offersProp } from '../../prop-types/offers.prop';
 import PlaceCardMain from '../place-card-main/place-card-main';
+import PropTypes from 'prop-types';
 
-function PlaceCardList({ offers }) {
-  // eslint-disable-next-line no-unused-vars
-  const [ activeOffer, setActiveOffer ] = useState(null);
-
-  function handleCardMouseEnter(offer) {
-    setActiveOffer(offer);
-  }
-
+function PlaceCardList({ offers, onCardMouseEnter}) {
   return offers.map((offer) => (
     <PlaceCardMain
       key={offer.id}
       offer={offer}
-      onCardMouseEnter={handleCardMouseEnter}
+      onCardMouseEnter={onCardMouseEnter}
     />
   ));
 }
 
 PlaceCardList.propTypes = {
   offers: offersProp,
+  onCardMouseEnter: PropTypes.func.isRequired,
 };
 
 export default PlaceCardList;
