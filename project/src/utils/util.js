@@ -18,6 +18,10 @@ const groupOffersByCities = (offers) => {
   return groupedOffers;
 };
 
+const filterOffersByCity = (offers, cityName) => (
+  offers.filter(({ city }) => city.name.toLowerCase() === cityName.toLowerCase())
+);
+
 const getFavoriteOffers = (offers) => {
   const filteredOffers = offers.filter((offer) => offer.isFavorite);
 
@@ -29,5 +33,6 @@ const pluralize = (count) => count > 1 ? 's' : '';
 export {
   capitalizeFirstLetter,
   getFavoriteOffers,
-  pluralize
+  pluralize,
+  filterOffersByCity
 };

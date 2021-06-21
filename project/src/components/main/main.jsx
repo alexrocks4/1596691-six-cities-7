@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PlaceCardList from '../place-card-list/place-card-list';
 import HeaderLogo from '../header-logo/header-logo';
 import { offersProp } from '../../prop-types/offers.prop';
-import { AppRoute } from '../../const';
+import { AppRoute, City, CityName } from '../../const';
+import Map from '../map/map';
+import { filterOffersByCity } from '../../utils/util';
+
+const DEFAULT_CITY = CityName.AMSTERDAM;
 
 function Main(props) {
   const { offers } = props;
+  // TODO currentCity should be a state
+  const currentCity = DEFAULT_CITY;
+  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
+  const [ activeOffer, setActiveOffer ] = useState(null);
+  const handleCardMouseEnter = (offer) => setActiveOffer(offer);
 
   return (
     <div className="page page--gray page--main">
@@ -99,11 +108,20 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCardList offers={offers} />
+                <PlaceCardList
+                  offers={filteredOffersByCity}
+                  onCardMouseEnter={handleCardMouseEnter}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map
+                  city={City[currentCity]}
+                  points={filteredOffersByCity}
+                  selectedPoint={activeOffer}
+                />
+              </section>
             </div>
           </div>
         </div>

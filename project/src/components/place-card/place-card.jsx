@@ -21,7 +21,6 @@ function PlaceCard(props) {
   const {
     offer,
     onCardMouseEnter,
-    onCardMouseLeave,
     config,
   } = props;
 
@@ -29,18 +28,14 @@ function PlaceCard(props) {
   const imageHeight = config?.image ? config.image.height : DEFAULT_IMAGE_HEIGHT;
 
   function handleCardMouseEnter() {
-    onCardMouseEnter(offer.id);
+    onCardMouseEnter(offer);
   }
 
-  function handleCardMouseLeave() {
-    onCardMouseLeave();
-  }
 
   return (
     <article
       className={`${config?.className?.card} place-card`}
       onMouseEnter={onCardMouseEnter ? handleCardMouseEnter : undefined}
-      onMouseLeave={onCardMouseLeave ? handleCardMouseLeave : undefined}
     >
       {offer.isPremium && <PlaceCardMark />}
       <div className={`${config?.className?.imageWrapper} place-card__image-wrapper`} >
@@ -77,7 +72,6 @@ function PlaceCard(props) {
 PlaceCard.propTypes = {
   offer: offerProp,
   onCardMouseEnter: PropTypes.func,
-  onCardMouseLeave: PropTypes.func,
   config: PropTypes.shape({
     className: PropTypes.shape({
       card: PropTypes.string,

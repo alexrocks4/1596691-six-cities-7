@@ -38,11 +38,11 @@ const jsonOffers = `[
     "bedrooms": 3,
     "city": {
       "location": {
-        "latitude": 52.370216,
-        "longitude": 4.895168,
+        "latitude": 51.0176137242617,
+        "longitude": 4.409656854206885,
         "zoom": 10
       },
-      "name": "Amsterdam"
+      "name": "Brussels"
     },
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
@@ -57,8 +57,8 @@ const jsonOffers = `[
     "is_favorite": false,
     "is_premium": true,
     "location": {
-      "latitude": 52.35514938496378,
-      "longitude": 4.673877537499948,
+      "latitude": 51.0171137242617,
+      "longitude": 4.449656854206885,
       "zoom": 8
     },
     "max_adults": 4,
@@ -72,11 +72,11 @@ const jsonOffers = `[
     "bedrooms": 1,
     "city": {
       "location": {
-        "latitude": 48.89304651480916,
-        "longitude": 2.351692301078516,
+        "latitude": 52.38333,
+        "longitude": 4.9,
         "zoom": 10
       },
-      "name": "Paris"
+      "name": "Amsterdam"
     },
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "goods": ["Kitchen", "Washing machine", "Coffee machine"],
@@ -91,8 +91,8 @@ const jsonOffers = `[
     "is_favorite": false,
     "is_premium": false,
     "location": {
-      "latitude": 48.89304651480156,
-      "longitude": 2.351692301078316,
+      "latitude": 52.3909553943508,
+      "longitude": 4.85309666406198,
       "zoom": 8
     },
     "max_adults": 1,
@@ -106,8 +106,8 @@ const jsonOffers = `[
     "bedrooms": 2,
     "city": {
       "location": {
-        "latitude": 52.370216,
-        "longitude": 4.895168,
+        "latitude": 52.38333,
+        "longitude": 4.9,
         "zoom": 10
       },
       "name": "Amsterdam"
@@ -125,8 +125,8 @@ const jsonOffers = `[
     "is_favorite": true,
     "is_premium": true,
     "location": {
-      "latitude": 52.35514938496178,
-      "longitude": 4.673877537499048,
+      "latitude": 52.369553943508,
+      "longitude": 4.85309666406198,
       "zoom": 8
     },
     "max_adults": 4,
@@ -140,11 +140,11 @@ const jsonOffers = `[
     "bedrooms": 3,
     "city": {
       "location": {
-        "latitude": 50.850402336283125,
-        "longitude": 4.35169908818879,
+        "latitude": 52.38333,
+        "longitude": 4.9,
         "zoom": 10
       },
-      "name": "Brussels"
+      "name": "Amsterdam"
     },
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
@@ -159,8 +159,8 @@ const jsonOffers = `[
     "is_favorite": true,
     "is_premium": false,
     "location": {
-      "latitude": 50.850402336285125,
-      "longitude": 4.35169908818179,
+      "latitude": 52.3909553943508,
+      "longitude": 4.929309666406198,
       "zoom": 8
     },
     "max_adults": 4,
@@ -174,11 +174,11 @@ const jsonOffers = `[
     "bedrooms": 3,
     "city": {
       "location": {
-        "latitude": 51.00905939985244,
-        "longitude": 6.983108900484334,
+        "latitude": 52.38333,
+        "longitude": 4.9,
         "zoom": 10
       },
-      "name": "Cologne"
+      "name": "Amsterdam"
     },
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
@@ -193,8 +193,8 @@ const jsonOffers = `[
     "is_favorite": false,
     "is_premium": false,
     "location": {
-      "latitude": 51.00905939981244,
-      "longitude": 6.983108900464334,
+      "latitude": 52.3809553943508,
+      "longitude": 4.939309666406198,
       "zoom": 8
     },
     "max_adults": 4,
@@ -208,8 +208,8 @@ const jsonOffers = `[
     "bedrooms": 3,
     "city": {
       "location": {
-        "latitude": 52.370216,
-        "longitude": 4.895168,
+        "latitude": 52.38333,
+        "longitude": 4.9,
         "zoom": 10
       },
       "name": "Amsterdam"
