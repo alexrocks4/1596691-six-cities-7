@@ -15,6 +15,7 @@ function Main(props) {
   const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, filterCity), [offers, filterCity]);
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = (offer) => setActiveOffer(offer);
+  const handleLocationClick = () => setActiveOffer(null);
 
   return (
     <div className="page page--gray page--main">
@@ -52,7 +53,7 @@ function Main(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CityList />
+            <CityList onLocationClick={handleLocationClick} />
           </section>
         </div>
         <div className="cities">

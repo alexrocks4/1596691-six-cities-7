@@ -5,10 +5,11 @@ import { CityName } from '../../const';
 import { getClassName } from '../../utils/util';
 import { ActionCreator } from '../../store/action';
 
-function CityList({ filterCity, setFilterCity }) {
+function CityList({ filterCity, setFilterCity, onLocationClick }) {
   const handleLocationClick = (evt, cityName) => {
     evt.preventDefault();
     setFilterCity(cityName);
+    onLocationClick();
   };
 
   return (
@@ -32,6 +33,7 @@ function CityList({ filterCity, setFilterCity }) {
 CityList.propTypes = {
   filterCity: PropTypes.string.isRequired,
   setFilterCity: PropTypes.func.isRequired,
+  onLocationClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
