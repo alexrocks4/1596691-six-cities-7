@@ -1,21 +1,21 @@
 import React, { useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import PlaceCardList from '../place-card-list/place-card-list';
 import HeaderLogo from '../header-logo/header-logo';
 import { offersProp } from '../../prop-types/offers.prop';
-import { AppRoute, City, CityName } from '../../const';
+import { AppRoute, City } from '../../const';
 import Map from '../map/map';
 import { filterOffersByCity } from '../../utils/util';
-
-const DEFAULT_CITY = CityName.AMSTERDAM;
+import CityList from '../city-list/city-list';
 
 function Main(props) {
-  const { offers } = props;
-  // TODO currentCity should be a state
-  const currentCity = DEFAULT_CITY;
-  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
+  const { offers, filterCity } = props;
+  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, filterCity), [offers, filterCity]);
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = (offer) => setActiveOffer(offer);
+  const handleLocationClick = () => setActiveOffer(null);
 
   return (
     <div className="page page--gray page--main">
@@ -53,45 +53,14 @@ function Main(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CityList onLocationClick={handleLocationClick} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{filteredOffersByCity.length} places to stay in {filterCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -117,7 +86,7 @@ function Main(props) {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={City[currentCity]}
+                  city={City[filterCity]}
                   points={filteredOffersByCity}
                   selectedPoint={activeOffer}
                 />
@@ -132,6 +101,12 @@ function Main(props) {
 
 Main.propTypes = {
   offers: offersProp,
+  filterCity: PropTypes.string.isRequired,
 };
 
-export default Main;
+const mapStateToProps = ({ filterCity }) => ({
+  filterCity,
+});
+
+export { Main };
+export default connect(mapStateToProps)(Main);

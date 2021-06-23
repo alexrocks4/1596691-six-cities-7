@@ -30,9 +30,12 @@ const getFavoriteOffers = (offers) => {
 
 const pluralize = (count) => count > 1 ? 's' : '';
 
+const getClassName = (isClassValid, className) => isClassValid ? className : '';
+
 export {
   capitalizeFirstLetter,
   getFavoriteOffers,
   pluralize,
-  filterOffersByCity
+  filterOffersByCity,
+  getClassName
 };

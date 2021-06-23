@@ -29,6 +29,15 @@ function useMap(mapRef, location) {
 
       setMap(mapInstance);
     }
+
+    // Always set new center if map exists
+    if (mapRef.current !== null && map !== null) {
+      map.setView({
+        lat: location.latitude,
+        lng: location.longitude,
+      }, location.zoom);
+    }
+
   }, [ mapRef, location, map ]);
 
 

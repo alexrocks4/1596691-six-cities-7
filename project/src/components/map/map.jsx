@@ -25,13 +25,24 @@ function Map({ city, points, selectedPoint }) {
   const map = useMap(mapRef, city.location);
 
   useEffect(() => {
+    const layerGroup = leaflet.layerGroup();
+
     if (map) {
       points.forEach(({ location, id }) => {
-        leaflet.marker([ location.latitude, location.longitude ], {
+        const marker = leaflet.marker([ location.latitude, location.longitude ], {
           icon: selectedPoint && id === selectedPoint.id ? activeIcon : defaultIcon,
-        }).addTo(map);
+        });
+        layerGroup.addLayer(marker);
       });
+
+      layerGroup.addTo(map);
     }
+
+    return () => {
+      if (map) {
+        layerGroup.remove();
+      }
+    };
   }, [map, points, selectedPoint ]);
 
   return (
