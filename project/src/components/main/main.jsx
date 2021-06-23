@@ -1,20 +1,18 @@
 import React, { useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import PlaceCardList from '../place-card-list/place-card-list';
 import HeaderLogo from '../header-logo/header-logo';
 import { offersProp } from '../../prop-types/offers.prop';
-import { AppRoute, City, CityName } from '../../const';
+import { AppRoute, City } from '../../const';
 import Map from '../map/map';
 import { filterOffersByCity } from '../../utils/util';
 import CityList from '../city-list/city-list';
 
-const DEFAULT_CITY = CityName.AMSTERDAM;
-
 function Main(props) {
-  const { offers } = props;
-  // TODO currentCity should be a state
-  const currentCity = DEFAULT_CITY;
-  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
+  const { offers, filterCity } = props;
+  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, filterCity), [offers, filterCity]);
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = (offer) => setActiveOffer(offer);
 
@@ -87,7 +85,7 @@ function Main(props) {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={City[currentCity]}
+                  city={City[filterCity]}
                   points={filteredOffersByCity}
                   selectedPoint={activeOffer}
                 />
@@ -102,6 +100,12 @@ function Main(props) {
 
 Main.propTypes = {
   offers: offersProp,
+  filterCity: PropTypes.string.isRequired,
 };
 
-export default Main;
+const mapStateToProps = ({ filterCity }) => ({
+  filterCity,
+});
+
+export { Main };
+export default connect(mapStateToProps)(Main);
