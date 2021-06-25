@@ -11,8 +11,8 @@ import { filterOffersByCity } from '../../utils/util';
 import CityList from '../city-list/city-list';
 
 function Main(props) {
-  const { offers, filterCity } = props;
-  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, filterCity), [offers, filterCity]);
+  const { offers, currentCity } = props;
+  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = (offer) => setActiveOffer(offer);
   const handleLocationClick = () => setActiveOffer(null);
@@ -60,7 +60,7 @@ function Main(props) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffersByCity.length} places to stay in {filterCity}</b>
+              <b className="places__found">{filteredOffersByCity.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -86,7 +86,7 @@ function Main(props) {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={City[filterCity]}
+                  city={City[currentCity]}
                   points={filteredOffersByCity}
                   selectedPoint={activeOffer}
                 />
@@ -101,11 +101,11 @@ function Main(props) {
 
 Main.propTypes = {
   offers: offersProp,
-  filterCity: PropTypes.string.isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ filterCity }) => ({
-  filterCity,
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
 });
 
 export { Main };

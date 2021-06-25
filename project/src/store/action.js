@@ -1,15 +1,15 @@
 const ActionType = {
-  SET_FILTER_CITY: 'app/filter/city/set',
-  SET_OFFERS: 'app/offers/set',
+  CITY_UPDATED: 'app/cityUpdated',
+  OFFERS_LOADED: 'app/offersLoaded',
 };
 
 const ActionCreator = {
-  setFilterCity: (city) => ({
-    type: ActionType.SET_FILTER_CITY,
+  cityUpdated: (city) => ({
+    type: ActionType.CITY_UPDATED,
     payload: city,
   }),
-  setOffers: (offers) => ({
-    type: ActionType.SET_OFFERS,
+  offersLoaded: (offers) => ({
+    type: ActionType.OFFERS_UPDATED,
     payload: offers,
   }),
 };

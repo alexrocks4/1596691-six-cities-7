@@ -2,18 +2,18 @@ import { CityName } from '../const';
 import { ActionType } from './action';
 
 const initialState = {
-  filterCity: CityName.PARIS,
+  city: CityName.PARIS,
   offers: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SET_FILTER_CITY:
+    case ActionType.CITY_UPDATED:
       return {
         ...state,
-        filterCity: action.payload,
+        city: action.payload,
       };
-    case ActionType.SET_OFFERS:
+    case ActionType.OFFERS_LOADED:
       return {
         ...state,
         offers: action.payload,
