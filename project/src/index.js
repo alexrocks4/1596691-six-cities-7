@@ -8,7 +8,10 @@ import App from './components/app/app';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import { getFavoriteOffers } from './utils/util';
+import { createAPI } from './services/api';
 
+// eslint-disable-next-line no-unused-vars
+const api = createAPI();
 const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
