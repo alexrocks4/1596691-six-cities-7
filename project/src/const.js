@@ -62,9 +62,14 @@ const City = {
   },
 };
 
+const APIRoute = {
+  OFFERS: '/hotels',
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
   CityName,
-  City
+  City,
+  APIRoute
 };

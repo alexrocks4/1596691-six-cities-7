@@ -10,6 +10,7 @@ import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import { getFavoriteOffers } from './utils/util';
 import { createAPI } from './services/api';
+import { fetchOffers } from './store/api-actions';
 
 // eslint-disable-next-line no-unused-vars
 const api = createAPI();
@@ -17,6 +18,8 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
+
+store.dispatch(fetchOffers());
 
 ReactDOM.render(
   <React.StrictMode>
