@@ -66,10 +66,18 @@ const APIRoute = {
   OFFERS: '/hotels',
 };
 
+const APIResourceStatus = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCEEDED: 'succeeded',
+  FAILED: 'failed',
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
   CityName,
   City,
-  APIRoute
+  APIRoute,
+  APIResourceStatus
 };

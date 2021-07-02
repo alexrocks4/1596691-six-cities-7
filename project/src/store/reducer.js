@@ -1,9 +1,13 @@
-import { CityName } from '../const';
+import { CityName, APIResourceStatus } from '../const';
 import { ActionType } from './action';
 
 const initialState = {
   city: CityName.PARIS,
-  offers: [],
+  offers: {
+    data: [],
+    status: APIResourceStatus.IDLE,
+    error: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +20,19 @@ const reducer = (state = initialState, action) => {
     case ActionType.OFFERS_LOADED:
       return {
         ...state,
-        offers: action.payload,
+        offers: {
+          ...state.offers,
+          data: action.payload,
+          status: APIResourceStatus.SUCCEEDED,
+        },
+      };
+    case ActionType.OFFERS_FETCHING_STARTED:
+      return {
+        ...state,
+        offers: {
+          ...state.offers,
+          status: APIResourceStatus.LOADING,
+        },
       };
     default:
       return state;

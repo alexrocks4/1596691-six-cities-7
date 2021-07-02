@@ -1,6 +1,7 @@
 const ActionType = {
   CITY_UPDATED: 'app/cityUpdated',
-  OFFERS_LOADED: 'app/offersLoaded',
+  OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
+  OFFERS_LOADED: 'api/offers/loaded',
 };
 
 const ActionCreator = {
@@ -8,8 +9,11 @@ const ActionCreator = {
     type: ActionType.CITY_UPDATED,
     payload: city,
   }),
+  offersFetchingStarted: () => ({
+    type: ActionType.OFFERS_FETCHING_STARTED,
+  }),
   offersLoaded: (offers) => ({
-    type: ActionType.OFFERS_UPDATED,
+    type: ActionType.OFFERS_LOADED,
     payload: offers,
   }),
 };
