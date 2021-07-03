@@ -73,11 +73,18 @@ const APIResourceStatus = {
   FAILED: 'failed',
 };
 
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
   CityName,
   City,
   APIRoute,
-  APIResourceStatus
+  APIResourceStatus,
+  AuthorizationStatus
 };
