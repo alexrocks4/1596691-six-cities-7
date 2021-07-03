@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderLogo from '../header-logo/header-logo';
 import { reviewsProp } from '../../prop-types/reviews.prop';
@@ -260,4 +261,10 @@ Room.propTypes = {
   offers: offersProp,
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  offers: state.offers.data,
+});
+
+export { Room };
+export default connect(mapStateToProps)(Room);
+

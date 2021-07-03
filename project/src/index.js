@@ -6,9 +6,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
-import offers from './mocks/offers';
 import reviews from './mocks/reviews';
-import { getFavoriteOffers } from './utils/util';
 import { createAPI } from './services/api';
 import { fetchOffers } from './store/api-actions';
 
@@ -24,11 +22,7 @@ store.dispatch(fetchOffers());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offers={offers}
-        reviews={reviews}
-        favoriteOffers={getFavoriteOffers(offers)}
-      />
+      <App reviews={reviews} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
