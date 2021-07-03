@@ -6,30 +6,25 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
-import { offersProp } from '../../prop-types/offers.prop';
 import { reviewsProp } from '../../prop-types/reviews.prop';
-import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 
 function App(props) {
-  const { offers, reviews, favoriteOffers } = props;
+  const { reviews } = props;
 
   return (
     <Router>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main offers={offers} />
+          <Main />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <SignIn />
         </Route>
         <Route path={AppRoute.FAVORITES} exact>
-          <Favorites favoriteOffers={favoriteOffers} />
+          <Favorites />
         </Route>
         <Route path={AppRoute.ROOM} exact>
-          <Room
-            reviews={reviews}
-            offers={offers}
-          />
+          <Room reviews={reviews} />
         </Route>
         <Route>
           <NotFound />
@@ -40,9 +35,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  offers: offersProp,
   reviews: reviewsProp,
-  favoriteOffers: favoriteOffersProp,
 };
 
 export default App;

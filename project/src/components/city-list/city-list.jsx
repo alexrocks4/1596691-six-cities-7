@@ -5,10 +5,10 @@ import { CityName } from '../../const';
 import { getClassName } from '../../utils/util';
 import { ActionCreator } from '../../store/action';
 
-function CityList({ filterCity, setFilterCity, onLocationClick }) {
+function CityList({ currentCity, updateCurrentCity, onLocationClick }) {
   const handleLocationClick = (evt, cityName) => {
     evt.preventDefault();
-    setFilterCity(cityName);
+    updateCurrentCity(cityName);
     onLocationClick();
   };
 
@@ -18,7 +18,7 @@ function CityList({ filterCity, setFilterCity, onLocationClick }) {
         <li key={cityName} className="locations__item">
           <a
             className={`locations__item-link tabs__item \
-              ${getClassName(cityName.toLowerCase() === filterCity.toLowerCase(), 'tabs__item--active')}`}
+              ${getClassName(cityName.toLowerCase() === currentCity.toLowerCase(), 'tabs__item--active')}`}
             href="#"
             onClick={(evt) => handleLocationClick(evt, cityName)}
           >
@@ -31,18 +31,18 @@ function CityList({ filterCity, setFilterCity, onLocationClick }) {
 }
 
 CityList.propTypes = {
-  filterCity: PropTypes.string.isRequired,
-  setFilterCity: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  updateCurrentCity: PropTypes.func.isRequired,
   onLocationClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  filterCity: state.filterCity,
+  currentCity: state.city,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setFilterCity(value) {
-    dispatch(ActionCreator.setFilterCity(value));
+  updateCurrentCity(value) {
+    dispatch(ActionCreator.cityUpdated(value));
   },
 });
 

@@ -1,22 +1,38 @@
-import { CityName } from '../const';
+import { CityName, APIResourceStatus } from '../const';
 import { ActionType } from './action';
 
 const initialState = {
-  filterCity: CityName.PARIS,
-  offers: [],
+  city: CityName.PARIS,
+  offers: {
+    data: [],
+    status: APIResourceStatus.IDLE,
+    error: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SET_FILTER_CITY:
+    case ActionType.CITY_UPDATED:
       return {
         ...state,
-        filterCity: action.payload,
+        city: action.payload,
       };
-    case ActionType.SET_OFFERS:
+    case ActionType.OFFERS_LOADED:
       return {
         ...state,
-        offers: action.payload,
+        offers: {
+          ...state.offers,
+          data: action.payload,
+          status: APIResourceStatus.SUCCEEDED,
+        },
+      };
+    case ActionType.OFFERS_FETCHING_STARTED:
+      return {
+        ...state,
+        offers: {
+          ...state.offers,
+          status: APIResourceStatus.LOADING,
+        },
       };
     default:
       return state;

@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderLogo from '../header-logo/header-logo';
 import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 import FavoritesLocationsItem from '../favorites-locations-item/favorites-locations-item';
 import { AppRoute } from '../../const';
+import { getFavoriteOffers } from '../../utils/util';
 
 function Favorites({ favoriteOffers }) {
   return (
@@ -67,4 +69,9 @@ Favorites.propTypes = {
   favoriteOffers: favoriteOffersProp,
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  favoriteOffers: getFavoriteOffers(state.offers.data),
+});
+
+export { Favorites };
+export default connect(mapStateToProps)(Favorites);

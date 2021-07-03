@@ -1,15 +1,19 @@
 const ActionType = {
-  SET_FILTER_CITY: 'app/filter/city/set',
-  SET_OFFERS: 'app/offers/set',
+  CITY_UPDATED: 'app/cityUpdated',
+  OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
+  OFFERS_LOADED: 'api/offers/loaded',
 };
 
 const ActionCreator = {
-  setFilterCity: (city) => ({
-    type: ActionType.SET_FILTER_CITY,
+  cityUpdated: (city) => ({
+    type: ActionType.CITY_UPDATED,
     payload: city,
   }),
-  setOffers: (offers) => ({
-    type: ActionType.SET_OFFERS,
+  offersFetchingStarted: () => ({
+    type: ActionType.OFFERS_FETCHING_STARTED,
+  }),
+  offersLoaded: (offers) => ({
+    type: ActionType.OFFERS_LOADED,
     payload: offers,
   }),
 };
