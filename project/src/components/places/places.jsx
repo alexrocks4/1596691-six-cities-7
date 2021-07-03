@@ -1,10 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PlaceCardList from '../place-card-list/place-card-list';
 import { offersProp } from '../../prop-types/offers.prop';
+import { APIResourceStatus } from '../../const';
+import Loading from '../loading/loading';
+
+const loadingStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignContent: 'center',
+  justifyContent: 'center',
+};
+
 
 function Places(props) {
-  const { offers, currentCity, onCardMouseEnter } = props;
+  const { offers, currentCity, onCardMouseEnter, isLoading } = props;
+
+  if (isLoading) {
+    return (
+      <section className="cities__places places" style={loadingStyle}>
+        <h2 className="visually-hidden">Places</h2>
+        <Loading></Loading>
+      </section>
+    );
+  }
 
   return (
     <section className="cities__places places">
@@ -39,6 +59,13 @@ Places.propTypes = {
   offers: offersProp,
   currentCity: PropTypes.string.isRequired,
   onCardMouseEnter: PropTypes.func,
+  isLoading: PropTypes.bool.isRequired,
 };
 
-export default Places;
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  isLoading: state.offers.status === APIResourceStatus.LOADING || state.offers.status === APIResourceStatus.IDLE,
+});
+
+export { Places };
+export default connect(mapStateToProps)(Places);
