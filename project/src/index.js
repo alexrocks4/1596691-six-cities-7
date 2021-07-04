@@ -10,7 +10,6 @@ import reviews from './mocks/reviews';
 import { createAPI } from './services/api';
 import { fetchOffers } from './store/api-actions';
 
-// eslint-disable-next-line no-unused-vars
 const api = createAPI();
 const store = createStore(
   rootReducer,
