@@ -8,14 +8,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
 import reviews from './mocks/reviews';
 import { createAPI } from './services/api';
-import { fetchOffers } from './store/api-actions';
+import { fetchOffers, checkAuth } from './store/api-actions';
+import { ActionCreator } from './store/action';
 
-const api = createAPI();
+const api = createAPI(() => store.dispatch(ActionCreator.notAuthorized()));
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
+store.dispatch(checkAuth());
 store.dispatch(fetchOffers());
 
 ReactDOM.render(

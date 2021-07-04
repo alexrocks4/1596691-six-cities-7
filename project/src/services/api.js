@@ -25,7 +25,7 @@ export const createAPI = (onUnauthorized) => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.response.use(onSuccess, onFail.bind(onUnauthorized));
+  api.interceptors.response.use(onSuccess, onFail.bind(null, onUnauthorized));
 
   return api;
 };

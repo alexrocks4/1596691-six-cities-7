@@ -45,6 +45,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
+    case ActionType.NOT_AUTHORIZED:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+      };
     default:
       return state;
   }

@@ -5,20 +5,21 @@ import { adaptOffersFromServer } from '../utils/adapter';
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.offersFetchingStarted());
 
-  setTimeout(() => (api
+  return api
     .get(APIRoute.OFFERS)
     .then(({ data }) => {
       const adaptedOffers = adaptOffersFromServer(data);
       dispatch(ActionCreator.offersLoaded(adaptedOffers));
-    })), 5000);
-  // return api
-  //   .get(APIRoute.OFFERS)
-  //   .then(({ data }) => {
-  //     const adaptedOffers = adaptOffersFromServer(data);
-  //     dispatch(ActionCreator.offersLoaded(adaptedOffers));
-  //   });
+    });
 };
 
+const checkAuth = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.LOGIN)
+    .then(() => dispatch(ActionCreator.loggedIn()))
+    .catch(() => {})
+);
+
 export {
-  fetchOffers
+  fetchOffers,
+  checkAuth
 };
