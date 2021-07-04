@@ -33,6 +33,6 @@ const adaptOfferFromServer = (offerFromServer) => {
   return adaptedOffer;
 };
 
-const adaptOffersFromServer = (serverOffers) => serverOffers.map((serverOffer) => adaptOfferFromServer(serverOffer));
+const adaptOffersFromServer = (serverOffers) => serverOffers.map(adaptOfferFromServer);
 
 export { adaptOffersFromServer };
