@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
@@ -18,9 +18,13 @@ function App(props) {
         <Route path={AppRoute.MAIN} exact>
           <Main />
         </Route>
-        <Route path={AppRoute.LOGIN} exact>
-          <SignIn />
-        </Route>
+        <PrivateRoute
+          path={AppRoute.LOGIN}
+          exact
+          unauthorizedContent={<SignIn />}
+        >
+          <Redirect to={AppRoute.MAIN} />
+        </PrivateRoute>
         <PrivateRoute path={AppRoute.FAVORITES} exact>
           <Favorites />
         </PrivateRoute>
