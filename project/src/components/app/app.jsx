@@ -7,6 +7,7 @@ import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
 import { reviewsProp } from '../../prop-types/reviews.prop';
+import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
   const { reviews } = props;
@@ -20,9 +21,9 @@ function App(props) {
         <Route path={AppRoute.LOGIN} exact>
           <SignIn />
         </Route>
-        <Route path={AppRoute.FAVORITES} exact>
+        <PrivateRoute path={AppRoute.FAVORITES} exact>
           <Favorites />
-        </Route>
+        </PrivateRoute>
         <Route path={AppRoute.ROOM} exact>
           <Room reviews={reviews} />
         </Route>
