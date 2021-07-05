@@ -5,13 +5,21 @@ import { connect } from 'react-redux';
 import { AppRoute } from '../../const';
 import { isAuthorized } from '../../utils/util';
 
-function PrivateRoute({ children, path, exact, isUserAuthorized }) {
+function PrivateRoute(props) {
+  const {
+    children,
+    path,
+    exact,
+    isUserAuthorized,
+    unauthorizedContent,
+  } = props;
+
   return (
     <Route
       path={path}
       exact={exact}
     >
-      {isUserAuthorized ? children : <Redirect to={AppRoute.LOGIN} />}
+      {isUserAuthorized ? children : unauthorizedContent }
     </Route>
   );
 }
@@ -21,6 +29,11 @@ PrivateRoute.propTypes = {
   isUserAuthorized: PropTypes.bool.isRequired,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
+  unauthorizedContent: PropTypes.node.isRequired,
+};
+
+PrivateRoute.defaultProps = {
+  unauthorizedContent: <Redirect to={AppRoute.LOGIN} />,
 };
 
 const mapStateToProps = (state) => ({
