@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import HeaderLogo from '../header-logo/header-logo';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 import { offersProp } from '../../prop-types/offers.prop';
 import { useParams } from 'react-router-dom';
@@ -11,8 +9,8 @@ import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import ReviewsItem from '../reviews-item/reviews-item';
-import { AppRoute } from '../../const';
 import ReviewsForm from '../reviews-form/reviews-form';
+import Header from '../header/header';
 
 function Room({ reviews, offers }) {
   const { id } = useParams();
@@ -32,36 +30,7 @@ function Room({ reviews, offers }) {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <HeaderLogo></HeaderLogo>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link
-                    to={AppRoute.FAVORITES}
-                    className="header__nav-link header__nav-link--profile"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link
-                    to={AppRoute.LOGIN}
-                    className="header__nav-link"
-                  >
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
