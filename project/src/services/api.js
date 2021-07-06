@@ -20,9 +20,14 @@ const onFail = (cb, err) => {
 };
 
 export const createAPI = (onUnauthorized) => {
+  const token = localStorage.getItem('token') ?? '';
+
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
+    headers: {
+      'x-token': token,
+    },
   });
 
   api.interceptors.response.use(onSuccess, onFail.bind(null, onUnauthorized));

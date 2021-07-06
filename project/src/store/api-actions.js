@@ -19,7 +19,14 @@ const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
+const login = (credentials) => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGIN, credentials)
+    .then(({ data }) => localStorage.setItem('token', data.token))
+    .then(() => dispatch(ActionCreator.loggedIn()))
+);
+
 export {
   fetchOffers,
-  checkAuth
+  checkAuth,
+  login
 };
