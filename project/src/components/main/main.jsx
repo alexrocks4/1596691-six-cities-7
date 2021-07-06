@@ -7,7 +7,7 @@ import { City } from '../../const';
 import Map from '../map/map';
 import { filterOffersByCity } from '../../utils/util';
 import CityList from '../city-list/city-list';
-import { Header } from '../header/header';
+import Header from '../header/header';
 
 function Main(props) {
   const { offers, currentCity } = props;

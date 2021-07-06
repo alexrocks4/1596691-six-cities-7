@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { isAuthorized } from '../../utils/util';
 import HeaderLogo from '../header-logo/header-logo';
-import { AppRoute } from '../../const';
+import NavListItemsAuthorized from '../nav-list-items-authorized/nav-list-items-authorized';
+import NavListItemsUnauthorized from '../nav-list-items-unauthorized/nav-list-items-unauthorized';
 
 function Header({ isUserAuthorized, isLogoLinkActive }) {
   return (
@@ -16,23 +16,7 @@ function Header({ isUserAuthorized, isLogoLinkActive }) {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link
-                  to={AppRoute.FAVORITES}
-                  className="header__nav-link header__nav-link--profile"
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </Link>
-              </li>
-              <li className="header__nav-item">
-                <Link
-                  to={AppRoute.LOGIN}
-                  className="header__nav-link"
-                >
-                  <span className="header__signout">Sign out</span>
-                </Link>
-              </li>
+              {isUserAuthorized ? <NavListItemsAuthorized /> : <NavListItemsUnauthorized />}
             </ul>
           </nav>
         </div>
