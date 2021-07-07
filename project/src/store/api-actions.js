@@ -23,6 +23,7 @@ const login = (credentials) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, credentials)
     .then(({ data }) => localStorage.setItem('token', data.token))
     .then(() => dispatch(ActionCreator.loggedIn()))
+    .then(() => dispatch(ActionCreator.redirectedToRoute(APIRoute.MAIN)))
 );
 
 export {

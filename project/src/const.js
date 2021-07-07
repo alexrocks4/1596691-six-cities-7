@@ -65,6 +65,7 @@ const City = {
 const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
+  MAIN: '/',
 };
 
 const APIResourceStatus = {
