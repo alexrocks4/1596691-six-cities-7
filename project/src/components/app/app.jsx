@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import browserHistory from '../../browser-history';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
@@ -13,7 +14,7 @@ function App(props) {
   const { reviews } = props;
 
   return (
-    <Router>
+    <Router history={browserHistory}>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
           <Main />
