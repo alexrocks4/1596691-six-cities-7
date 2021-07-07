@@ -15,14 +15,17 @@ const fetchOffers = () => (dispatch, _getState, api) => {
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.loggedIn()))
+    .then(({ data }) => dispatch(ActionCreator.loggedIn(data)))
     .catch(() => {})
 );
 
 const login = (credentials) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, credentials)
-    .then(({ data }) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(ActionCreator.loggedIn()))
+    .then(({ data }) => {
+      localStorage.setItem('token', data.token);
+      return data;
+    })
+    .then((authInfo) => dispatch(ActionCreator.loggedIn(authInfo)))
     .then(() => dispatch(ActionCreator.redirectedToRoute(APIRoute.MAIN)))
 );
 

@@ -20,8 +20,9 @@ const ActionCreator = {
     type: ActionType.OFFERS_LOADED,
     payload: offers,
   }),
-  loggedIn: () => ({
+  loggedIn: (payload) => ({
     type: ActionType.LOGGED_IN,
+    payload,
   }),
   loggedOut: () => ({
     type: ActionType.LOGGED_OUT,

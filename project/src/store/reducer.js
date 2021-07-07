@@ -9,6 +9,7 @@ const initialState = {
     error: null,
   },
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationInfo: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,6 +40,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.AUTH,
+        authorizationInfo: action.payload,
       };
     case ActionType.LOGGED_OUT:
       return {
