@@ -35,4 +35,20 @@ const adaptOfferFromServer = (offerFromServer) => {
 
 const adaptOffersFromServer = (serverOffers) => serverOffers.map(adaptOfferFromServer);
 
-export { adaptOffersFromServer };
+const adaptAuthInfoFromServer = (authInfo) => {
+  const adaptedAuthInfo = {
+    ...authInfo,
+    avatarUrl: authInfo['avatar_url'],
+    isPro: authInfo['is_pro'],
+  };
+
+  delete adaptedAuthInfo['avatar_url'];
+  delete adaptedAuthInfo['is_pro'];
+
+  return adaptedAuthInfo;
+};
+
+export {
+  adaptOffersFromServer,
+  adaptAuthInfoFromServer
+};
