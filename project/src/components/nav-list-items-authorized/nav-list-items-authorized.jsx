@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { AppRoute } from '../../const';
 
-function NavListItemsAuthorized() {
+function NavListItemsAuthorized({ userEmail }) {
   return (
     <React.Fragment>
       <li className="header__nav-item user">
@@ -11,7 +13,7 @@ function NavListItemsAuthorized() {
           className="header__nav-link header__nav-link--profile"
         >
           <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+          <span className="header__user-name user__name">{userEmail}</span>
         </Link>
       </li>
       <li className="header__nav-item">
@@ -26,4 +28,13 @@ function NavListItemsAuthorized() {
   );
 }
 
-export default NavListItemsAuthorized;
+NavListItemsAuthorized.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = ({ authorizationInfo }) => ({
+  userEmail: authorizationInfo.email,
+});
+
+export { NavListItemsAuthorized };
+export default connect(mapStateToProps)(NavListItemsAuthorized);
