@@ -5,6 +5,7 @@ const ActionType = {
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
+  REDIRECTED_TO_ROUTE: 'app/redirectedToRoute',
 };
 
 const ActionCreator = {
@@ -27,6 +28,10 @@ const ActionCreator = {
   }),
   notAuthorized: () => ({
     type: ActionType.NOT_AUTHORIZED,
+  }),
+  redirectedToRoute: (url) => ({
+    type: ActionType.REDIRECTED_TO_ROUTE,
+    payload: url,
   }),
 };
 
