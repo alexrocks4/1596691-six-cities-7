@@ -1,3 +1,5 @@
+import { AuthorizationStatus } from '../const';
+
 const capitalizeFirstLetter = (string) => string[0].toUpperCase() + string.slice(1);
 
 // Transform offers from array to Map
@@ -32,10 +34,13 @@ const pluralize = (count) => count > 1 ? 's' : '';
 
 const getClassName = (isClassValid, className) => isClassValid ? className : '';
 
+const isAuthorized = (authorizationStatus) => authorizationStatus === AuthorizationStatus.AUTH;
+
 export {
   capitalizeFirstLetter,
   getFavoriteOffers,
   pluralize,
   filterOffersByCity,
-  getClassName
+  getClassName,
+  isAuthorized
 };

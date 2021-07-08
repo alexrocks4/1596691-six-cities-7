@@ -2,6 +2,10 @@ const ActionType = {
   CITY_UPDATED: 'app/cityUpdated',
   OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
   OFFERS_LOADED: 'api/offers/loaded',
+  LOGGED_IN: 'user/loggedIn',
+  LOGGED_OUT: 'user/loggedOut',
+  NOT_AUTHORIZED: 'user/notAuthorized',
+  REDIRECTED_TO_ROUTE: 'app/redirectedToRoute',
 };
 
 const ActionCreator = {
@@ -15,6 +19,20 @@ const ActionCreator = {
   offersLoaded: (offers) => ({
     type: ActionType.OFFERS_LOADED,
     payload: offers,
+  }),
+  loggedIn: (payload) => ({
+    type: ActionType.LOGGED_IN,
+    payload,
+  }),
+  loggedOut: () => ({
+    type: ActionType.LOGGED_OUT,
+  }),
+  notAuthorized: () => ({
+    type: ActionType.NOT_AUTHORIZED,
+  }),
+  redirectedToRoute: (url) => ({
+    type: ActionType.REDIRECTED_TO_ROUTE,
+    payload: url,
   }),
 };
 

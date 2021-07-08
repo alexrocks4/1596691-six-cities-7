@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import browserHistory from '../../browser-history';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
@@ -7,22 +8,27 @@ import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
 import { reviewsProp } from '../../prop-types/reviews.prop';
+import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
   const { reviews } = props;
 
   return (
-    <Router>
+    <Router history={browserHistory}>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
           <Main />
         </Route>
-        <Route path={AppRoute.LOGIN} exact>
-          <SignIn />
-        </Route>
-        <Route path={AppRoute.FAVORITES} exact>
+        <PrivateRoute
+          path={AppRoute.LOGIN}
+          exact
+          unauthorizedContent={<SignIn />}
+        >
+          <Redirect to={AppRoute.MAIN} />
+        </PrivateRoute>
+        <PrivateRoute path={AppRoute.FAVORITES} exact>
           <Favorites />
-        </Route>
+        </PrivateRoute>
         <Route path={AppRoute.ROOM} exact>
           <Room reviews={reviews} />
         </Route>

@@ -1,4 +1,4 @@
-import { CityName, APIResourceStatus } from '../const';
+import { CityName, APIResourceStatus, AuthorizationStatus } from '../const';
 import { ActionType } from './action';
 
 const initialState = {
@@ -8,6 +8,8 @@ const initialState = {
     status: APIResourceStatus.IDLE,
     error: null,
   },
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationInfo: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +35,22 @@ const reducer = (state = initialState, action) => {
           ...state.offers,
           status: APIResourceStatus.LOADING,
         },
+      };
+    case ActionType.LOGGED_IN:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.AUTH,
+        authorizationInfo: action.payload,
+      };
+    case ActionType.LOGGED_OUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+      };
+    case ActionType.NOT_AUTHORIZED:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default:
       return state;
