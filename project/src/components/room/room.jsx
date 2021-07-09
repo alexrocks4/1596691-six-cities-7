@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 import { offersProp } from '../../prop-types/offers.prop';
@@ -14,7 +14,7 @@ import Header from '../header/header';
 
 function Room({ reviews, offers }) {
   const { id } = useParams();
-  const targetOffer = offers.find((offer) => offer.id.toString() === id);
+  const targetOffer = useMemo(() => offers.find((offer) => offer.id.toString() === id), [offers, id]);
 
   if (!targetOffer) {
     return <NotFound />;
