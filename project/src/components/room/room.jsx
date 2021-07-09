@@ -8,9 +8,8 @@ import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
-import ReviewsItem from '../reviews-item/reviews-item';
-import ReviewsForm from '../reviews-form/reviews-form';
 import Header from '../header/header';
+import Reviews from '../reviews/reviews';
 
 function Room({ reviews, offers }) {
   const { id } = useParams();
@@ -109,13 +108,7 @@ function Room({ reviews, offers }) {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {reviews.map((review) => <ReviewsItem key={review.id} review={review} />)}
-                </ul>
-                <ReviewsForm />
-              </section>
+              <Reviews reviews={reviews} />
             </div>
           </div>
           <section className="property__map map" />
