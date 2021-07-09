@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Places from '../places/places';
@@ -13,8 +13,8 @@ function Main(props) {
   const { offers, currentCity } = props;
   const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
   const [ activeOffer, setActiveOffer ] = useState(null);
-  const handleCardMouseEnter = (offer) => setActiveOffer(offer);
-  const handleLocationClick = () => setActiveOffer(null);
+  const handleCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
+  const handleLocationClick = useCallback(() => setActiveOffer(null), []);
 
   return (
     <div className="page page--gray page--main">
