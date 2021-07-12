@@ -1,17 +1,17 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Places from '../places/places';
-import { offersProp } from '../../prop-types/offers.prop';
 import { City } from '../../const';
 import Map from '../map/map';
-import { filterOffersByCity } from '../../utils/util';
 import CityList from '../city-list/city-list';
 import Header from '../header/header';
+import { selectCity } from '../../store/app/selectors';
+import { makeSelectFilteredOffersByCity } from '../../store/api/selectors';
 
-function Main(props) {
-  const { offers, currentCity } = props;
-  const filteredOffersByCity = useMemo(() => filterOffersByCity(offers, currentCity), [offers, currentCity]);
+function Main() {
+  const currentCity = useSelector(selectCity);
+  const selectFilteredOffersByCity = useMemo(makeSelectFilteredOffersByCity, []);
+  const filteredOffersByCity = useSelector((state) => selectFilteredOffersByCity(state, currentCity));
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
   const handleLocationClick = useCallback(() => setActiveOffer(null), []);
@@ -50,15 +50,5 @@ function Main(props) {
   );
 }
 
-Main.propTypes = {
-  offers: offersProp,
-  currentCity: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.offers.data,
-});
-
 export { Main };
-export default connect(mapStateToProps)(Main);
+export default Main;

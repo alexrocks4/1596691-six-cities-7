@@ -4,10 +4,12 @@ import { NameSpace } from '../rootReducer';
 const selectOffers = (state) => state[NameSpace.API].offers.data;
 const selectOffersStatus = (state) => state[NameSpace.API].offers.status;
 const selectOffersError = (state) => state[NameSpace.API].offers.error;
+
 const selectFavoriteOffers = createSelector(
   selectOffers,
   (offers) => offers.filter((offer) => offer.isFavorite),
 );
+
 const selectFavoriteOffersGroupedByCities = createSelector(
   selectFavoriteOffers,
   (offers) => {
@@ -25,9 +27,20 @@ const selectFavoriteOffersGroupedByCities = createSelector(
   },
 );
 
+const makeSelectFilteredOffersByCity = () => (
+  createSelector(
+    selectOffers,
+    (_, cityName) => cityName,
+    (offers, cityName) => (
+      offers.filter(({ city }) => city.name.toLowerCase() === cityName.toLowerCase())
+    ),
+  )
+);
+
 export {
   selectOffers,
   selectOffersStatus,
   selectOffersError,
-  selectFavoriteOffersGroupedByCities
+  selectFavoriteOffersGroupedByCities,
+  makeSelectFilteredOffersByCity
 };
