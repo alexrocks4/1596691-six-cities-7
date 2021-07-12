@@ -14,13 +14,13 @@ const api = createAPI(() => store.dispatch(notAuthorized()));
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => {
+  middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
       },
-    }).concat(redirect);
-  },
+    }).concat(redirect)
+  ),
 });
 
 store.dispatch(checkAuth());
