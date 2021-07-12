@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import { AppRoute } from '../../const';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../store/api-actions';
 
 const PASSWORD_FIELD_NAME = 'password';
 
-function SignIn({ submitLogin }) {
+function SignIn() {
+  const dispatch = useDispatch();
   const [ formData, setFormData ] = useState({
     email: '',
     password: '',
@@ -25,7 +25,7 @@ function SignIn({ submitLogin }) {
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
-    submitLogin(formData);
+    dispatch(login(formData));
   };
 
   return (
@@ -77,15 +77,5 @@ function SignIn({ submitLogin }) {
   );
 }
 
-SignIn.propTypes = {
-  submitLogin: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  submitLogin(credentials) {
-    dispatch(login(credentials));
-  },
-});
-
 export { SignIn };
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;
