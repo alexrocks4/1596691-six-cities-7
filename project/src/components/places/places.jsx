@@ -64,4 +64,4 @@ Places.propTypes = {
 };
 
 export { Places };
-export default Places;
+export default React.memo(Places);
