@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { app } from './app/app';
-import { api } from './api/api';
-import { user } from './user/user';
+import app from './app/app';
+import api from './api/api';
+import user from './user/user';
 
 const NameSpace = {
   APP: 'app',
