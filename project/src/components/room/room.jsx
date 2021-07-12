@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { reviewsProp } from '../../prop-types/reviews.prop';
-import { offersProp } from '../../prop-types/offers.prop';
 import { useParams } from 'react-router-dom';
 import NotFound from '../not-found/not-found';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
@@ -10,10 +9,12 @@ import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
+import { makeSelectOfferById } from '../../store/api/selectors';
 
-function Room({ reviews, offers }) {
+function Room({ reviews }) {
   const { id } = useParams();
-  const targetOffer = useMemo(() => offers.find((offer) => offer.id.toString() === id), [offers, id]);
+  const selectOfferById = useMemo(makeSelectOfferById, []);
+  const targetOffer = useSelector((state) => selectOfferById(state, id));
 
   if (!targetOffer) {
     return <NotFound />;
@@ -220,13 +221,8 @@ function Room({ reviews, offers }) {
 
 Room.propTypes = {
   reviews: reviewsProp,
-  offers: offersProp,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers.data,
-});
-
 export { Room };
-export default connect(mapStateToProps)(Room);
+export default Room;
 

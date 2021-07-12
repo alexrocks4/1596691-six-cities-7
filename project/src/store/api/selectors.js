@@ -43,11 +43,20 @@ const selectIsOffersLoading = createSelector(
   (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
 );
 
+const makeSelectOfferById = () => (
+  createSelector(
+    selectOffers,
+    (_, id) => id,
+    (offers, id) => offers.find((offer) => offer.id.toString() === id),
+  )
+);
+
 export {
   selectOffers,
   selectOffersStatus,
   selectOffersError,
   selectFavoriteOffersGroupedByCities,
   makeSelectFilteredOffersByCity,
-  selectIsOffersLoading
+  selectIsOffersLoading,
+  makeSelectOfferById
 };
