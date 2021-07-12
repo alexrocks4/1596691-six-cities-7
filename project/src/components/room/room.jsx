@@ -1,20 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { reviewsProp } from '../../prop-types/reviews.prop';
-import { offersProp } from '../../prop-types/offers.prop';
 import { useParams } from 'react-router-dom';
 import NotFound from '../not-found/not-found';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
-import ReviewsItem from '../reviews-item/reviews-item';
-import ReviewsForm from '../reviews-form/reviews-form';
 import Header from '../header/header';
+import Reviews from '../reviews/reviews';
+import { makeSelectOfferById } from '../../store/api/selectors';
 
-function Room({ reviews, offers }) {
+function Room({ reviews }) {
   const { id } = useParams();
-  const targetOffer = offers.find((offer) => offer.id.toString() === id);
+  const selectOfferById = useMemo(makeSelectOfferById, []);
+  const targetOffer = useSelector((state) => selectOfferById(state, id));
 
   if (!targetOffer) {
     return <NotFound />;
@@ -109,13 +109,7 @@ function Room({ reviews, offers }) {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {reviews.map((review) => <ReviewsItem key={review.id} review={review} />)}
-                </ul>
-                <ReviewsForm />
-              </section>
+              <Reviews reviews={reviews} />
             </div>
           </div>
           <section className="property__map map" />
@@ -227,13 +221,8 @@ function Room({ reviews, offers }) {
 
 Room.propTypes = {
   reviews: reviewsProp,
-  offers: offersProp,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers.data,
-});
-
 export { Room };
-export default connect(mapStateToProps)(Room);
+export default Room;
 

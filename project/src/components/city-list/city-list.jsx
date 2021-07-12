@@ -1,14 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CityName } from '../../const';
 import { getClassName } from '../../utils/util';
-import { ActionCreator } from '../../store/action';
+import { cityUpdated } from '../../store/action';
+import { selectCity } from '../../store/app/selectors';
 
-function CityList({ currentCity, updateCurrentCity, onLocationClick }) {
+function CityList({ onLocationClick }) {
+  const currentCity = useSelector(selectCity);
+  const dispatch = useDispatch();
+
   const handleLocationClick = (evt, cityName) => {
     evt.preventDefault();
-    updateCurrentCity(cityName);
+    dispatch(cityUpdated(cityName));
     onLocationClick();
   };
 
@@ -31,20 +35,8 @@ function CityList({ currentCity, updateCurrentCity, onLocationClick }) {
 }
 
 CityList.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  updateCurrentCity: PropTypes.func.isRequired,
   onLocationClick: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateCurrentCity(value) {
-    dispatch(ActionCreator.cityUpdated(value));
-  },
-});
-
 export { CityList };
-export default connect(mapStateToProps, mapDispatchToProps)(CityList);
+export default React.memo(CityList);

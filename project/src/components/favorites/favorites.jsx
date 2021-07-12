@@ -1,13 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import favoriteOffersProp from '../../prop-types/favoriteOffers.prop';
 import FavoritesLocationsItem from '../favorites-locations-item/favorites-locations-item';
 import { AppRoute } from '../../const';
-import { getFavoriteOffers } from '../../utils/util';
 import Header from '../header/header';
+import { selectFavoriteOffersGroupedByCities } from '../../store/api/selectors';
 
-function Favorites({ favoriteOffers }) {
+function Favorites() {
+  const favoriteOffers = useSelector(selectFavoriteOffersGroupedByCities);
+
   return (
     <div className="page">
       <Header />
@@ -36,13 +37,5 @@ function Favorites({ favoriteOffers }) {
   );
 }
 
-Favorites.propTypes = {
-  favoriteOffers: favoriteOffersProp,
-};
-
-const mapStateToProps = (state) => ({
-  favoriteOffers: getFavoriteOffers(state.offers.data),
-});
-
 export { Favorites };
-export default connect(mapStateToProps)(Favorites);
+export default Favorites;
