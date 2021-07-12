@@ -8,9 +8,9 @@ import App from './components/app/app';
 import reviews from './mocks/reviews';
 import { createAPI } from './services/api';
 import { fetchOffers, checkAuth } from './store/api-actions';
-import { ActionCreator } from './store/action';
+import { notAuthorized } from './store/action';
 
-const api = createAPI(() => store.dispatch(ActionCreator.notAuthorized()));
+const api = createAPI(() => store.dispatch(notAuthorized()));
 
 const store = configureStore({
   reducer: rootReducer,

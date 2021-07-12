@@ -1,21 +1,26 @@
 import { APIRoute } from '../const';
-import { ActionCreator } from '../store/action';
+import {
+  offersFetchingStarted,
+  offersLoaded,
+  loggedIn,
+  redirectedToRoute
+} from '../store/action';
 import { adaptOffersFromServer, adaptAuthInfoFromServer } from '../utils/adapter';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.offersFetchingStarted());
+  dispatch(offersFetchingStarted());
 
   return api
     .get(APIRoute.OFFERS)
     .then(({ data }) => {
       const adaptedOffers = adaptOffersFromServer(data);
-      dispatch(ActionCreator.offersLoaded(adaptedOffers));
+      dispatch(offersLoaded(adaptedOffers));
     });
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({ data }) => dispatch(ActionCreator.loggedIn(adaptAuthInfoFromServer(data))))
+    .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
     .catch(() => {})
 );
 
@@ -25,8 +30,8 @@ const login = (credentials) => (dispatch, _getState, api) => (
       localStorage.setItem('token', data.token);
       return data;
     })
-    .then((authInfo) => dispatch(ActionCreator.loggedIn(adaptAuthInfoFromServer(authInfo))))
-    .then(() => dispatch(ActionCreator.redirectedToRoute(APIRoute.MAIN)))
+    .then((authInfo) => dispatch(loggedIn(adaptAuthInfoFromServer(authInfo))))
+    .then(() => dispatch(redirectedToRoute(APIRoute.MAIN)))
 );
 
 export {
