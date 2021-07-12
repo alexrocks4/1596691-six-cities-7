@@ -1,12 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { isAuthorized } from '../../utils/util';
 import HeaderLogo from '../header-logo/header-logo';
 import NavListItemsAuthorized from '../nav-list-items-authorized/nav-list-items-authorized';
 import NavListItemsUnauthorized from '../nav-list-items-unauthorized/nav-list-items-unauthorized';
+import { selectIsUserAuthorized } from '../../store/user/selectors';
 
-function Header({ isUserAuthorized, isLogoLinkActive }) {
+function Header({ isLogoLinkActive }) {
+  const isUserAuthorized = useSelector(selectIsUserAuthorized);
+
   return (
     <header className="header">
       <div className="container">
@@ -26,7 +28,6 @@ function Header({ isUserAuthorized, isLogoLinkActive }) {
 }
 
 Header.propTypes = {
-  isUserAuthorized: PropTypes.bool.isRequired,
   isLogoLinkActive: PropTypes.bool.isRequired,
 };
 
@@ -34,9 +35,6 @@ Header.defaultProps = {
   isLogoLinkActive: false,
 };
 
-const mapStateToProps = (state) => ({
-  isUserAuthorized: isAuthorized(state.authorizationStatus),
-});
 
 export { Header };
-export default connect(mapStateToProps)(Header);
+export default Header;
