@@ -1,10 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PlaceCardList from '../place-card-list/place-card-list';
 import { offersProp } from '../../prop-types/offers.prop';
-import { APIResourceStatus } from '../../const';
 import Loading from '../loading/loading';
+import { selectCity } from '../../store/app/selectors';
+import { selectIsOffersLoading } from '../../store/api/selectors';
 
 const loadingStyle = {
   display: 'flex',
@@ -15,7 +16,9 @@ const loadingStyle = {
 
 
 function Places(props) {
-  const { offers, currentCity, onCardMouseEnter, isLoading } = props;
+  const { offers, onCardMouseEnter } = props;
+  const currentCity = useSelector(selectCity);
+  const isLoading = useSelector(selectIsOffersLoading);
 
   if (isLoading) {
     return (
@@ -57,15 +60,8 @@ function Places(props) {
 
 Places.propTypes = {
   offers: offersProp,
-  currentCity: PropTypes.string.isRequired,
   onCardMouseEnter: PropTypes.func,
-  isLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  isLoading: state.offers.status === APIResourceStatus.LOADING || state.offers.status === APIResourceStatus.IDLE,
-});
-
 export { Places };
-export default connect(mapStateToProps)(Places);
+export default Places;

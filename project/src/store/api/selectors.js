@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../rootReducer';
+import { APIResourceStatus } from '../../const';
 
 const selectOffers = (state) => state[NameSpace.API].offers.data;
 const selectOffersStatus = (state) => state[NameSpace.API].offers.status;
@@ -37,10 +38,16 @@ const makeSelectFilteredOffersByCity = () => (
   )
 );
 
+const selectIsOffersLoading = createSelector(
+  selectOffersStatus,
+  (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
+);
+
 export {
   selectOffers,
   selectOffersStatus,
   selectOffersError,
   selectFavoriteOffersGroupedByCities,
-  makeSelectFilteredOffersByCity
+  makeSelectFilteredOffersByCity,
+  selectIsOffersLoading
 };
