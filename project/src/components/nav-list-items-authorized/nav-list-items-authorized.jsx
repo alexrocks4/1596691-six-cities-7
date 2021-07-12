@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { AppRoute } from '../../const';
+import { selectUserEmail } from '../../store/user/selectors';
 
-function NavListItemsAuthorized({ userEmail }) {
+function NavListItemsAuthorized() {
+  const userEmail = useSelector(selectUserEmail);
+
   return (
     <React.Fragment>
       <li className="header__nav-item user">
@@ -28,13 +30,5 @@ function NavListItemsAuthorized({ userEmail }) {
   );
 }
 
-NavListItemsAuthorized.propTypes = {
-  userEmail: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = ({ authorizationInfo }) => ({
-  userEmail: authorizationInfo.email,
-});
-
 export { NavListItemsAuthorized };
-export default connect(mapStateToProps)(NavListItemsAuthorized);
+export default NavListItemsAuthorized;
