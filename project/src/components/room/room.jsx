@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 import { useParams } from 'react-router-dom';
 import NotFound from '../not-found/not-found';
@@ -9,12 +9,20 @@ import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import { makeSelectOfferById } from '../../store/api/selectors';
+import { makeSelectOfferById, selectOffersNearby } from '../../store/api/selectors';
+import { fetchNearbyOffers } from '../../store/api-actions';
+import { DECIMAL_RADIX } from '../../const';
+import Map from '../map/map';
 
 function Room({ reviews }) {
   const { id } = useParams();
   const selectOfferById = useMemo(makeSelectOfferById, []);
   const targetOffer = useSelector((state) => selectOfferById(state, id));
+  const offersNearby = useSelector(selectOffersNearby);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchNearbyOffers(parseInt(id, DECIMAL_RADIX)));
+  }, [dispatch, id]);
 
   if (!targetOffer) {
     return <NotFound />;
@@ -112,7 +120,13 @@ function Room({ reviews }) {
               <Reviews reviews={reviews} />
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map">
+            <Map
+              city={targetOffer.city}
+              points={filteredOffersByCity}
+              selectedPoint={activeOffer}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
