@@ -123,8 +123,8 @@ function Room({ reviews }) {
           <section className="property__map map">
             <Map
               city={targetOffer.city}
-              points={filteredOffersByCity}
-              selectedPoint={activeOffer}
+              points={offersNearby}
+              selectedPoint={targetOffer}
             />
           </section>
         </section>
