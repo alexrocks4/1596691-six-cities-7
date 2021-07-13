@@ -20,6 +20,13 @@ const activeMarkerConfig = {
 const defaultIcon = leaflet.icon(defaultMarkerConfig);
 const activeIcon = leaflet.icon(activeMarkerConfig);
 
+const addMarkerToMapLayer = (location, layer, isActiveIcon = false) => {
+  const marker = leaflet.marker([ location.latitude, location.longitude ], {
+    icon: isActiveIcon ? activeIcon : defaultIcon,
+  });
+  layer.addLayer(marker);
+};
+
 function Map({ city, points, selectedPoint }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
@@ -28,12 +35,20 @@ function Map({ city, points, selectedPoint }) {
     const layerGroup = leaflet.layerGroup();
 
     if (map) {
+      // Add all points to map except selectedPoint in case if
+      // selectedPoint is present in points array
       points.forEach(({ location, id }) => {
-        const marker = leaflet.marker([ location.latitude, location.longitude ], {
-          icon: selectedPoint && id === selectedPoint.id ? activeIcon : defaultIcon,
-        });
-        layerGroup.addLayer(marker);
+        if (selectedPoint !== null && id === selectedPoint.id) {
+          return;
+        }
+
+        addMarkerToMapLayer(location, layerGroup);
       });
+
+      // Add selectedPoint to map
+      if (selectedPoint !== null) {
+        addMarkerToMapLayer(selectedPoint.location, layerGroup, true);
+      }
 
       layerGroup.addTo(map);
     }
@@ -43,7 +58,7 @@ function Map({ city, points, selectedPoint }) {
         layerGroup.remove();
       }
     };
-  }, [map, points, selectedPoint ]);
+  }, [map, points, selectedPoint]);
 
   return (
     <div
@@ -57,6 +72,10 @@ Map.propTypes = {
   city: locationProp.isRequired,
   points: PropTypes.arrayOf(locationProp).isRequired,
   selectedPoint: locationProp,
+};
+
+Map.defaultProps = {
+  selectedPoint: null,
 };
 
 export default Map;
