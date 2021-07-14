@@ -9,12 +9,14 @@ import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 import PrivateRoute from '../private-route/private-route';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 function App(props) {
   const { reviews } = props;
 
   return (
     <Router history={browserHistory}>
+      <ScrollToTop />
       <Switch>
         <Route path={AppRoute.MAIN} exact>
           <Main />

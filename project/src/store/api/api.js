@@ -1,9 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offersFetchingStarted, offersLoaded } from '../action';
+import {
+  offersFetchingStarted,
+  offersLoaded,
+  offersNearbyFetchingStarted,
+  offersNearbyLoaded
+} from '../action';
 import { APIResourceStatus } from '../../const';
 
 const initialState = {
   offers: {
+    data: [],
+    status: APIResourceStatus.IDLE,
+    error: null,
+  },
+  offersNearby: {
     data: [],
     status: APIResourceStatus.IDLE,
     error: null,
@@ -18,6 +28,13 @@ const api = createReducer(initialState, (builder) => {
     .addCase(offersLoaded, (state, action) => {
       state.offers.data = action.payload;
       state.offers.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offersNearbyFetchingStarted, (state) => {
+      state.offersNearby.status = APIResourceStatus.LOADING;
+    })
+    .addCase(offersNearbyLoaded, (state, action) => {
+      state.offersNearby.data = action.payload;
+      state.offersNearby.status = APIResourceStatus.SUCCEEDED;
     });
 });
 

@@ -1,21 +1,25 @@
 import React from 'react';
 import { offersProp } from '../../prop-types/offers.prop';
-import PlaceCardMain from '../place-card-main/place-card-main';
 import PropTypes from 'prop-types';
 
-function PlaceCardList({ offers, onCardMouseEnter}) {
-  return offers.map((offer) => (
-    <PlaceCardMain
-      key={offer.id}
-      offer={offer}
-      onCardMouseEnter={onCardMouseEnter}
-    />
-  ));
+function PlaceCardList({ offers, render, className }) {
+  return (
+    <div className={className}>
+      {offers.map((offer) => (
+        render(offer)
+      ))}
+    </div>
+  );
 }
 
 PlaceCardList.propTypes = {
   offers: offersProp,
-  onCardMouseEnter: PropTypes.func.isRequired,
+  render: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+};
+
+PlaceCardList.defaultProps = {
+  className: 'places__list',
 };
 
 export default PlaceCardList;

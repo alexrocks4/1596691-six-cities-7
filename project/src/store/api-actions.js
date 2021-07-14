@@ -2,6 +2,8 @@ import { APIRoute } from '../const';
 import {
   offersFetchingStarted,
   offersLoaded,
+  offersNearbyFetchingStarted,
+  offersNearbyLoaded,
   loggedIn,
   redirectedToRoute
 } from '../store/action';
@@ -15,6 +17,17 @@ const fetchOffers = () => (dispatch, _getState, api) => {
     .then(({ data }) => {
       const adaptedOffers = adaptOffersFromServer(data);
       dispatch(offersLoaded(adaptedOffers));
+    });
+};
+
+const fetchNearbyOffers = (offerId) => (dispatch, _getState, api) => {
+  dispatch(offersNearbyFetchingStarted());
+
+  return api
+    .get(APIRoute.OFFERS_NEARBY(offerId))
+    .then(({ data }) => {
+      const adaptedOffers = adaptOffersFromServer(data);
+      dispatch(offersNearbyLoaded(adaptedOffers));
     });
 };
 
@@ -36,6 +49,7 @@ const login = (credentials) => (dispatch, _getState, api) => (
 
 export {
   fetchOffers,
+  fetchNearbyOffers,
   checkAuth,
   login
 };

@@ -4,6 +4,8 @@ const ActionType = {
   CITY_UPDATED: 'app/cityUpdated',
   OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
   OFFERS_LOADED: 'api/offers/loaded',
+  OFFERS_NEARBY_FETCHING_STARTED: 'api/offersNearby/fetchingStarted',
+  OFFERS_NEARBY_LOADED: 'api/offersNearby/loaded',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
@@ -13,6 +15,8 @@ const ActionType = {
 const cityUpdated = createAction(ActionType.CITY_UPDATED);
 const offersFetchingStarted = createAction(ActionType.OFFERS_FETCHING_STARTED);
 const offersLoaded = createAction(ActionType.OFFERS_LOADED);
+const offersNearbyFetchingStarted = createAction(ActionType.OFFERS_NEARBY_FETCHING_STARTED);
+const offersNearbyLoaded = createAction(ActionType.OFFERS_NEARBY_LOADED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
@@ -25,5 +29,7 @@ export {
   loggedIn,
   loggedOut,
   notAuthorized,
-  redirectedToRoute
+  redirectedToRoute,
+  offersNearbyFetchingStarted,
+  offersNearbyLoaded
 };

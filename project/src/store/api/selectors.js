@@ -5,6 +5,9 @@ import { APIResourceStatus } from '../../const';
 const selectOffers = (state) => state[NameSpace.API].offers.data;
 const selectOffersStatus = (state) => state[NameSpace.API].offers.status;
 const selectOffersError = (state) => state[NameSpace.API].offers.error;
+const selectOffersNearby = (state) => state[NameSpace.API].offersNearby.data;
+const selectOffersNearbyStatus = (state) => state[NameSpace.API].offersNearby.status;
+const selectOffersNearbyError = (state) => state[NameSpace.API].offersNearby.error;
 
 const selectFavoriteOffers = createSelector(
   selectOffers,
@@ -55,6 +58,9 @@ export {
   selectOffers,
   selectOffersStatus,
   selectOffersError,
+  selectOffersNearby,
+  selectOffersNearbyStatus,
+  selectOffersNearbyError,
   selectFavoriteOffersGroupedByCities,
   makeSelectFilteredOffersByCity,
   selectIsOffersLoading,
