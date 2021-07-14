@@ -6,6 +6,7 @@ import { offersProp } from '../../prop-types/offers.prop';
 import Loading from '../loading/loading';
 import { selectCity } from '../../store/app/selectors';
 import { selectIsOffersLoading } from '../../store/api/selectors';
+import PlaceCardMain from '../place-card-main/place-card-main';
 
 const loadingStyle = {
   display: 'flex',
@@ -48,12 +49,17 @@ function Places(props) {
           <li className="places__option" tabIndex={0}>Top rated first</li>
         </ul>
       </form>
-      <div className="cities__places-list places__list tabs__content">
-        <PlaceCardList
-          offers={offers}
-          onCardMouseEnter={onCardMouseEnter}
-        />
-      </div>
+      <PlaceCardList
+        className="cities__places-list places__list tabs__content"
+        offers={offers}
+        render={(offer) => (
+          <PlaceCardMain
+            key={offer.id}
+            offer={offer}
+            onCardMouseEnter={onCardMouseEnter}
+          />
+        )}
+      />
     </section>
   );
 }
