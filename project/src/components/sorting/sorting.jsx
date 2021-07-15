@@ -7,18 +7,31 @@ const getSortingItemClass = (currentSortingType, sortingType) => classNames('pla
   'places__option--active': currentSortingType === sortingType,
 });
 
-function Sorting({ currentSortingType, onSortingItemClick }) {
+function Sorting({
+  currentSortingType,
+  onSortingItemClick,
+  isSortingListOpened,
+  onSortingTypeClick,
+}) {
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0}>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={onSortingTypeClick}
+      >
         {SortingDescription[currentSortingType]}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul className={classNames(
+        'places__options places__options--custom',
+        { 'places__options--opened': isSortingListOpened },
+      )}
+      >
         <li
           className={getSortingItemClass(currentSortingType, SortingType.POPULAR)}
           tabIndex={0}
@@ -59,6 +72,8 @@ function Sorting({ currentSortingType, onSortingItemClick }) {
 Sorting.propTypes = {
   currentSortingType: PropTypes.string.isRequired,
   onSortingItemClick: PropTypes.func.isRequired,
+  isSortingListOpened: PropTypes.bool.isRequired,
+  onSortingTypeClick: PropTypes.func.isRequired,
 };
 
 export default Sorting;

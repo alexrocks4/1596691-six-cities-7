@@ -17,15 +17,20 @@ const loadingStyle = {
   justifyContent: 'center',
 };
 
-
 function Places(props) {
   const { offers, onCardMouseEnter } = props;
   const currentCity = useSelector(selectCity);
   const isLoading = useSelector(selectIsOffersLoading);
   const [currentSortingType, setCurrentSortingType] = useState(SortingType.POPULAR);
+  const [isSortingListOpened, setIsSortingListOpened] = useState(false);
 
   const handleSortingItemClick = ({ target }) => {
     setCurrentSortingType(target.dataset.sorting);
+    setIsSortingListOpened(false);
+  };
+
+  const handleSortingTypeClick = () => {
+    setIsSortingListOpened(true);
   };
 
   if (isLoading) {
@@ -44,6 +49,8 @@ function Places(props) {
       <Sorting
         currentSortingType={currentSortingType}
         onSortingItemClick={handleSortingItemClick}
+        isSortingListOpened={isSortingListOpened}
+        onSortingTypeClick={handleSortingTypeClick}
       />
       <PlaceCardList
         className="cities__places-list places__list tabs__content"
