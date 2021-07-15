@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PlaceCardList from '../place-card-list/place-card-list';
-import { offersProp } from '../../prop-types/offers.prop';
 import Loading from '../loading/loading';
 import { selectCity } from '../../store/app/selectors';
 import { selectIsOffersLoading } from '../../store/api/selectors';
 import PlaceCardMain from '../place-card-main/place-card-main';
 import Sorting from '../sorting/sorting';
-import { SortingType } from '../../const';
+import { offersProp } from '../../prop-types/offers.prop';
 
 const loadingStyle = {
   display: 'flex',
@@ -17,21 +16,9 @@ const loadingStyle = {
   justifyContent: 'center',
 };
 
-function Places(props) {
-  const { offers, onCardMouseEnter } = props;
+function Places({ onCardMouseEnter, offers }) {
   const currentCity = useSelector(selectCity);
   const isLoading = useSelector(selectIsOffersLoading);
-  const [currentSortingType, setCurrentSortingType] = useState(SortingType.POPULAR);
-  const [isSortingListOpened, setIsSortingListOpened] = useState(false);
-
-  const handleSortingItemClick = ({ target }) => {
-    setCurrentSortingType(target.dataset.sorting);
-    setIsSortingListOpened(false);
-  };
-
-  const handleSortingTypeClick = () => {
-    setIsSortingListOpened(true);
-  };
 
   if (isLoading) {
     return (
@@ -46,12 +33,7 @@ function Places(props) {
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{offers.length} places to stay in {currentCity}</b>
-      <Sorting
-        currentSortingType={currentSortingType}
-        onSortingItemClick={handleSortingItemClick}
-        isSortingListOpened={isSortingListOpened}
-        onSortingTypeClick={handleSortingTypeClick}
-      />
+      <Sorting />
       <PlaceCardList
         className="cities__places-list places__list tabs__content"
         offers={offers}
@@ -68,8 +50,8 @@ function Places(props) {
 }
 
 Places.propTypes = {
-  offers: offersProp,
   onCardMouseEnter: PropTypes.func,
+  offers: offersProp,
 };
 
 export { Places };

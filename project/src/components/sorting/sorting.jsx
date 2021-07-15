@@ -1,18 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { SortingType, SortingDescription } from '../../const';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSortingType } from '../../store/app/selectors';
+import { sortingTypeUpdated } from '../../store/action';
 
 const getSortingItemClass = (currentSortingType, sortingType) => classNames('places__option', {
   'places__option--active': currentSortingType === sortingType,
 });
 
-function Sorting({
-  currentSortingType,
-  onSortingItemClick,
-  isSortingListOpened,
-  onSortingTypeClick,
-}) {
+function Sorting() {
+  const dispatch = useDispatch();
+  const currentSortingType = useSelector(selectSortingType);
+  const [isSortingListOpened, setIsSortingListOpened] = useState(false);
+
+  const handleSortingItemClick = ({ target }) => {
+    dispatch(sortingTypeUpdated(target.dataset.sorting));
+    setIsSortingListOpened(false);
+  };
+
+  const handleSortingTypeClick = () => {
+    setIsSortingListOpened(true);
+  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -20,7 +29,7 @@ function Sorting({
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={onSortingTypeClick}
+        onClick={handleSortingTypeClick}
       >
         {SortingDescription[currentSortingType]}
         <svg className="places__sorting-arrow" width={7} height={4}>
@@ -36,7 +45,7 @@ function Sorting({
           className={getSortingItemClass(currentSortingType, SortingType.POPULAR)}
           tabIndex={0}
           data-sorting={SortingType.POPULAR}
-          onClick={onSortingItemClick}
+          onClick={handleSortingItemClick}
         >
           Popular
         </li>
@@ -44,7 +53,7 @@ function Sorting({
           className={getSortingItemClass(currentSortingType, SortingType.PRICE_ASCENDING)}
           tabIndex={0}
           data-sorting={SortingType.PRICE_ASCENDING}
-          onClick={onSortingItemClick}
+          onClick={handleSortingItemClick}
         >
           Price: low to high
         </li>
@@ -52,7 +61,7 @@ function Sorting({
           className={getSortingItemClass(currentSortingType, SortingType.PRICE_DESCENDING)}
           tabIndex={0}
           data-sorting={SortingType.PRICE_DESCENDING}
-          onClick={onSortingItemClick}
+          onClick={handleSortingItemClick}
         >
           Price: high to low
         </li>
@@ -60,7 +69,7 @@ function Sorting({
           className={getSortingItemClass(currentSortingType, SortingType.TOP_RATED)}
           tabIndex={0}
           data-sorting={SortingType.TOP_RATED}
-          onClick={onSortingItemClick}
+          onClick={handleSortingItemClick}
         >
           Top rated first
         </li>
@@ -68,12 +77,5 @@ function Sorting({
     </form>
   );
 }
-
-Sorting.propTypes = {
-  currentSortingType: PropTypes.string.isRequired,
-  onSortingItemClick: PropTypes.func.isRequired,
-  isSortingListOpened: PropTypes.bool.isRequired,
-  onSortingTypeClick: PropTypes.func.isRequired,
-};
 
 export default Sorting;
