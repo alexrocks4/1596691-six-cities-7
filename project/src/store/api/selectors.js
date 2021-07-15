@@ -1,6 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../rootReducer';
-import { APIResourceStatus } from '../../const';
+import { APIResourceStatus, SortingType } from '../../const';
+import {
+  sortOffersByPriceAscending,
+  sortOffersByPriceDescending,
+  sortOffersByRatingDescending
+} from '../../application';
+import { selectSortingType } from '../app/selectors';
 
 const selectOffers = (state) => state[NameSpace.API].offers.data;
 const selectOffersStatus = (state) => state[NameSpace.API].offers.status;
@@ -54,6 +60,27 @@ const makeSelectOfferById = () => (
   )
 );
 
+const makeSelectSortedOffers = () => (
+  createSelector(
+    selectSortingType,
+    (_, offers) => offers,
+    (sortingType, offers) => {
+      switch (sortingType) {
+        case SortingType.POPULAR:
+          return offers;
+        case SortingType.PRICE_ASCENDING:
+          return offers.sort(sortOffersByPriceAscending);
+        case SortingType.PRICE_DESCENDING:
+          return offers.sort(sortOffersByPriceDescending);
+        case SortingType.TOP_RATED:
+          return offers.sort(sortOffersByRatingDescending);
+        default:
+          return offers;
+      }
+    },
+  )
+);
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -64,5 +91,6 @@ export {
   selectFavoriteOffersGroupedByCities,
   makeSelectFilteredOffersByCity,
   selectIsOffersLoading,
-  makeSelectOfferById
+  makeSelectOfferById,
+  makeSelectSortedOffers
 };
