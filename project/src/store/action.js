@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 const ActionType = {
   CITY_UPDATED: 'app/cityUpdated',
+  SORTING_TYPE_UPDATED: 'app/sortingTypeUpdated',
   OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
   OFFERS_LOADED: 'api/offers/loaded',
   OFFERS_NEARBY_FETCHING_STARTED: 'api/offersNearby/fetchingStarted',
@@ -13,6 +14,7 @@ const ActionType = {
 };
 
 const cityUpdated = createAction(ActionType.CITY_UPDATED);
+const sortingTypeUpdated = createAction(ActionType.SORTING_TYPE_UPDATED);
 const offersFetchingStarted = createAction(ActionType.OFFERS_FETCHING_STARTED);
 const offersLoaded = createAction(ActionType.OFFERS_LOADED);
 const offersNearbyFetchingStarted = createAction(ActionType.OFFERS_NEARBY_FETCHING_STARTED);
@@ -24,6 +26,7 @@ const redirectedToRoute = createAction(ActionType.REDIRECTED_TO_ROUTE);
 
 export {
   cityUpdated,
+  sortingTypeUpdated,
   offersFetchingStarted,
   offersLoaded,
   loggedIn,
