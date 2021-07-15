@@ -33,7 +33,6 @@ function Main() {
           <div className="cities__places-container container">
             <Places
               offers={sortedOffers}
-              currentCity={currentCity}
               onCardMouseEnter={handleCardMouseEnter}
             >
             </Places>
