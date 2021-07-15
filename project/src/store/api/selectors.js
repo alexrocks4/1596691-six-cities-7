@@ -69,11 +69,11 @@ const makeSelectSortedOffers = () => (
         case SortingType.POPULAR:
           return offers;
         case SortingType.PRICE_ASCENDING:
-          return offers.sort(sortOffersByPriceAscending);
+          return offers.slice().sort(sortOffersByPriceAscending);
         case SortingType.PRICE_DESCENDING:
-          return offers.sort(sortOffersByPriceDescending);
+          return offers.slice().sort(sortOffersByPriceDescending);
         case SortingType.TOP_RATED:
-          return offers.sort(sortOffersByRatingDescending);
+          return offers.slice().sort(sortOffersByRatingDescending);
         default:
           return offers;
       }
