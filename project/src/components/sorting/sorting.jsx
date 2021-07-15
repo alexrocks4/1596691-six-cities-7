@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SortingType, SortingDescription } from '../../const';
+import classNames from 'classnames';
+
+const getSortingItemClass = (currentSortingType, sortingType) => classNames('places__option', {
+  'places__option--active': currentSortingType === sortingType,
+});
 
 function Sorting({ currentSortingType, onSortingItemClick }) {
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
@@ -14,7 +20,7 @@ function Sorting({ currentSortingType, onSortingItemClick }) {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         <li
-          className="places__option places__option--active"
+          className={getSortingItemClass(currentSortingType, SortingType.POPULAR)}
           tabIndex={0}
           data-sorting={SortingType.POPULAR}
           onClick={onSortingItemClick}
@@ -22,7 +28,7 @@ function Sorting({ currentSortingType, onSortingItemClick }) {
           Popular
         </li>
         <li
-          className="places__option"
+          className={getSortingItemClass(currentSortingType, SortingType.PRICE_ASCENDING)}
           tabIndex={0}
           data-sorting={SortingType.PRICE_ASCENDING}
           onClick={onSortingItemClick}
@@ -30,7 +36,7 @@ function Sorting({ currentSortingType, onSortingItemClick }) {
           Price: low to high
         </li>
         <li
-          className="places__option"
+          className={getSortingItemClass(currentSortingType, SortingType.PRICE_DESCENDING)}
           tabIndex={0}
           data-sorting={SortingType.PRICE_DESCENDING}
           onClick={onSortingItemClick}
@@ -38,7 +44,7 @@ function Sorting({ currentSortingType, onSortingItemClick }) {
           Price: high to low
         </li>
         <li
-          className="places__option"
+          className={getSortingItemClass(currentSortingType, SortingType.TOP_RATED)}
           tabIndex={0}
           data-sorting={SortingType.TOP_RATED}
           onClick={onSortingItemClick}
