@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SortingType, SortingDescription } from '../../const';
+import { SortingDescription, sortingTypes } from '../../const';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSortingType } from '../../store/app/selectors';
@@ -38,25 +38,13 @@ function Sorting() {
         { 'places__options--opened': isSortingListOpened },
       )}
       >
-        <SortingListItem
-          sortingType={SortingType.POPULAR}
-          onSortingItemClick={handleSortingItemClick}
-        />
-
-        <SortingListItem
-          sortingType={SortingType.PRICE_ASCENDING}
-          onSortingItemClick={handleSortingItemClick}
-        />
-
-        <SortingListItem
-          sortingType={SortingType.PRICE_DESCENDING}
-          onSortingItemClick={handleSortingItemClick}
-        />
-
-        <SortingListItem
-          sortingType={SortingType.TOP_RATED}
-          onSortingItemClick={handleSortingItemClick}
-        />
+        {sortingTypes.map((type) => (
+          <SortingListItem
+            key={type}
+            sortingType={type}
+            onSortingItemClick={handleSortingItemClick}
+          />
+        ))}
       </ul>
     </form>
   );

@@ -96,6 +96,13 @@ const SortingDescription = {
   [SortingType.TOP_RATED]: 'Top rated first',
 };
 
+// For strict ordering while rendering in components
+const sortingTypes = [
+  SortingType.POPULAR,
+  SortingType.PRICE_ASCENDING,
+  SortingType.PRICE_DESCENDING,
+  SortingType.TOP_RATED,
+];
 
 export {
   AppRoute,
@@ -106,5 +113,6 @@ export {
   APIResourceStatus,
   AuthorizationStatus,
   SortingType,
-  SortingDescription
+  SortingDescription,
+  sortingTypes
 };
