@@ -4,10 +4,7 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSortingType } from '../../store/app/selectors';
 import { sortingTypeUpdated } from '../../store/action';
-
-const getSortingItemClass = (currentSortingType, sortingType) => classNames('places__option', {
-  'places__option--active': currentSortingType === sortingType,
-});
+import SortingListItem from '../sorting-list-item/sorting-list-item';
 
 function Sorting() {
   const dispatch = useDispatch();
@@ -41,38 +38,25 @@ function Sorting() {
         { 'places__options--opened': isSortingListOpened },
       )}
       >
-        <li
-          className={getSortingItemClass(currentSortingType, SortingType.POPULAR)}
-          tabIndex={0}
-          data-sorting={SortingType.POPULAR}
-          onClick={handleSortingItemClick}
-        >
-          Popular
-        </li>
-        <li
-          className={getSortingItemClass(currentSortingType, SortingType.PRICE_ASCENDING)}
-          tabIndex={0}
-          data-sorting={SortingType.PRICE_ASCENDING}
-          onClick={handleSortingItemClick}
-        >
-          Price: low to high
-        </li>
-        <li
-          className={getSortingItemClass(currentSortingType, SortingType.PRICE_DESCENDING)}
-          tabIndex={0}
-          data-sorting={SortingType.PRICE_DESCENDING}
-          onClick={handleSortingItemClick}
-        >
-          Price: high to low
-        </li>
-        <li
-          className={getSortingItemClass(currentSortingType, SortingType.TOP_RATED)}
-          tabIndex={0}
-          data-sorting={SortingType.TOP_RATED}
-          onClick={handleSortingItemClick}
-        >
-          Top rated first
-        </li>
+        <SortingListItem
+          sortingType={SortingType.POPULAR}
+          onSortingItemClick={handleSortingItemClick}
+        />
+
+        <SortingListItem
+          sortingType={SortingType.PRICE_ASCENDING}
+          onSortingItemClick={handleSortingItemClick}
+        />
+
+        <SortingListItem
+          sortingType={SortingType.PRICE_DESCENDING}
+          onSortingItemClick={handleSortingItemClick}
+        />
+
+        <SortingListItem
+          sortingType={SortingType.TOP_RATED}
+          onSortingItemClick={handleSortingItemClick}
+        />
       </ul>
     </form>
   );
