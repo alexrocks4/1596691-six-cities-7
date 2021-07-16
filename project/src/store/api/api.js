@@ -5,7 +5,8 @@ import {
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
   offerFetchingStarted,
-  offerLoaded
+  offerLoaded,
+  offerFetchingFailed
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
@@ -45,6 +46,10 @@ const api = createReducer(initialState, (builder) => {
     })
     .addCase(offerFetchingStarted, (state) => {
       state.offer.status = APIResourceStatus.LOADING;
+    })
+    .addCase(offerFetchingFailed, (state, action) => {
+      state.offer.status = APIResourceStatus.FAILED;
+      state.offer.error = action.payload;
     })
     .addCase(offerLoaded, (state, action) => {
       state.offer.data = action.payload;

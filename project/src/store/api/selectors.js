@@ -59,6 +59,11 @@ const selectIsOfferLoading = createSelector(
   (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
 );
 
+const selectIsOfferFetchingFailed = createSelector(
+  selectOfferStatus,
+  (status) => status === APIResourceStatus.FAILED,
+);
+
 const makeSelectOfferById = () => (
   createSelector(
     selectOffers,
@@ -101,6 +106,7 @@ export {
   makeSelectFilteredOffersByCity,
   selectIsOffersLoading,
   selectIsOfferLoading,
+  selectIsOfferFetchingFailed,
   makeSelectOfferById,
   makeSelectSortedOffers
 };

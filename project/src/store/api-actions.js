@@ -7,7 +7,8 @@ import {
   loggedIn,
   redirectedToRoute,
   offerFetchingStarted,
-  offerLoaded
+  offerLoaded,
+  offerFetchingFailed
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -45,7 +46,8 @@ const fetchOffer = (offerId) => (dispatch, _getState, api) => {
     .then(({ data }) => {
       const adaptedOffer = adaptOfferFromServer(data);
       dispatch(offerLoaded(adaptedOffer));
-    });
+    })
+    .catch((error) => dispatch(offerFetchingFailed(error)));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (

@@ -8,6 +8,7 @@ const ActionType = {
   OFFERS_NEARBY_FETCHING_STARTED: 'api/offersNearby/fetchingStarted',
   OFFERS_NEARBY_LOADED: 'api/offersNearby/loaded',
   OFFER_FETCHING_STARTED: 'api/offer/fetchingStarted',
+  OFFER_FETCHING_FAILED: 'api/offer/fetchingFailed',
   OFFER_LOADED: 'api/offer/loaded',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
@@ -22,6 +23,7 @@ const offersLoaded = createAction(ActionType.OFFERS_LOADED);
 const offersNearbyFetchingStarted = createAction(ActionType.OFFERS_NEARBY_FETCHING_STARTED);
 const offersNearbyLoaded = createAction(ActionType.OFFERS_NEARBY_LOADED);
 const offerFetchingStarted = createAction(ActionType.OFFER_FETCHING_STARTED);
+const offerFetchingFailed = createAction(ActionType.OFFER_FETCHING_FAILED);
 const offerLoaded = createAction(ActionType.OFFER_LOADED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
@@ -40,5 +42,6 @@ export {
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
   offerFetchingStarted,
+  offerFetchingFailed,
   offerLoaded
 };
