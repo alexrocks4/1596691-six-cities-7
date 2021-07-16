@@ -6,12 +6,15 @@ import Map from '../map/map';
 import CityList from '../city-list/city-list';
 import Header from '../header/header';
 import { selectCity } from '../../store/app/selectors';
-import { makeSelectFilteredOffersByCity } from '../../store/api/selectors';
+import { makeSelectFilteredOffersByCity, makeSelectSortedOffers } from '../../store/api/selectors';
 
 function Main() {
-  const currentCity = useSelector(selectCity);
   const selectFilteredOffersByCity = useMemo(makeSelectFilteredOffersByCity, []);
+  const selectSortedOffers = useMemo(makeSelectSortedOffers, []);
+  const currentCity = useSelector(selectCity);
   const filteredOffersByCity = useSelector((state) => selectFilteredOffersByCity(state, currentCity));
+  const sortedOffers = useSelector((state) => selectSortedOffers(state, filteredOffersByCity));
+
   const [ activeOffer, setActiveOffer ] = useState(null);
   const handleCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
   const handleLocationClick = useCallback(() => setActiveOffer(null), []);
@@ -29,8 +32,7 @@ function Main() {
         <div className="cities">
           <div className="cities__places-container container">
             <Places
-              offers={filteredOffersByCity}
-              currentCity={currentCity}
+              offers={sortedOffers}
               onCardMouseEnter={handleCardMouseEnter}
             >
             </Places>

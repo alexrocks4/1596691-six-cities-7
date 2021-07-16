@@ -82,6 +82,28 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+const SortingType = {
+  POPULAR: 'popular',
+  PRICE_ASCENDING: 'price-ascending',
+  PRICE_DESCENDING: 'price-descending',
+  TOP_RATED: 'top-rated',
+};
+
+const SortingDescription = {
+  [SortingType.POPULAR]: 'Popular',
+  [SortingType.PRICE_ASCENDING]: 'Price: low to high',
+  [SortingType.PRICE_DESCENDING]: 'Price: high to low',
+  [SortingType.TOP_RATED]: 'Top rated first',
+};
+
+// For strict ordering while rendering in components
+const sortingTypes = [
+  SortingType.POPULAR,
+  SortingType.PRICE_ASCENDING,
+  SortingType.PRICE_DESCENDING,
+  SortingType.TOP_RATED,
+];
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -89,5 +111,8 @@ export {
   City,
   APIRoute,
   APIResourceStatus,
-  AuthorizationStatus
+  AuthorizationStatus,
+  SortingType,
+  SortingDescription,
+  sortingTypes
 };
