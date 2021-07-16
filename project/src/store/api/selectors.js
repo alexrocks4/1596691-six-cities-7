@@ -14,6 +14,8 @@ const selectOffersError = (state) => state[NameSpace.API].offers.error;
 const selectOffersNearby = (state) => state[NameSpace.API].offersNearby.data;
 const selectOffersNearbyStatus = (state) => state[NameSpace.API].offersNearby.status;
 const selectOffersNearbyError = (state) => state[NameSpace.API].offersNearby.error;
+const selectOffer = (state) => state[NameSpace.API].offer.data;
+const selectOfferStatus = (state) => state[NameSpace.API].offer.status;
 
 const selectFavoriteOffers = createSelector(
   selectOffers,
@@ -49,6 +51,11 @@ const makeSelectFilteredOffersByCity = () => (
 
 const selectIsOffersLoading = createSelector(
   selectOffersStatus,
+  (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
+);
+
+const selectIsOfferLoading = createSelector(
+  selectOfferStatus,
   (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
 );
 
@@ -88,9 +95,12 @@ export {
   selectOffersNearby,
   selectOffersNearbyStatus,
   selectOffersNearbyError,
+  selectOffer,
+  selectOfferStatus,
   selectFavoriteOffersGroupedByCities,
   makeSelectFilteredOffersByCity,
   selectIsOffersLoading,
+  selectIsOfferLoading,
   makeSelectOfferById,
   makeSelectSortedOffers
 };

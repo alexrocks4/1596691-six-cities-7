@@ -50,5 +50,6 @@ const adaptAuthInfoFromServer = (authInfo) => {
 
 export {
   adaptOffersFromServer,
+  adaptOfferFromServer,
   adaptAuthInfoFromServer
 };

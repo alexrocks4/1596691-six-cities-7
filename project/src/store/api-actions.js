@@ -5,9 +5,15 @@ import {
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
   loggedIn,
-  redirectedToRoute
+  redirectedToRoute,
+  offerFetchingStarted,
+  offerLoaded
 } from '../store/action';
-import { adaptOffersFromServer, adaptAuthInfoFromServer } from '../utils/adapter';
+import {
+  adaptOffersFromServer,
+  adaptOfferFromServer,
+  adaptAuthInfoFromServer
+} from '../utils/adapter';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(offersFetchingStarted());
@@ -31,6 +37,17 @@ const fetchNearbyOffers = (offerId) => (dispatch, _getState, api) => {
     });
 };
 
+const fetchOffer = (offerId) => (dispatch, _getState, api) => {
+  dispatch(offerFetchingStarted());
+
+  return api
+    .get(APIRoute.OFFER(offerId))
+    .then(({ data }) => {
+      const adaptedOffer = adaptOfferFromServer(data);
+      dispatch(offerLoaded(adaptedOffer));
+    });
+};
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -49,6 +66,7 @@ const login = (credentials) => (dispatch, _getState, api) => (
 
 export {
   fetchOffers,
+  fetchOffer,
   fetchNearbyOffers,
   checkAuth,
   login
