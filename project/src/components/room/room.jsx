@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reviewsProp } from '../../prop-types/reviews.prop';
 import { useParams } from 'react-router-dom';
@@ -9,21 +9,28 @@ import Rating from '../rating/rating';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import { makeSelectOfferById, selectOffersNearby } from '../../store/api/selectors';
-import { fetchNearbyOffers } from '../../store/api-actions';
+import {
+  selectOffer,
+  selectOffersNearby,
+  selectIsOfferLoading
+} from '../../store/api/selectors';
+import { fetchNearbyOffers, fetchOffer } from '../../store/api-actions';
 import { DECIMAL_RADIX } from '../../const';
 import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 
 function Room({ reviews }) {
-  const { id } = useParams();
-  const selectOfferById = useMemo(makeSelectOfferById, []);
-  const targetOffer = useSelector((state) => selectOfferById(state, id));
-  const offersNearby = useSelector(selectOffersNearby);
+  let { id } = useParams();
+  id = parseInt(id, DECIMAL_RADIX);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchNearbyOffers(parseInt(id, DECIMAL_RADIX)));
+    dispatch(fetchOffer(id));
+    dispatch(fetchNearbyOffers(id));
   }, [dispatch, id]);
+
+  const targetOffer = useSelector(selectOffer);
+  const offersNearby = useSelector(selectOffersNearby);
 
   if (!targetOffer) {
     return <NotFound />;
