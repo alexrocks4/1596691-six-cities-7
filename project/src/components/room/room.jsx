@@ -32,7 +32,7 @@ function Room({ reviews }) {
       <Header />
       <main className="page__main page__main--property">
         {isOfferLoading
-          ? <Loading />
+          ? <Loading className="js-loading--fullscreen"/>
           : <RoomMainContent reviews={reviews} />}
       </main>
     </div>
