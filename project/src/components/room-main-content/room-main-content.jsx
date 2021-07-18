@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectOffer, selectOffersNearby } from '../../store/api/selectors';
+import { selectOffer, selectOffersNearby, selectReviews } from '../../store/api/selectors';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
@@ -8,7 +8,6 @@ import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
-import { reviewsProp } from '../../prop-types/reviews.prop';
 
 const RatingConfig = {
   className: {
@@ -18,9 +17,10 @@ const RatingConfig = {
   },
 };
 
-function RoomMainContent({ reviews }) {
+function RoomMainContent() {
   const targetOffer = useSelector(selectOffer);
   const offersNearby = useSelector(selectOffersNearby);
+  const reviews = useSelector(selectReviews);
 
   return (
     <React.Fragment>
@@ -118,9 +118,5 @@ function RoomMainContent({ reviews }) {
     </React.Fragment>
   );
 }
-
-RoomMainContent.propTypes = {
-  reviews: reviewsProp,
-};
 
 export default RoomMainContent;
