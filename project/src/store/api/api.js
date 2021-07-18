@@ -9,7 +9,10 @@ import {
   offerFetchingFailed,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
-  reviewsLoaded
+  reviewsLoaded,
+  reviewCreationStarted,
+  reviewCreationFailed,
+  reviewCreated
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
@@ -37,6 +40,10 @@ const initialState = {
   },
   reviews: {
     data: [],
+    status: APIResourceStatus.IDLE,
+    error: getInitialFetchingError(),
+  },
+  createReviewRequest: {
     status: APIResourceStatus.IDLE,
     error: getInitialFetchingError(),
   },
@@ -79,6 +86,17 @@ const api = createReducer(initialState, (builder) => {
     .addCase(reviewsLoaded, (state, action) => {
       state.reviews.data = action.payload;
       state.reviews.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(reviewCreationStarted, (state) => {
+      state.createReviewRequest.status = APIResourceStatus.IN_PROGRESS;
+    })
+    .addCase(reviewCreationFailed, (state, action) => {
+      state.createReviewRequest.status = APIResourceStatus.FAILED;
+      state.createReviewRequest.error = action.payload;
+    })
+    .addCase(reviewCreated, (state, action) => {
+      state.reviews.data = action.payload;
+      state.createReviewRequest.status = APIResourceStatus.SUCCEEDED;
     });
 });
 

@@ -13,6 +13,9 @@ const ActionType = {
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
+  REVIEW_CREATION_STARTED: 'api/review/creationStarted',
+  REVIEW_CREATION_FAILED: 'api/review/creationFailed',
+  REVIEW_CREATED: 'api/review/loaded',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
@@ -31,6 +34,9 @@ const offerLoaded = createAction(ActionType.OFFER_LOADED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
+const reviewCreationStarted = createAction(ActionType.REVIEW_CREATION_STARTED);
+const reviewCreationFailed = createAction(ActionType.REVIEW_CREATION_FAILED);
+const reviewCreated = createAction(ActionType.REVIEW_CREATED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
@@ -52,5 +58,8 @@ export {
   offerLoaded,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
-  reviewsLoaded
+  reviewsLoaded,
+  reviewCreationStarted,
+  reviewCreationFailed,
+  reviewCreated
 };

@@ -11,7 +11,10 @@ import {
   offerFetchingFailed,
   reviewsFetchingStarted,
   reviewsLoaded,
-  reviewsFetchingFailed
+  reviewsFetchingFailed,
+  reviewCreationStarted,
+  reviewCreationFailed,
+  reviewCreated
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -66,6 +69,18 @@ const fetchReviews = (offerId) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(reviewsFetchingFailed(error)));
 };
 
+const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
+  dispatch(reviewCreationStarted());
+
+  return api
+    .post(APIRoute.REVIEWS(offerId), review)
+    .then(({ data }) => {
+      const adaptedReviews = adaptReviewsFromServer(data);
+      dispatch(reviewCreated(adaptedReviews));
+    })
+    .catch((error) => dispatch(reviewCreationFailed(error)));
+};
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -88,5 +103,6 @@ export {
   fetchNearbyOffers,
   fetchReviews,
   checkAuth,
-  login
+  login,
+  createReview
 };
