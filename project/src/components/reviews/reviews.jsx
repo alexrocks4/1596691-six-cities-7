@@ -1,9 +1,12 @@
 import React from 'react';
-import { reviewsProp } from '../../prop-types/reviews.prop';
+import { useSelector } from 'react-redux';
+import { selectReviews } from '../../store/api/selectors';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
 
-function Reviews({ reviews }) {
+function Reviews() {
+  const reviews = useSelector(selectReviews);
+
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
@@ -14,9 +17,5 @@ function Reviews({ reviews }) {
     </section>
   );
 }
-
-Reviews.propTypes = {
-  reviews: reviewsProp,
-};
 
 export default Reviews;

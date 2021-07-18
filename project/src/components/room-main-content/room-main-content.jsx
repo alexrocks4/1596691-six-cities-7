@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectOffer, selectOffersNearby, selectReviews } from '../../store/api/selectors';
+import { selectOffer, selectOffersNearby } from '../../store/api/selectors';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
@@ -20,7 +20,6 @@ const RatingConfig = {
 function RoomMainContent() {
   const targetOffer = useSelector(selectOffer);
   const offersNearby = useSelector(selectOffersNearby);
-  const reviews = useSelector(selectReviews);
 
   return (
     <React.Fragment>
@@ -101,7 +100,7 @@ function RoomMainContent() {
                 </p>
               </div>
             </div>
-            <Reviews reviews={reviews} />
+            <Reviews />
           </div>
         </div>
         <section className="property__map map">
