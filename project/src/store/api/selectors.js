@@ -7,6 +7,7 @@ import {
   sortOffersByRatingDescending
 } from '../../application';
 import { selectSortingType } from '../app/selectors';
+import { HttpCode } from '../../const';
 
 const selectOffers = (state) => state[NameSpace.API].offers.data;
 const selectOffersStatus = (state) => state[NameSpace.API].offers.status;
@@ -16,6 +17,9 @@ const selectOffersNearbyStatus = (state) => state[NameSpace.API].offersNearby.st
 const selectOffersNearbyError = (state) => state[NameSpace.API].offersNearby.error;
 const selectOffer = (state) => state[NameSpace.API].offer.data;
 const selectOfferStatus = (state) => state[NameSpace.API].offer.status;
+const selectOfferError = (state) => state[NameSpace.API].offer.error;
+const selectOfferErrorStatusCode = (state) => state[NameSpace.API].offer.error?.status;
+const selectOfferErrorStatusText = (state) => state[NameSpace.API].offer.error?.statusText;
 
 const selectFavoriteOffers = createSelector(
   selectOffers,
@@ -64,6 +68,12 @@ const selectIsOfferFetchingFailed = createSelector(
   (status) => status === APIResourceStatus.FAILED,
 );
 
+const selectIsOfferNotFound = createSelector(
+  selectIsOfferFetchingFailed,
+  selectOfferError,
+  (isFailed, error) => isFailed && error.status && error.status === HttpCode.NOT_FOUND,
+);
+
 const makeSelectOfferById = () => (
   createSelector(
     selectOffers,
@@ -107,6 +117,9 @@ export {
   selectIsOffersLoading,
   selectIsOfferLoading,
   selectIsOfferFetchingFailed,
+  selectIsOfferNotFound,
+  selectOfferErrorStatusCode,
+  selectOfferErrorStatusText,
   makeSelectOfferById,
   makeSelectSortedOffers
 };

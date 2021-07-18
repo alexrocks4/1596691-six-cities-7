@@ -105,6 +105,11 @@ const sortingTypes = [
   SortingType.TOP_RATED,
 ];
 
+const HttpCode = {
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -115,5 +120,6 @@ export {
   AuthorizationStatus,
   SortingType,
   SortingDescription,
-  sortingTypes
+  sortingTypes,
+  HttpCode
 };

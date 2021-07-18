@@ -10,21 +10,27 @@ import {
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
+const getInitialFetchingError = () => ({
+  data: '',
+  status: 0,
+  statusText: '',
+});
+
 const initialState = {
   offers: {
     data: [],
     status: APIResourceStatus.IDLE,
-    error: null,
+    error: getInitialFetchingError(),
   },
   offersNearby: {
     data: [],
     status: APIResourceStatus.IDLE,
-    error: null,
+    error: getInitialFetchingError(),
   },
   offer: {
     data: {},
     status: APIResourceStatus.IDLE,
-    error: null,
+    error: getInitialFetchingError(),
   },
 };
 
