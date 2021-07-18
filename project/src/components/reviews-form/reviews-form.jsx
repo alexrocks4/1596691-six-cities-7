@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { DECIMAL_RADIX } from '../../const';
+import { createReview } from '../../store/api-actions';
 
 const DEFAULT_RATING = 0;
 const DEFAULT_REVIEW = '';
@@ -7,22 +10,35 @@ const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
 
 function ReviewsForm() {
+  const dispatch = useDispatch();
   const [ rating, setRating ] = useState(DEFAULT_RATING);
   const [ review, setReview ] = useState(DEFAULT_REVIEW);
+  const { id: offerId } = useParams();
 
-  function handleReviewChange(evt) {
+  const handleReviewChange = (evt) => {
     setReview(evt.target.value);
-  }
+  };
 
-  function handleRatingChange(evt) {
+  const handleRatingChange = (evt) => {
     setRating(Number.parseInt(evt.target.value, DECIMAL_RADIX));
-  }
+  };
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(createReview({
+      offerId,
+      review: {
+        comment: review,
+        rating: rating,
+      },
+    }));
+  };
 
   const isReviewOk = review.length >= MIN_REVIEW_LENGTH && review.length < MAX_REVIEW_LENGTH;
   const isSubmitDisbled = !isReviewOk || rating === DEFAULT_RATING;
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" defaultValue={5} id="5-stars" type="radio" checked={rating === 5} onChange={handleRatingChange} />
