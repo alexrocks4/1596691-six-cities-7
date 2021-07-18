@@ -73,7 +73,7 @@ const APIRoute = {
 
 const APIResourceStatus = {
   IDLE: 'idle',
-  LOADING: 'loading',
+  IN_PROGRESS: 'in_propgress',
   SUCCEEDED: 'succeeded',
   FAILED: 'failed',
 };

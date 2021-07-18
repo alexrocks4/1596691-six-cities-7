@@ -57,12 +57,12 @@ const makeSelectFilteredOffersByCity = () => (
 
 const selectIsOffersLoading = createSelector(
   selectOffersStatus,
-  (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
+  (status) => status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE,
 );
 
 const selectIsOfferLoading = createSelector(
   selectOfferStatus,
-  (status) => status === APIResourceStatus.LOADING || status === APIResourceStatus.IDLE,
+  (status) => status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE,
 );
 
 const selectIsOfferFetchingFailed = createSelector(

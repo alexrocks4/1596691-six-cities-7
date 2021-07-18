@@ -45,21 +45,21 @@ const initialState = {
 const api = createReducer(initialState, (builder) => {
   builder
     .addCase(offersFetchingStarted, (state) => {
-      state.offers.status = APIResourceStatus.LOADING;
+      state.offers.status = APIResourceStatus.IN_PROGRESS;
     })
     .addCase(offersLoaded, (state, action) => {
       state.offers.data = action.payload;
       state.offers.status = APIResourceStatus.SUCCEEDED;
     })
     .addCase(offersNearbyFetchingStarted, (state) => {
-      state.offersNearby.status = APIResourceStatus.LOADING;
+      state.offersNearby.status = APIResourceStatus.IN_PROGRESS;
     })
     .addCase(offersNearbyLoaded, (state, action) => {
       state.offersNearby.data = action.payload;
       state.offersNearby.status = APIResourceStatus.SUCCEEDED;
     })
     .addCase(offerFetchingStarted, (state) => {
-      state.offer.status = APIResourceStatus.LOADING;
+      state.offer.status = APIResourceStatus.IN_PROGRESS;
     })
     .addCase(offerFetchingFailed, (state, action) => {
       state.offer.status = APIResourceStatus.FAILED;
@@ -70,7 +70,7 @@ const api = createReducer(initialState, (builder) => {
       state.offer.status = APIResourceStatus.SUCCEEDED;
     })
     .addCase(reviewsFetchingStarted, (state) => {
-      state.reviews.status = APIResourceStatus.LOADING;
+      state.reviews.status = APIResourceStatus.IN_PROGRESS;
     })
     .addCase(reviewsFetchingFailed, (state, action) => {
       state.reviews.status = APIResourceStatus.FAILED;
