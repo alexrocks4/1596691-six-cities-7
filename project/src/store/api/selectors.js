@@ -22,6 +22,7 @@ const selectOfferErrorStatusCode = (state) => state[NameSpace.API].offer.error?.
 const selectOfferErrorStatusText = (state) => state[NameSpace.API].offer.error?.statusText;
 const selectReviews = (state) => state[NameSpace.API].reviews.data;
 const selectReviewsStatus = (state) => state[NameSpace.API].reviews.status;
+const selectCreateReviewRequestStatus = (state) => state[NameSpace.API].createReviewRequest.status;
 
 const selectFavoriteOffers = createSelector(
   selectOffers,
@@ -76,6 +77,12 @@ const selectIsOfferNotFound = createSelector(
   (isFailed, error) => isFailed && error.status && error.status === HttpCode.NOT_FOUND,
 );
 
+const selectIsCreateReviewRequestInProgress = createSelector(
+  selectCreateReviewRequestStatus,
+  selectOfferError,
+  (status) => status === APIResourceStatus.IN_PROGRESS,
+);
+
 const makeSelectOfferById = () => (
   createSelector(
     selectOffers,
@@ -125,5 +132,6 @@ export {
   makeSelectOfferById,
   makeSelectSortedOffers,
   selectReviews,
-  selectReviewsStatus
+  selectReviewsStatus,
+  selectIsCreateReviewRequestInProgress
 };
