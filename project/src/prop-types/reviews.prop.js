@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const reviewProp = PropTypes.shape({
   comment: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date),
+  date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   user: PropTypes.shape({

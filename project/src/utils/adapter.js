@@ -49,10 +49,9 @@ const adaptAuthInfoFromServer = (authInfo) => {
 };
 
 const adaptReviewFromServer = (reviewFromServer) => {
-  const { user, date } = reviewFromServer;
+  const { user } = reviewFromServer;
   const adaptedReview = {
     ...reviewFromServer,
-    date: new Date(date),
     user: {
       ...user,
       avatarUrl: user.avatar_url,
