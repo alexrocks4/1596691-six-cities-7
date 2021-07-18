@@ -11,7 +11,7 @@ import {
   selectOfferErrorStatusCode,
   selectOfferErrorStatusText
 } from '../../store/api/selectors';
-import { fetchNearbyOffers, fetchOffer } from '../../store/api-actions';
+import { fetchNearbyOffers, fetchOffer, fetchReviews } from '../../store/api-actions';
 import { DECIMAL_RADIX } from '../../const';
 import Loading from '../loading/loading';
 import RoomMainContent from '../room-main-content/room-main-content';
@@ -31,6 +31,7 @@ function Room({ reviews }) {
   useEffect(() => {
     dispatch(fetchOffer(id));
     dispatch(fetchNearbyOffers(id));
+    dispatch(fetchReviews(id));
   }, [dispatch, id]);
 
   if (isOfferNotFound) {

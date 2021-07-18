@@ -10,6 +10,9 @@ const ActionType = {
   OFFER_FETCHING_STARTED: 'api/offer/fetchingStarted',
   OFFER_FETCHING_FAILED: 'api/offer/fetchingFailed',
   OFFER_LOADED: 'api/offer/loaded',
+  REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
+  REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
+  REVIEWS_LOADED: 'api/reviews/loaded',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
@@ -25,6 +28,9 @@ const offersNearbyLoaded = createAction(ActionType.OFFERS_NEARBY_LOADED);
 const offerFetchingStarted = createAction(ActionType.OFFER_FETCHING_STARTED);
 const offerFetchingFailed = createAction(ActionType.OFFER_FETCHING_FAILED);
 const offerLoaded = createAction(ActionType.OFFER_LOADED);
+const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
+const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
+const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
@@ -43,5 +49,8 @@ export {
   offersNearbyLoaded,
   offerFetchingStarted,
   offerFetchingFailed,
-  offerLoaded
+  offerLoaded,
+  reviewsFetchingStarted,
+  reviewsFetchingFailed,
+  reviewsLoaded
 };

@@ -8,12 +8,16 @@ import {
   redirectedToRoute,
   offerFetchingStarted,
   offerLoaded,
-  offerFetchingFailed
+  offerFetchingFailed,
+  reviewsFetchingStarted,
+  reviewsLoaded,
+  reviewsFetchingFailed
 } from '../store/action';
 import {
   adaptOffersFromServer,
   adaptOfferFromServer,
-  adaptAuthInfoFromServer
+  adaptAuthInfoFromServer,
+  adaptReviewsFromServer
 } from '../utils/adapter';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
@@ -50,6 +54,18 @@ const fetchOffer = (offerId) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(offerFetchingFailed(error)));
 };
 
+const fetchReviews = (offerId) => (dispatch, _getState, api) => {
+  dispatch(reviewsFetchingStarted());
+
+  return api
+    .get(APIRoute.REVIEWS(offerId))
+    .then(({ data }) => {
+      const adaptedReviews = adaptReviewsFromServer(data);
+      dispatch(reviewsLoaded(adaptedReviews));
+    })
+    .catch((error) => dispatch(reviewsFetchingFailed(error)));
+};
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -70,6 +86,7 @@ export {
   fetchOffers,
   fetchOffer,
   fetchNearbyOffers,
+  fetchReviews,
   checkAuth,
   login
 };

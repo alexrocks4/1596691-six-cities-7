@@ -48,8 +48,29 @@ const adaptAuthInfoFromServer = (authInfo) => {
   return adaptedAuthInfo;
 };
 
+const adaptReviewFromServer = (reviewFromServer) => {
+  const { user, date } = reviewFromServer;
+  const adaptedReview = {
+    ...reviewFromServer,
+    date: new Date(date),
+    user: {
+      ...user,
+      avatarUrl: user.avatar_url,
+      isPro: user.is_pro,
+    },
+  };
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
+};
+
+const adaptReviewsFromServer = (serverReviews) => serverReviews.map(adaptReviewFromServer);
+
 export {
   adaptOffersFromServer,
   adaptOfferFromServer,
-  adaptAuthInfoFromServer
+  adaptAuthInfoFromServer,
+  adaptReviewsFromServer
 };

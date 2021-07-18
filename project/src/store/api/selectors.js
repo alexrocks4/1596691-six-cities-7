@@ -20,6 +20,8 @@ const selectOfferStatus = (state) => state[NameSpace.API].offer.status;
 const selectOfferError = (state) => state[NameSpace.API].offer.error;
 const selectOfferErrorStatusCode = (state) => state[NameSpace.API].offer.error?.status;
 const selectOfferErrorStatusText = (state) => state[NameSpace.API].offer.error?.statusText;
+const selectReviews = (state) => state[NameSpace.API].reviews.data;
+const selectReviewsStatus = (state) => state[NameSpace.API].reviews.status;
 
 const selectFavoriteOffers = createSelector(
   selectOffers,
@@ -121,5 +123,7 @@ export {
   selectOfferErrorStatusCode,
   selectOfferErrorStatusText,
   makeSelectOfferById,
-  makeSelectSortedOffers
+  makeSelectSortedOffers,
+  selectReviews,
+  selectReviewsStatus
 };
