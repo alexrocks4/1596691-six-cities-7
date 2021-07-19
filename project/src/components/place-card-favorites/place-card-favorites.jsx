@@ -18,7 +18,7 @@ function PlaceCardFavorites(props) {
 }
 
 PlaceCardFavorites.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
 };
 
 export default PlaceCardFavorites;

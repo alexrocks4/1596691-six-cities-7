@@ -70,7 +70,7 @@ function PlaceCard(props) {
 }
 
 PlaceCard.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
   onCardMouseEnter: PropTypes.func,
   config: PropTypes.shape({
     className: PropTypes.shape({

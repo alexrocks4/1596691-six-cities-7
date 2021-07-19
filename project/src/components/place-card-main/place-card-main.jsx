@@ -14,7 +14,7 @@ function PlaceCardMain(props) {
 }
 
 PlaceCardMain.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
 };
 
 export default PlaceCardMain;

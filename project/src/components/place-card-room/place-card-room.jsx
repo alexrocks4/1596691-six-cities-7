@@ -16,7 +16,7 @@ function PlaceCardRoom(props) {
 }
 
 PlaceCardRoom.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
 };
 
 export default PlaceCardRoom;
