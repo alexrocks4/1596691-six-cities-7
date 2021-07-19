@@ -1,12 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Places from '../places/places';
-import { City } from '../../const';
-import Map from '../map/map';
 import CityList from '../city-list/city-list';
 import Header from '../header/header';
 import { selectCity } from '../../store/app/selectors';
 import { makeSelectFilteredOffersByCity, makeSelectSortedOffers } from '../../store/api/selectors';
+import CitiesPlaces from '../cities-places/cities-places';
 
 function Main() {
   const selectFilteredOffersByCity = useMemo(makeSelectFilteredOffersByCity, []);
@@ -16,7 +14,7 @@ function Main() {
   const sortedOffers = useSelector((state) => selectSortedOffers(state, filteredOffersByCity));
 
   const [ activeOffer, setActiveOffer ] = useState(null);
-  const handleCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
+  const handlePlacesCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
   const handleLocationClick = useCallback(() => setActiveOffer(null), []);
 
   return (
@@ -31,20 +29,12 @@ function Main() {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <Places
+            <CitiesPlaces
               offers={sortedOffers}
-              onCardMouseEnter={handleCardMouseEnter}
-            >
-            </Places>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  city={City[currentCity]}
-                  points={filteredOffersByCity}
-                  selectedPoint={activeOffer}
-                />
-              </section>
-            </div>
+              currentCity={currentCity}
+              activeOffer={activeOffer}
+              onPlacesCardMouseEnter={handlePlacesCardMouseEnter}
+            />
           </div>
         </div>
       </main>
