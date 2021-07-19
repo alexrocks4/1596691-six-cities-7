@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 const DEFAULT_IMAGE_WIDTH = 260;
 const DEFAULT_IMAGE_HEIGHT = 200;
@@ -49,12 +50,7 @@ function PlaceCard(props) {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton offer={offer} />
         </div>
         <Rating
           rating={offer.rating}
