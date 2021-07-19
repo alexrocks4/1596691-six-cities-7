@@ -61,6 +61,11 @@ const selectIsOffersLoading = createSelector(
   (status) => status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE,
 );
 
+const selectIsOffersLoaded = createSelector(
+  selectOffersStatus,
+  (status) => status === APIResourceStatus.SUCCEEDED,
+);
+
 const selectIsOfferLoading = createSelector(
   selectOfferStatus,
   (status) => status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE,
@@ -124,6 +129,7 @@ export {
   selectFavoriteOffersGroupedByCities,
   makeSelectFilteredOffersByCity,
   selectIsOffersLoading,
+  selectIsOffersLoaded,
   selectIsOfferLoading,
   selectIsOfferFetchingFailed,
   selectIsOfferNotFound,
