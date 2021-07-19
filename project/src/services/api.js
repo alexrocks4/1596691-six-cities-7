@@ -1,11 +1,8 @@
 import axios from 'axios';
+import { HttpCode } from '../const';
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
-
-const HttpCode = {
-  UNAUTHORIZED: 401,
-};
 
 const onSuccess = (response) => response;
 
@@ -16,7 +13,11 @@ const onFail = (cb, err) => {
     cb();
   }
 
-  throw err;
+  return Promise.reject({
+    data: response.data,
+    status: response.status,
+    statusText: response.statusText,
+  });
 };
 
 export const createAPI = (onUnauthorized) => {

@@ -68,11 +68,12 @@ const APIRoute = {
   MAIN: '/',
   OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
   OFFER: (id) => `/hotels/${id}`,
+  REVIEWS: (id) => `/comments/${id}`,
 };
 
 const APIResourceStatus = {
   IDLE: 'idle',
-  LOADING: 'loading',
+  IN_PROGRESS: 'in_propgress',
   SUCCEEDED: 'succeeded',
   FAILED: 'failed',
 };
@@ -105,6 +106,11 @@ const sortingTypes = [
   SortingType.TOP_RATED,
 ];
 
+const HttpCode = {
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -115,5 +121,6 @@ export {
   AuthorizationStatus,
   SortingType,
   SortingDescription,
-  sortingTypes
+  sortingTypes,
+  HttpCode
 };

@@ -8,7 +8,6 @@ import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
-import { reviewsProp } from '../../prop-types/reviews.prop';
 
 const RatingConfig = {
   className: {
@@ -18,7 +17,7 @@ const RatingConfig = {
   },
 };
 
-function RoomMainContent({ reviews }) {
+function RoomMainContent() {
   const targetOffer = useSelector(selectOffer);
   const offersNearby = useSelector(selectOffersNearby);
 
@@ -101,7 +100,7 @@ function RoomMainContent({ reviews }) {
                 </p>
               </div>
             </div>
-            <Reviews reviews={reviews} />
+            <Reviews />
           </div>
         </div>
         <section className="property__map map">
@@ -118,9 +117,5 @@ function RoomMainContent({ reviews }) {
     </React.Fragment>
   );
 }
-
-RoomMainContent.propTypes = {
-  reviews: reviewsProp,
-};
 
 export default RoomMainContent;

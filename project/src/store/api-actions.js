@@ -8,12 +8,19 @@ import {
   redirectedToRoute,
   offerFetchingStarted,
   offerLoaded,
-  offerFetchingFailed
+  offerFetchingFailed,
+  reviewsFetchingStarted,
+  reviewsLoaded,
+  reviewsFetchingFailed,
+  reviewCreationStarted,
+  reviewCreationFailed,
+  reviewCreated
 } from '../store/action';
 import {
   adaptOffersFromServer,
   adaptOfferFromServer,
-  adaptAuthInfoFromServer
+  adaptAuthInfoFromServer,
+  adaptReviewsFromServer
 } from '../utils/adapter';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
@@ -50,6 +57,30 @@ const fetchOffer = (offerId) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(offerFetchingFailed(error)));
 };
 
+const fetchReviews = (offerId) => (dispatch, _getState, api) => {
+  dispatch(reviewsFetchingStarted());
+
+  return api
+    .get(APIRoute.REVIEWS(offerId))
+    .then(({ data }) => {
+      const adaptedReviews = adaptReviewsFromServer(data);
+      dispatch(reviewsLoaded(adaptedReviews));
+    })
+    .catch((error) => dispatch(reviewsFetchingFailed(error)));
+};
+
+const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
+  dispatch(reviewCreationStarted());
+
+  return api
+    .post(APIRoute.REVIEWS(offerId), review)
+    .then(({ data }) => {
+      const adaptedReviews = adaptReviewsFromServer(data);
+      dispatch(reviewCreated(adaptedReviews));
+    })
+    .catch((error) => dispatch(reviewCreationFailed(error)));
+};
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -70,6 +101,8 @@ export {
   fetchOffers,
   fetchOffer,
   fetchNearbyOffers,
+  fetchReviews,
   checkAuth,
-  login
+  login,
+  createReview
 };
