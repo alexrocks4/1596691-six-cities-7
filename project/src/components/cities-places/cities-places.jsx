@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Places } from '../places/places';
+import Places from '../places/places';
 import Map from '../map/map';
 import { offerProp, offersProp } from '../../prop-types/offers.prop';
 import { City } from '../../const';
