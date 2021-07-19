@@ -14,7 +14,10 @@ import {
   reviewsFetchingFailed,
   reviewCreationStarted,
   reviewCreationFailed,
-  reviewCreated
+  reviewCreated,
+  favoriteOfferStatusUpdatingStarted,
+  favoriteOfferStatusUpdated,
+  favoriteOfferStatusUpdatingFailed
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -22,6 +25,11 @@ import {
   adaptAuthInfoFromServer,
   adaptReviewsFromServer
 } from '../utils/adapter';
+
+const FavoriteStatus = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+};
 
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(offersFetchingStarted());
@@ -81,6 +89,27 @@ const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(reviewCreationFailed(error)));
 };
 
+const updateFavoriteOfferStatus = (offerId, status, action) => (dispatch, _getState, api) => {
+  dispatch(favoriteOfferStatusUpdatingStarted());
+
+  return api
+    .post(APIRoute.FAVORITE_STATUS(offerId, status))
+    .then(({ data }) => {
+      const adaptedOffer = adaptOfferFromServer(data);
+      dispatch(action(adaptedOffer));
+      dispatch(favoriteOfferStatusUpdated());
+    })
+    .catch((error) => dispatch(favoriteOfferStatusUpdatingFailed(error)));
+};
+
+const setOfferAsFavorite = (offerId, action) => (dispatch) => (
+  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
+);
+
+const unsetOfferAsFavorite = (offerId, action) => (dispatch) => (
+  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -104,5 +133,7 @@ export {
   fetchReviews,
   checkAuth,
   login,
-  createReview
+  createReview,
+  setOfferAsFavorite,
+  unsetOfferAsFavorite
 };

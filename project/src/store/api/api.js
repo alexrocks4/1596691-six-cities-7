@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   offersFetchingStarted,
   offersLoaded,
+  offersUpdated,
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
   offerFetchingStarted,
@@ -12,7 +13,10 @@ import {
   reviewsLoaded,
   reviewCreationStarted,
   reviewCreationFailed,
-  reviewCreated
+  reviewCreated,
+  favoriteOfferStatusUpdatingStarted,
+  favoriteOfferStatusUpdatingFailed,
+  favoriteOfferStatusUpdated
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
@@ -47,6 +51,10 @@ const initialState = {
     status: APIResourceStatus.IDLE,
     error: getInitialFetchingError(),
   },
+  updateFavoriteOfferStatusRequest: {
+    status: APIResourceStatus.IDLE,
+    error: getInitialFetchingError(),
+  },
 };
 
 const api = createReducer(initialState, (builder) => {
@@ -57,6 +65,13 @@ const api = createReducer(initialState, (builder) => {
     .addCase(offersLoaded, (state, action) => {
       state.offers.data = action.payload;
       state.offers.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offersUpdated, (state, action) => {
+      const index = state.offers.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.offers.data[index] = action.payload;
+      }
     })
     .addCase(offersNearbyFetchingStarted, (state) => {
       state.offersNearby.status = APIResourceStatus.IN_PROGRESS;
@@ -97,6 +112,16 @@ const api = createReducer(initialState, (builder) => {
     .addCase(reviewCreated, (state, action) => {
       state.reviews.data = action.payload;
       state.createReviewRequest.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(favoriteOfferStatusUpdatingStarted, (state) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.IN_PROGRESS;
+    })
+    .addCase(favoriteOfferStatusUpdatingFailed, (state, action) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.FAILED;
+      state.updateFavoriteOfferStatusRequest.error = action.payload;
+    })
+    .addCase(favoriteOfferStatusUpdated, (state) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.SUCCEEDED;
     });
 });
 
