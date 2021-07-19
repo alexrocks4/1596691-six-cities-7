@@ -67,6 +67,7 @@ const APIRoute = {
   LOGIN: '/login',
   MAIN: '/',
   OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
+  OFFER: (id) => `/hotels/${id}`,
 };
 
 const APIResourceStatus = {
