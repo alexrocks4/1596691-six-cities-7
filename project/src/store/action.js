@@ -8,9 +8,11 @@ const ActionType = {
   OFFERS_UPDATED: 'api/offers/updated',
   OFFERS_NEARBY_FETCHING_STARTED: 'api/offersNearby/fetchingStarted',
   OFFERS_NEARBY_LOADED: 'api/offersNearby/loaded',
+  OFFERS_NEARBY_UPDATED: 'api/offersNearby/updated',
   OFFER_FETCHING_STARTED: 'api/offer/fetchingStarted',
   OFFER_FETCHING_FAILED: 'api/offer/fetchingFailed',
   OFFER_LOADED: 'api/offer/loaded',
+  OFFER_UPDATED: 'api/offer/updated',
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
@@ -33,9 +35,11 @@ const offersLoaded = createAction(ActionType.OFFERS_LOADED);
 const offersUpdated = createAction(ActionType.OFFERS_UPDATED);
 const offersNearbyFetchingStarted = createAction(ActionType.OFFERS_NEARBY_FETCHING_STARTED);
 const offersNearbyLoaded = createAction(ActionType.OFFERS_NEARBY_LOADED);
+const offersNearbyUpdated = createAction(ActionType.OFFERS_NEARBY_UPDATED);
 const offerFetchingStarted = createAction(ActionType.OFFER_FETCHING_STARTED);
 const offerFetchingFailed = createAction(ActionType.OFFER_FETCHING_FAILED);
 const offerLoaded = createAction(ActionType.OFFER_LOADED);
+const offerUpdated= createAction(ActionType.OFFER_UPDATED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
@@ -50,7 +54,8 @@ const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
 const redirectedToRoute = createAction(ActionType.REDIRECTED_TO_ROUTE);
 const updateOffers = (offer) => (dispatch) => dispatch(offersUpdated(offer));
-
+const updateOffer = (offer) => (dispatch) => dispatch(offerUpdated(offer));
+const updateOffersNearby = (offer) => (dispatch) => dispatch(offersNearbyUpdated(offer));
 
 export {
   cityUpdated,
@@ -63,9 +68,11 @@ export {
   redirectedToRoute,
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
+  offersNearbyUpdated,
   offerFetchingStarted,
   offerFetchingFailed,
   offerLoaded,
+  offerUpdated,
   offersUpdated,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
@@ -76,5 +83,7 @@ export {
   favoriteOfferStatusUpdatingStarted,
   favoriteOfferStatusUpdatingFailed,
   favoriteOfferStatusUpdated,
-  updateOffers
+  updateOffers,
+  updateOffer,
+  updateOffersNearby
 };

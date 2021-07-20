@@ -8,6 +8,8 @@ import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import { updateOffer } from '../../store/action';
 
 const RatingConfig = {
   className: {
@@ -39,12 +41,7 @@ function RoomMainContent() {
               <h1 className="property__name">
                 {targetOffer.title}
               </h1>
-              <button className={`property__bookmark-button ${targetOffer.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button">
-                <svg className="property__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <BookmarkButton offer={targetOffer} onClick={updateOffer} />
             </div>
             <Rating
               rating={targetOffer.rating}

@@ -5,8 +5,10 @@ import {
   offersUpdated,
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
+  offersNearbyUpdated,
   offerFetchingStarted,
   offerLoaded,
+  offerUpdated,
   offerFetchingFailed,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
@@ -70,7 +72,10 @@ const api = createReducer(initialState, (builder) => {
       const index = state.offers.data.findIndex(({ id }) => id === action.payload.id);
 
       if (index !== -1) {
-        state.offers.data[index] = action.payload;
+        state.offers.data[index] = {
+          ...state.offers.data[index],
+          ...action.payload,
+        };
       }
     })
     .addCase(offersNearbyFetchingStarted, (state) => {
@@ -79,6 +84,16 @@ const api = createReducer(initialState, (builder) => {
     .addCase(offersNearbyLoaded, (state, action) => {
       state.offersNearby.data = action.payload;
       state.offersNearby.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offersNearbyUpdated, (state, action) => {
+      const index = state.offersNearby.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.offersNearby.data[index] = {
+          ...state.offersNearby.data[index],
+          ...action.payload,
+        };
+      }
     })
     .addCase(offerFetchingStarted, (state) => {
       state.offer.status = APIResourceStatus.IN_PROGRESS;
@@ -90,6 +105,12 @@ const api = createReducer(initialState, (builder) => {
     .addCase(offerLoaded, (state, action) => {
       state.offer.data = action.payload;
       state.offer.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offerUpdated, (state, action) => {
+      state.offer.data = {
+        ...state.offer.data,
+        ...action.payload,
+      };
     })
     .addCase(reviewsFetchingStarted, (state) => {
       state.reviews.status = APIResourceStatus.IN_PROGRESS;
