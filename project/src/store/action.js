@@ -13,6 +13,10 @@ const ActionType = {
   OFFER_FETCHING_FAILED: 'api/offer/fetchingFailed',
   OFFER_LOADED: 'api/offer/loaded',
   OFFER_UPDATED: 'api/offer/updated',
+  FAVORITE_OFFERS_FETCHING_STARTED: 'api/favoriteOffers/fetchingStarted',
+  FAVORITE_OFFERS_FETCHING_FAILED: 'api/favoriteOffers/fetchingFailed',
+  FAVORITE_OFFERS_LOADED: 'api/favoriteOffers/loaded',
+  FAVORITE_OFFERS_UPDATED: 'api/favoriteOffers/updated',
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
@@ -40,6 +44,10 @@ const offerFetchingStarted = createAction(ActionType.OFFER_FETCHING_STARTED);
 const offerFetchingFailed = createAction(ActionType.OFFER_FETCHING_FAILED);
 const offerLoaded = createAction(ActionType.OFFER_LOADED);
 const offerUpdated= createAction(ActionType.OFFER_UPDATED);
+const favoriteOffersFetchingStarted = createAction(ActionType.FAVORITE_OFFERS_FETCHING_STARTED);
+const favoriteOffersFetchingFailed = createAction(ActionType.FAVORITE_OFFERS_FETCHING_FAILED);
+const favoriteOffersLoaded = createAction(ActionType.FAVORITE_OFFERS_LOADED);
+const favoriteOffersUpdated= createAction(ActionType.FAVORITE_OFFERS_UPDATED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
@@ -62,6 +70,7 @@ export {
   sortingTypeUpdated,
   offersFetchingStarted,
   offersLoaded,
+  offersUpdated,
   loggedIn,
   loggedOut,
   notAuthorized,
@@ -73,7 +82,10 @@ export {
   offerFetchingFailed,
   offerLoaded,
   offerUpdated,
-  offersUpdated,
+  favoriteOffersFetchingStarted,
+  favoriteOffersFetchingFailed,
+  favoriteOffersLoaded,
+  favoriteOffersUpdated,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
   reviewsLoaded,

@@ -17,7 +17,10 @@ import {
   reviewCreated,
   favoriteOfferStatusUpdatingStarted,
   favoriteOfferStatusUpdated,
-  favoriteOfferStatusUpdatingFailed
+  favoriteOfferStatusUpdatingFailed,
+  favoriteOffersLoaded,
+  favoriteOffersFetchingFailed,
+  favoriteOffersFetchingStarted
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -77,6 +80,18 @@ const fetchReviews = (offerId) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(reviewsFetchingFailed(error)));
 };
 
+const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
+  dispatch(favoriteOffersFetchingStarted());
+
+  return api
+    .get(APIRoute.FAVORITE)
+    .then(({ data }) => {
+      const adaptedOffers = adaptOffersFromServer(data);
+      dispatch(favoriteOffersLoaded(adaptedOffers));
+    })
+    .catch((error) => dispatch(favoriteOffersFetchingFailed(error)));
+};
+
 const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
   dispatch(reviewCreationStarted());
 
@@ -131,6 +146,7 @@ export {
   fetchOffer,
   fetchNearbyOffers,
   fetchReviews,
+  fetchFavoriteOffers,
   checkAuth,
   login,
   createReview,

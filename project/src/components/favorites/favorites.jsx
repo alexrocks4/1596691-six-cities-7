@@ -1,12 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FavoritesLocationsItem from '../favorites-locations-item/favorites-locations-item';
 import { AppRoute } from '../../const';
 import Header from '../header/header';
 import { selectFavoriteOffersGroupedByCities } from '../../store/api/selectors';
+import { fetchFavoriteOffers } from '../../store/api-actions';
 
 function Favorites() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+  }, [dispatch]);
+
   const favoriteOffers = useSelector(selectFavoriteOffersGroupedByCities);
 
   return (

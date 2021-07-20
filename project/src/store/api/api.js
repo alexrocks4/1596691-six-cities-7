@@ -18,7 +18,11 @@ import {
   reviewCreated,
   favoriteOfferStatusUpdatingStarted,
   favoriteOfferStatusUpdatingFailed,
-  favoriteOfferStatusUpdated
+  favoriteOfferStatusUpdated,
+  favoriteOffersFetchingStarted,
+  favoriteOffersFetchingFailed,
+  favoriteOffersLoaded,
+  favoriteOffersUpdated
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
@@ -45,6 +49,11 @@ const initialState = {
     error: getInitialFetchingError(),
   },
   reviews: {
+    data: [],
+    status: APIResourceStatus.IDLE,
+    error: getInitialFetchingError(),
+  },
+  favoriteOffers: {
     data: [],
     status: APIResourceStatus.IDLE,
     error: getInitialFetchingError(),
@@ -111,6 +120,27 @@ const api = createReducer(initialState, (builder) => {
         ...state.offer.data,
         ...action.payload,
       };
+    })
+    .addCase(favoriteOffersFetchingStarted, (state) => {
+      state.favoriteOffers.status = APIResourceStatus.IN_PROGRESS;
+    })
+    .addCase(favoriteOffersFetchingFailed, (state, action) => {
+      state.favoriteOffers.status = APIResourceStatus.FAILED;
+      state.favoriteOffers.error = action.payload;
+    })
+    .addCase(favoriteOffersLoaded, (state, action) => {
+      state.favoriteOffers.data = action.payload;
+      state.favoriteOffers.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(favoriteOffersUpdated, (state, action) => {
+      const index = state.favoriteOffers.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.favoriteOffers.data[index] = {
+          ...state.favoriteOffers.data[index],
+          ...action.payload,
+        };
+      }
     })
     .addCase(reviewsFetchingStarted, (state) => {
       state.reviews.status = APIResourceStatus.IN_PROGRESS;
