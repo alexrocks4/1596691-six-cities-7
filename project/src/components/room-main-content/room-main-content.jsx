@@ -8,8 +8,8 @@ import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
-import BookmarkButton from '../bookmark-button/bookmark-button';
 import { updateOffer } from '../../store/action';
+import BookmarkButtonBig from '../bookmark-button-big/bookmark-button-big';
 
 const RatingConfig = {
   className: {
@@ -41,7 +41,7 @@ function RoomMainContent() {
               <h1 className="property__name">
                 {targetOffer.title}
               </h1>
-              <BookmarkButton offer={targetOffer} onClick={updateOffer} />
+              <BookmarkButtonBig offer={targetOffer} onClick={updateOffer} />
             </div>
             <Rating
               rating={targetOffer.rating}

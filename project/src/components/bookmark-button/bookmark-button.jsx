@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import { offerProp } from '../../prop-types/offers.prop';
 import { setOfferAsFavorite, unsetOfferAsFavorite } from '../../store/api-actions';
 
-function BookmarkButton({ offer, onClick }) {
+const DEFAULT_WIDTH = 18;
+const DEFAULT_HEIGHT = 19;
+
+function BookmarkButton({ offer, onClick, dimension }) {
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
@@ -18,7 +21,7 @@ function BookmarkButton({ offer, onClick }) {
 
   return (
     <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button" onClick={handleButtonClick}>
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+      <svg className="place-card__bookmark-icon" width={dimension.width} height={dimension.height}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">To bookmarks</span>
@@ -29,6 +32,17 @@ function BookmarkButton({ offer, onClick }) {
 BookmarkButton.propTypes = {
   offer: offerProp.isRequired,
   onClick: PropTypes.func.isRequired,
+  dimension: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
+};
+
+BookmarkButton.defaultProps = {
+  dimension: {
+    width: DEFAULT_WIDTH,
+    height: DEFAULT_HEIGHT,
+  },
 };
 
 export default BookmarkButton;
