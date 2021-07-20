@@ -23,6 +23,7 @@ function PlaceCard(props) {
     offer,
     onCardMouseEnter,
     config,
+    onBookmarkButtonClick,
   } = props;
 
   const imageWidth = config?.image ? config.image.width : DEFAULT_IMAGE_WIDTH;
@@ -50,7 +51,7 @@ function PlaceCard(props) {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton offer={offer} />
+          <BookmarkButton offer={offer} onClick={onBookmarkButtonClick} />
         </div>
         <Rating
           rating={offer.rating}
@@ -78,6 +79,7 @@ PlaceCard.propTypes = {
       height: PropTypes.number.isRequired,
     }),
   }),
+  onBookmarkButtonClick: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;
