@@ -64,6 +64,7 @@ const redirectedToRoute = createAction(ActionType.REDIRECTED_TO_ROUTE);
 const updateOffers = (offer) => (dispatch) => dispatch(offersUpdated(offer));
 const updateOffer = (offer) => (dispatch) => dispatch(offerUpdated(offer));
 const updateOffersNearby = (offer) => (dispatch) => dispatch(offersNearbyUpdated(offer));
+const updateFavoriteOffers = (offer) => (dispatch) => dispatch(favoriteOffersUpdated(offer));
 
 export {
   cityUpdated,
@@ -97,5 +98,6 @@ export {
   favoriteOfferStatusUpdated,
   updateOffers,
   updateOffer,
-  updateOffersNearby
+  updateOffersNearby,
+  updateFavoriteOffers
 };
