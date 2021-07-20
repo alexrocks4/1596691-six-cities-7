@@ -5,7 +5,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { redirect } from './store/middlewares/redirect';
 import { rootReducer } from './store/rootReducer';
 import App from './components/app/app';
-import reviews from './mocks/reviews';
 import { createAPI } from './services/api';
 import { fetchOffers, checkAuth } from './store/api-actions';
 import { notAuthorized } from './store/action';
@@ -29,7 +28,7 @@ store.dispatch(fetchOffers());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App reviews={reviews} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

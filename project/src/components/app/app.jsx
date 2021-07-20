@@ -7,13 +7,10 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import { AppRoute } from '../../const';
-import { reviewsProp } from '../../prop-types/reviews.prop';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
-function App(props) {
-  const { reviews } = props;
-
+function App() {
   return (
     <Router history={browserHistory}>
       <ScrollToTop />
@@ -32,7 +29,7 @@ function App(props) {
           <Favorites />
         </PrivateRoute>
         <Route path={AppRoute.ROOM} exact>
-          <Room reviews={reviews} />
+          <Room />
         </Route>
         <Route>
           <NotFound />
@@ -41,9 +38,5 @@ function App(props) {
     </Router>
   );
 }
-
-App.propTypes = {
-  reviews: reviewsProp,
-};
 
 export default App;
