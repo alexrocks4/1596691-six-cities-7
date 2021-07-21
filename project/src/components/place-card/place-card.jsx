@@ -12,10 +12,8 @@ const DEFAULT_IMAGE_WIDTH = 260;
 const DEFAULT_IMAGE_HEIGHT = 200;
 
 const RatingConfig = {
-  className: {
-    rating: 'place-card__rating',
-    ratingStars: 'place-card__stars',
-  },
+  rating: 'place-card__rating',
+  ratingStars: 'place-card__stars',
 };
 
 function PlaceCard(props) {

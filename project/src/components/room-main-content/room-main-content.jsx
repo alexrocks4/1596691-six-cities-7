@@ -12,11 +12,9 @@ import { updateOffer } from '../../store/action';
 import BookmarkButtonBig from '../bookmark-button-big/bookmark-button-big';
 
 const RatingConfig = {
-  className: {
-    rating: 'property__rating',
-    ratingStars: 'property__stars',
-    ratingValue: 'property__rating-value',
-  },
+  rating: 'property__rating',
+  ratingStars: 'property__stars',
+  ratingValue: 'property__rating-value',
 };
 
 function RoomMainContent() {

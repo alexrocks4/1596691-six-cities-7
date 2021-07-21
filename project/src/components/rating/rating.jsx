@@ -14,14 +14,14 @@ function Rating(props) {
   } = props;
 
   return (
-    <div className={`${config.className.rating} rating`}>
-      <div className={`${config.className.ratingStars} rating__stars`}>
+    <div className={`${config.rating} rating`}>
+      <div className={`${config.ratingStars} rating__stars`}>
         <span style={{width: `${convertRatingToPercents(rating)}%`}} />
         <span className="visually-hidden">Rating</span>
       </div>
 
       {isRatingValueVisible && (
-        <span className={`${config.className.ratingValue} rating__value`}>
+        <span className={`${config.ratingValue} rating__value`}>
           {rating}
         </span>
       )}
@@ -37,11 +37,9 @@ Rating.propTypes = {
   rating: PropTypes.number.isRequired,
   isRatingValueVisible: PropTypes.bool,
   config: PropTypes.shape({
-    className: PropTypes.shape({
-      rating: PropTypes.string,
-      ratingStars: PropTypes.string,
-      ratingValue: PropTypes.string,
-    }),
+    rating: PropTypes.string,
+    ratingStars: PropTypes.string,
+    ratingValue: PropTypes.string,
   }),
 };
 
