@@ -20,7 +20,8 @@ import {
   favoriteOfferStatusUpdatingFailed,
   favoriteOffersLoaded,
   favoriteOffersFetchingFailed,
-  favoriteOffersFetchingStarted
+  favoriteOffersFetchingStarted,
+  loggedOut
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -28,6 +29,7 @@ import {
   adaptAuthInfoFromServer,
   adaptReviewsFromServer
 } from '../utils/adapter';
+import { batch } from 'react-redux';
 
 const FavoriteStatus = {
   ACTIVE: 1,
@@ -141,6 +143,15 @@ const login = (credentials) => (dispatch, _getState, api) => (
     .then(() => dispatch(redirectedToRoute(APIRoute.MAIN)))
 );
 
+const logout = () => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGOUT)
+    .then(() => localStorage.removeItem('token'))
+    .then(() => batch(() => {
+      dispatch(loggedOut());
+      dispatch(redirectedToRoute(APIRoute.MAIN));
+    }))
+);
+
 export {
   fetchOffers,
   fetchOffer,
@@ -149,6 +160,7 @@ export {
   fetchFavoriteOffers,
   checkAuth,
   login,
+  logout,
   createReview,
   setOfferAsFavorite,
   unsetOfferAsFavorite

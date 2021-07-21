@@ -65,6 +65,7 @@ const City = {
 const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   MAIN: '/',
   FAVORITE: '/favorite',
   OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
