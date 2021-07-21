@@ -54,13 +54,13 @@ const adaptReviewFromServer = (reviewFromServer) => {
     ...reviewFromServer,
     user: {
       ...user,
-      avatarUrl: user.avatar_url,
-      isPro: user.is_pro,
+      avatarUrl: user['avatar_url'],
+      isPro: user['is_pro'],
     },
   };
 
-  delete adaptedReview.user.avatar_url;
-  delete adaptedReview.user.is_pro;
+  delete adaptedReview.user['avatar_url'];
+  delete adaptedReview.user['is_pro'];
 
   return adaptedReview;
 };
