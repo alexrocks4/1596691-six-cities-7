@@ -6,6 +6,7 @@ const ActionType = {
   OFFERS_FETCHING_STARTED: 'api/offers/fetchingStarted',
   OFFERS_LOADED: 'api/offers/loaded',
   OFFERS_UPDATED: 'api/offers/updated',
+  OFFERS_CLEARED: 'api/offers/cleared',
   OFFERS_NEARBY_FETCHING_STARTED: 'api/offersNearby/fetchingStarted',
   OFFERS_NEARBY_LOADED: 'api/offersNearby/loaded',
   OFFERS_NEARBY_UPDATED: 'api/offersNearby/updated',
@@ -37,6 +38,7 @@ const sortingTypeUpdated = createAction(ActionType.SORTING_TYPE_UPDATED);
 const offersFetchingStarted = createAction(ActionType.OFFERS_FETCHING_STARTED);
 const offersLoaded = createAction(ActionType.OFFERS_LOADED);
 const offersUpdated = createAction(ActionType.OFFERS_UPDATED);
+const offersCleared = createAction(ActionType.OFFERS_CLEARED);
 const offersNearbyFetchingStarted = createAction(ActionType.OFFERS_NEARBY_FETCHING_STARTED);
 const offersNearbyLoaded = createAction(ActionType.OFFERS_NEARBY_LOADED);
 const offersNearbyUpdated = createAction(ActionType.OFFERS_NEARBY_UPDATED);
@@ -72,6 +74,7 @@ export {
   offersFetchingStarted,
   offersLoaded,
   offersUpdated,
+  offersCleared,
   loggedIn,
   loggedOut,
   notAuthorized,

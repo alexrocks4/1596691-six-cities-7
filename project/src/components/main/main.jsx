@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import CityList from '../city-list/city-list';
 import Header from '../header/header';
 import { selectCity } from '../../store/app/selectors';
@@ -7,8 +7,20 @@ import { makeSelectFilteredOffersByCity, makeSelectSortedOffers, selectIsOffersL
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesNoPlaces from '../cities-no-places/cities-no-places';
 import classNames from 'classnames';
+import { fetchOffers } from '../../store/api-actions';
+import { offersCleared } from '../../store/action';
 
 function Main() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffers());
+
+    return () => {
+      dispatch(offersCleared());
+    };
+  }, [dispatch]);
+
   const selectFilteredOffersByCity = useMemo(makeSelectFilteredOffersByCity, []);
   const selectSortedOffers = useMemo(makeSelectSortedOffers, []);
   const currentCity = useSelector(selectCity);
