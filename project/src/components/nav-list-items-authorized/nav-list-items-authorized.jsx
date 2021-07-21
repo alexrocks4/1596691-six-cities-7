@@ -1,11 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { logout } from '../../store/api-actions';
 import { selectUserEmail } from '../../store/user/selectors';
 
 function NavListItemsAuthorized() {
+  const dispatch = useDispatch();
   const userEmail = useSelector(selectUserEmail);
+  const handleLogoutClick = (evt) => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <React.Fragment>
@@ -19,12 +25,13 @@ function NavListItemsAuthorized() {
         </Link>
       </li>
       <li className="header__nav-item">
-        <Link
-          to={AppRoute.LOGIN}
+        <a
+          href={AppRoute.LOGIN}
           className="header__nav-link"
+          onClick={handleLogoutClick}
         >
           <span className="header__signout">Sign out</span>
-        </Link>
+        </a>
       </li>
     </React.Fragment>
   );

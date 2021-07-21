@@ -1,6 +1,7 @@
 import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import { offerProp } from '../../prop-types/offers.prop';
+import { updateOffersNearby } from '../../store/action';
 
 const placeCardConfig = {
   className: {
@@ -11,12 +12,16 @@ const placeCardConfig = {
 
 function PlaceCardRoom(props) {
   return (
-    <PlaceCard config={placeCardConfig} {...props} />
+    <PlaceCard
+      config={placeCardConfig}
+      onBookmarkButtonClick={updateOffersNearby}
+      {...props}
+    />
   );
 }
 
 PlaceCardRoom.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
 };
 
 export default PlaceCardRoom;

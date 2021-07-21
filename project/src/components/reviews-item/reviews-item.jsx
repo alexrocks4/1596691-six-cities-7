@@ -4,10 +4,8 @@ import dayjs from 'dayjs';
 import { reviewProp } from '../../prop-types/reviews.prop';
 
 const RatingConfig = {
-  className: {
-    rating: 'reviews__rating',
-    ratingStars: 'reviews__stars',
-  },
+  rating: 'reviews__rating',
+  ratingStars: 'reviews__stars',
 };
 
 function ReviewsItem({ review }) {

@@ -2,17 +2,28 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   offersFetchingStarted,
   offersLoaded,
+  offersUpdated,
   offersNearbyFetchingStarted,
   offersNearbyLoaded,
+  offersNearbyUpdated,
   offerFetchingStarted,
   offerLoaded,
+  offerUpdated,
   offerFetchingFailed,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
   reviewsLoaded,
   reviewCreationStarted,
   reviewCreationFailed,
-  reviewCreated
+  reviewCreated,
+  favoriteOfferStatusUpdatingStarted,
+  favoriteOfferStatusUpdatingFailed,
+  favoriteOfferStatusUpdated,
+  favoriteOffersFetchingStarted,
+  favoriteOffersFetchingFailed,
+  favoriteOffersLoaded,
+  favoriteOffersUpdated,
+  offersCleared
 } from '../action';
 import { APIResourceStatus } from '../../const';
 
@@ -22,31 +33,20 @@ const getInitialFetchingError = () => ({
   statusText: '',
 });
 
+const geInitialDataState = (data = []) => ({
+  data,
+  status: APIResourceStatus.IDLE,
+  error: getInitialFetchingError(),
+});
+
 const initialState = {
-  offers: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  offersNearby: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  offer: {
-    data: {},
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  reviews: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  createReviewRequest: {
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
+  offers: geInitialDataState(),
+  offersNearby: geInitialDataState(),
+  offer: geInitialDataState({}),
+  reviews: geInitialDataState(),
+  favoriteOffers: geInitialDataState(),
+  createReviewRequest: geInitialDataState(null),
+  updateFavoriteOfferStatusRequest: geInitialDataState(null),
 };
 
 const api = createReducer(initialState, (builder) => {
@@ -58,12 +58,35 @@ const api = createReducer(initialState, (builder) => {
       state.offers.data = action.payload;
       state.offers.status = APIResourceStatus.SUCCEEDED;
     })
+    .addCase(offersUpdated, (state, action) => {
+      const index = state.offers.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.offers.data[index] = {
+          ...state.offers.data[index],
+          ...action.payload,
+        };
+      }
+    })
+    .addCase(offersCleared, (state) => {
+      state.offers = geInitialDataState();
+    })
     .addCase(offersNearbyFetchingStarted, (state) => {
       state.offersNearby.status = APIResourceStatus.IN_PROGRESS;
     })
     .addCase(offersNearbyLoaded, (state, action) => {
       state.offersNearby.data = action.payload;
       state.offersNearby.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offersNearbyUpdated, (state, action) => {
+      const index = state.offersNearby.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.offersNearby.data[index] = {
+          ...state.offersNearby.data[index],
+          ...action.payload,
+        };
+      }
     })
     .addCase(offerFetchingStarted, (state) => {
       state.offer.status = APIResourceStatus.IN_PROGRESS;
@@ -75,6 +98,33 @@ const api = createReducer(initialState, (builder) => {
     .addCase(offerLoaded, (state, action) => {
       state.offer.data = action.payload;
       state.offer.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(offerUpdated, (state, action) => {
+      state.offer.data = {
+        ...state.offer.data,
+        ...action.payload,
+      };
+    })
+    .addCase(favoriteOffersFetchingStarted, (state) => {
+      state.favoriteOffers.status = APIResourceStatus.IN_PROGRESS;
+    })
+    .addCase(favoriteOffersFetchingFailed, (state, action) => {
+      state.favoriteOffers.status = APIResourceStatus.FAILED;
+      state.favoriteOffers.error = action.payload;
+    })
+    .addCase(favoriteOffersLoaded, (state, action) => {
+      state.favoriteOffers.data = action.payload;
+      state.favoriteOffers.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(favoriteOffersUpdated, (state, action) => {
+      const index = state.favoriteOffers.data.findIndex(({ id }) => id === action.payload.id);
+
+      if (index !== -1) {
+        state.favoriteOffers.data[index] = {
+          ...state.favoriteOffers.data[index],
+          ...action.payload,
+        };
+      }
     })
     .addCase(reviewsFetchingStarted, (state) => {
       state.reviews.status = APIResourceStatus.IN_PROGRESS;
@@ -97,6 +147,16 @@ const api = createReducer(initialState, (builder) => {
     .addCase(reviewCreated, (state, action) => {
       state.reviews.data = action.payload;
       state.createReviewRequest.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(favoriteOfferStatusUpdatingStarted, (state) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.IN_PROGRESS;
+    })
+    .addCase(favoriteOfferStatusUpdatingFailed, (state, action) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.FAILED;
+      state.updateFavoriteOfferStatusRequest.error = action.payload;
+    })
+    .addCase(favoriteOfferStatusUpdated, (state) => {
+      state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.SUCCEEDED;
     });
 });
 

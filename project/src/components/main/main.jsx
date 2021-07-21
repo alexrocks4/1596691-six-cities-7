@@ -1,28 +1,62 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import Places from '../places/places';
-import { City } from '../../const';
-import Map from '../map/map';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import CityList from '../city-list/city-list';
 import Header from '../header/header';
 import { selectCity } from '../../store/app/selectors';
-import { makeSelectFilteredOffersByCity, makeSelectSortedOffers } from '../../store/api/selectors';
+import { makeSelectFilteredOffersByCity, makeSelectSortedOffers, selectIsOffersLoaded } from '../../store/api/selectors';
+import CitiesPlaces from '../cities-places/cities-places';
+import CitiesNoPlaces from '../cities-no-places/cities-no-places';
+import classNames from 'classnames';
+import { fetchOffers } from '../../store/api-actions';
+import { offersCleared } from '../../store/action';
 
 function Main() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffers());
+
+    return () => {
+      dispatch(offersCleared());
+    };
+  }, [dispatch]);
+
   const selectFilteredOffersByCity = useMemo(makeSelectFilteredOffersByCity, []);
   const selectSortedOffers = useMemo(makeSelectSortedOffers, []);
   const currentCity = useSelector(selectCity);
   const filteredOffersByCity = useSelector((state) => selectFilteredOffersByCity(state, currentCity));
   const sortedOffers = useSelector((state) => selectSortedOffers(state, filteredOffersByCity));
+  const isOffersLoaded = useSelector(selectIsOffersLoaded);
+  const isNoOffers = !sortedOffers.length && isOffersLoaded;
 
   const [ activeOffer, setActiveOffer ] = useState(null);
-  const handleCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
+  const handlePlacesCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
   const handleLocationClick = useCallback(() => setActiveOffer(null), []);
+
+  let placesContent;
+
+  if (isNoOffers) {
+    placesContent = <CitiesNoPlaces />;
+  }
+  else {
+    placesContent = (
+      <CitiesPlaces
+        offers={sortedOffers}
+        currentCity={currentCity}
+        activeOffer={activeOffer}
+        onPlacesCardMouseEnter={handlePlacesCardMouseEnter}
+      />
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
       <Header isLogoLinkActive />
-      <main className="page__main page__main--index">
+      <main className={classNames(
+        'page__main page__main--index',
+        { 'page__main--index-empty': isNoOffers },
+      )}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -30,21 +64,12 @@ function Main() {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <Places
-              offers={sortedOffers}
-              onCardMouseEnter={handleCardMouseEnter}
-            >
-            </Places>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  city={City[currentCity]}
-                  points={filteredOffersByCity}
-                  selectedPoint={activeOffer}
-                />
-              </section>
-            </div>
+          <div className={classNames(
+            'cities__places-container container',
+            { 'cities__places-container--empty': isNoOffers },
+          )}
+          >
+            {placesContent}
           </div>
         </div>
       </main>

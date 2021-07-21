@@ -6,7 +6,7 @@ import { redirect } from './store/middlewares/redirect';
 import { rootReducer } from './store/rootReducer';
 import App from './components/app/app';
 import { createAPI } from './services/api';
-import { fetchOffers, checkAuth } from './store/api-actions';
+import { checkAuth } from './store/api-actions';
 import { notAuthorized } from './store/action';
 
 const api = createAPI(() => store.dispatch(notAuthorized()));
@@ -23,7 +23,6 @@ const store = configureStore({
 });
 
 store.dispatch(checkAuth());
-store.dispatch(fetchOffers());
 
 ReactDOM.render(
   <React.StrictMode>

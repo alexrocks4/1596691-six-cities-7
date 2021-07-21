@@ -14,7 +14,14 @@ import {
   reviewsFetchingFailed,
   reviewCreationStarted,
   reviewCreationFailed,
-  reviewCreated
+  reviewCreated,
+  favoriteOfferStatusUpdatingStarted,
+  favoriteOfferStatusUpdated,
+  favoriteOfferStatusUpdatingFailed,
+  favoriteOffersLoaded,
+  favoriteOffersFetchingFailed,
+  favoriteOffersFetchingStarted,
+  loggedOut
 } from '../store/action';
 import {
   adaptOffersFromServer,
@@ -22,6 +29,12 @@ import {
   adaptAuthInfoFromServer,
   adaptReviewsFromServer
 } from '../utils/adapter';
+import { batch } from 'react-redux';
+
+const FavoriteStatus = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+};
 
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(offersFetchingStarted());
@@ -69,6 +82,18 @@ const fetchReviews = (offerId) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(reviewsFetchingFailed(error)));
 };
 
+const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
+  dispatch(favoriteOffersFetchingStarted());
+
+  return api
+    .get(APIRoute.FAVORITE)
+    .then(({ data }) => {
+      const adaptedOffers = adaptOffersFromServer(data);
+      dispatch(favoriteOffersLoaded(adaptedOffers));
+    })
+    .catch((error) => dispatch(favoriteOffersFetchingFailed(error)));
+};
+
 const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
   dispatch(reviewCreationStarted());
 
@@ -81,6 +106,27 @@ const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
     .catch((error) => dispatch(reviewCreationFailed(error)));
 };
 
+const updateFavoriteOfferStatus = (offerId, status, action) => (dispatch, _getState, api) => {
+  dispatch(favoriteOfferStatusUpdatingStarted());
+
+  return api
+    .post(APIRoute.FAVORITE_STATUS(offerId, status))
+    .then(({ data }) => {
+      const adaptedOffer = adaptOfferFromServer(data);
+      dispatch(action(adaptedOffer));
+      dispatch(favoriteOfferStatusUpdated());
+    })
+    .catch((error) => dispatch(favoriteOfferStatusUpdatingFailed(error)));
+};
+
+const setOfferAsFavorite = (offerId, action) => (dispatch) => (
+  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
+);
+
+const unsetOfferAsFavorite = (offerId, action) => (dispatch) => (
+  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(loggedIn(adaptAuthInfoFromServer(data))))
@@ -91,10 +137,23 @@ const login = (credentials) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, credentials)
     .then(({ data }) => {
       localStorage.setItem('token', data.token);
+      api.defaults.headers.common['X-Token'] = data.token;
       return data;
     })
     .then((authInfo) => dispatch(loggedIn(adaptAuthInfoFromServer(authInfo))))
     .then(() => dispatch(redirectedToRoute(APIRoute.MAIN)))
+);
+
+const logout = () => (dispatch, _getState, api) => (
+  api.delete(APIRoute.LOGOUT)
+    .then(() => {
+      localStorage.removeItem('token');
+      api.defaults.headers.common['X-Token'] = null;
+      batch(() => {
+        dispatch(loggedOut());
+        dispatch(redirectedToRoute(APIRoute.MAIN));
+      });
+    })
 );
 
 export {
@@ -102,7 +161,11 @@ export {
   fetchOffer,
   fetchNearbyOffers,
   fetchReviews,
+  fetchFavoriteOffers,
   checkAuth,
   login,
-  createReview
+  logout,
+  createReview,
+  setOfferAsFavorite,
+  unsetOfferAsFavorite
 };

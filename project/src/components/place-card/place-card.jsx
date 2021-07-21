@@ -6,15 +6,14 @@ import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 const DEFAULT_IMAGE_WIDTH = 260;
 const DEFAULT_IMAGE_HEIGHT = 200;
 
 const RatingConfig = {
-  className: {
-    rating: 'place-card__rating',
-    ratingStars: 'place-card__stars',
-  },
+  rating: 'place-card__rating',
+  ratingStars: 'place-card__stars',
 };
 
 function PlaceCard(props) {
@@ -22,6 +21,7 @@ function PlaceCard(props) {
     offer,
     onCardMouseEnter,
     config,
+    onBookmarkButtonClick,
   } = props;
 
   const imageWidth = config?.image ? config.image.width : DEFAULT_IMAGE_WIDTH;
@@ -49,12 +49,7 @@ function PlaceCard(props) {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton offer={offer} onClick={onBookmarkButtonClick} />
         </div>
         <Rating
           rating={offer.rating}
@@ -70,7 +65,7 @@ function PlaceCard(props) {
 }
 
 PlaceCard.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
   onCardMouseEnter: PropTypes.func,
   config: PropTypes.shape({
     className: PropTypes.shape({
@@ -82,6 +77,7 @@ PlaceCard.propTypes = {
       height: PropTypes.number.isRequired,
     }),
   }),
+  onBookmarkButtonClick: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

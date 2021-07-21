@@ -1,6 +1,7 @@
 import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import { offerProp } from '../../prop-types/offers.prop';
+import { updateFavoriteOffers } from '../../store/action';
 
 const placeCardConfig = {
   className: {
@@ -14,11 +15,17 @@ const placeCardConfig = {
 };
 
 function PlaceCardFavorites(props) {
-  return <PlaceCard config={placeCardConfig} {...props} />;
+  return (
+    <PlaceCard
+      config={placeCardConfig}
+      onBookmarkButtonClick={updateFavoriteOffers}
+      {...props}
+    />
+  );
 }
 
 PlaceCardFavorites.propTypes = {
-  offer: offerProp,
+  offer: offerProp.isRequired,
 };
 
 export default PlaceCardFavorites;
