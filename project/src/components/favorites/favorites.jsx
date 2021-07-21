@@ -7,6 +7,7 @@ import { selectFavoriteOffersGroupedByCities } from '../../store/api/selectors';
 import { fetchFavoriteOffers } from '../../store/api-actions';
 import classNames from 'classnames';
 import FavoritesMainContent from '../favorites-main-content/favorites-main-content';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 function Favorites() {
   const dispatch = useDispatch();
@@ -16,14 +17,21 @@ function Favorites() {
   }, [dispatch]);
 
   const favoriteOffers = useSelector(selectFavoriteOffersGroupedByCities);
-  const isFavoriteOffersEmpty = !favoriteOffers.length;
+  const isFavoriteOffersEmpty = !favoriteOffers.size;
+  let mainContent;
+
+  if (isFavoriteOffersEmpty) {
+    mainContent = <FavoritesEmpty />;
+  } else {
+    mainContent = <FavoritesMainContent favoriteOffers={favoriteOffers} />;
+  }
 
   return (
     <div className={classNames('page', { 'page--favorites-empty': isFavoriteOffersEmpty})}>
       <Header />
       <main className={classNames('page__main page__main--favorites', { 'page__main--favorites-empty': isFavoriteOffersEmpty})}>
         <div className="page__favorites-container container">
-          <FavoritesMainContent favoriteOffers={favoriteOffers} />
+          {mainContent}
         </div>
       </main>
       <footer className="footer container">
