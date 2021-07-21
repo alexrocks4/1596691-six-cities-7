@@ -137,6 +137,7 @@ const login = (credentials) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, credentials)
     .then(({ data }) => {
       localStorage.setItem('token', data.token);
+      api.defaults.headers.common['X-Token'] = data.token;
       return data;
     })
     .then((authInfo) => dispatch(loggedIn(adaptAuthInfoFromServer(authInfo))))
@@ -144,12 +145,15 @@ const login = (credentials) => (dispatch, _getState, api) => (
 );
 
 const logout = () => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGOUT)
-    .then(() => localStorage.removeItem('token'))
-    .then(() => batch(() => {
-      dispatch(loggedOut());
-      dispatch(redirectedToRoute(APIRoute.MAIN));
-    }))
+  api.delete(APIRoute.LOGOUT)
+    .then(() => {
+      localStorage.removeItem('token');
+      api.defaults.headers.common['X-Token'] = null;
+      batch(() => {
+        dispatch(loggedOut());
+        dispatch(redirectedToRoute(APIRoute.MAIN));
+      });
+    })
 );
 
 export {

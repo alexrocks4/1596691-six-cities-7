@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { loggedOut } from '../../store/action';
+import { logout } from '../../store/api-actions';
 import { selectUserEmail } from '../../store/user/selectors';
 
 function NavListItemsAuthorized() {
@@ -10,7 +10,7 @@ function NavListItemsAuthorized() {
   const userEmail = useSelector(selectUserEmail);
   const handleLogoutClick = (evt) => {
     evt.preventDefault();
-    dispatch(loggedOut());
+    dispatch(logout());
   };
 
   return (
