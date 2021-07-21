@@ -32,40 +32,20 @@ const getInitialFetchingError = () => ({
   statusText: '',
 });
 
+const geInitialDataState = (data = []) => ({
+  data,
+  status: APIResourceStatus.IDLE,
+  error: getInitialFetchingError(),
+});
+
 const initialState = {
-  offers: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  offersNearby: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  offer: {
-    data: {},
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  reviews: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  favoriteOffers: {
-    data: [],
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  createReviewRequest: {
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
-  updateFavoriteOfferStatusRequest: {
-    status: APIResourceStatus.IDLE,
-    error: getInitialFetchingError(),
-  },
+  offers: geInitialDataState(),
+  offersNearby: geInitialDataState(),
+  offer: geInitialDataState({}),
+  reviews: geInitialDataState(),
+  favoriteOffers: geInitialDataState(),
+  createReviewRequest: geInitialDataState(null),
+  updateFavoriteOfferStatusRequest: geInitialDataState(null),
 };
 
 const api = createReducer(initialState, (builder) => {
