@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { fetchOffers } from '../../store/api-actions';
 import { offersCleared, serverStatusUpdated } from '../../store/action';
 import { ServerStatus } from '../../const';
-import { onAPINoResponse } from '../../utils/util';
+import { onAPIError } from '../../utils/util';
 import ErrorServerUnreachable from '../error-server-unreachable/error-server-unreachable';
 
 function Main() {
@@ -18,7 +18,9 @@ function Main() {
 
   useEffect(() => {
     dispatch(fetchOffers())
-      .catch(onAPINoResponse.bind(null, () => dispatch(serverStatusUpdated(ServerStatus.UNREACHABLE))));
+      .catch(onAPIError.bind(null, {
+        onNoResponse: () => dispatch(serverStatusUpdated(ServerStatus.UNREACHABLE)),
+      }));
 
     return () => {
       dispatch(offersCleared());
