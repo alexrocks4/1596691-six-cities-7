@@ -1,4 +1,5 @@
 import React from 'react';
+import { ErrorMessage } from '../../const';
 
 const style = {
   display: 'flex',
@@ -11,7 +12,7 @@ const style = {
 
 function ErrorServerUnreachable() {
   return (
-    <p style={style}>Data fetching error. Server unreachable.</p>
+    <p style={style}>{ErrorMessage.SERVER_UNREACHABLE}</p>
   );
 }
 
