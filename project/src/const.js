@@ -114,6 +114,11 @@ const HttpCode = {
   NOT_FOUND: 404,
 };
 
+const ServerStatus = {
+  IDLE: 'idle',
+  UNREACHABLE: 'unreachable',
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -125,5 +130,6 @@ export {
   SortingType,
   SortingDescription,
   sortingTypes,
-  HttpCode
+  HttpCode,
+  ServerStatus
 };

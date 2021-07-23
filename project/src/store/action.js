@@ -27,6 +27,7 @@ const ActionType = {
   FAVORITE_OFFER_STATUS_UPDATING_STARTED: 'api/favoriteOfferStatus/updatingStarted',
   FAVORITE_OFFER_STATUS_UPDATING_FAILED: 'api/favoriteOfferStatus/updatingFailed',
   FAVORITE_OFFER_STATUS_UPDATED: 'api/favoriteOfferStatus/updated',
+  SERVER_STATUS_UPDATED: 'api/serverStatus/updated',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
@@ -59,6 +60,7 @@ const reviewCreated = createAction(ActionType.REVIEW_CREATED);
 const favoriteOfferStatusUpdatingStarted = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATING_STARTED);
 const favoriteOfferStatusUpdatingFailed = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATING_FAILED);
 const favoriteOfferStatusUpdated = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATED);
+const serverStatusUpdated = createAction(ActionType.SERVER_STATUS_UPDATED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
@@ -99,6 +101,7 @@ export {
   favoriteOfferStatusUpdatingStarted,
   favoriteOfferStatusUpdatingFailed,
   favoriteOfferStatusUpdated,
+  serverStatusUpdated,
   updateOffers,
   updateOffer,
   updateOffersNearby,

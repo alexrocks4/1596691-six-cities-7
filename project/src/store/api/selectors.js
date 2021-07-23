@@ -24,6 +24,7 @@ const selectReviews = (state) => state[NameSpace.API].reviews.data;
 const selectReviewsStatus = (state) => state[NameSpace.API].reviews.status;
 const selectCreateReviewRequestStatus = (state) => state[NameSpace.API].createReviewRequest.status;
 const selectFavoriteOffers = (state) => state[NameSpace.API].favoriteOffers.data;
+const selectServerStatus = (state) => state[NameSpace.API].serverStatus;
 
 const selectFavoriteOffersGroupedByCities = createSelector(
   selectFavoriteOffers,
@@ -135,5 +136,6 @@ export {
   makeSelectSortedOffers,
   selectReviews,
   selectReviewsStatus,
-  selectIsCreateReviewRequestInProgress
+  selectIsCreateReviewRequestInProgress,
+  selectServerStatus
 };
