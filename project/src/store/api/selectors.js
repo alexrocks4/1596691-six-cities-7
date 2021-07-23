@@ -24,6 +24,7 @@ const selectReviews = (state) => state[NameSpace.API].reviews.data;
 const selectReviewsStatus = (state) => state[NameSpace.API].reviews.status;
 const selectCreateReviewRequestStatus = (state) => state[NameSpace.API].createReviewRequest.status;
 const selectFavoriteOffers = (state) => state[NameSpace.API].favoriteOffers.data;
+const selectFavoriteOffersStatus = (state) => state[NameSpace.API].favoriteOffers.status;
 const selectServerStatus = (state) => state[NameSpace.API].serverStatus;
 
 const selectFavoriteOffersGroupedByCities = createSelector(
@@ -115,6 +116,11 @@ const makeSelectSortedOffers = () => (
 );
 
 const selectIsServerUnreachable = (state) => selectServerStatus(state) === ServerStatus.UNREACHABLE;
+const selectIsFavoriteOffersLoading = (state) => {
+  const status = selectFavoriteOffersStatus(state);
+
+  return status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE;
+};
 
 export {
   selectOffers,
@@ -140,5 +146,6 @@ export {
   selectReviewsStatus,
   selectIsCreateReviewRequestInProgress,
   selectServerStatus,
-  selectIsServerUnreachable
+  selectIsServerUnreachable,
+  selectIsFavoriteOffersLoading
 };
