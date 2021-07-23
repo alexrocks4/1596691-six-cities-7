@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../rootReducer';
-import { APIResourceStatus, SortingType } from '../../const';
+import { APIResourceStatus, ServerStatus, SortingType } from '../../const';
 import {
   sortOffersByPriceAscending,
   sortOffersByPriceDescending,
@@ -114,6 +114,8 @@ const makeSelectSortedOffers = () => (
   )
 );
 
+const selectIsServerUnreachable = (state) => selectServerStatus(state) === ServerStatus.UNREACHABLE;
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -137,5 +139,6 @@ export {
   selectReviews,
   selectReviewsStatus,
   selectIsCreateReviewRequestInProgress,
-  selectServerStatus
+  selectServerStatus,
+  selectIsServerUnreachable
 };

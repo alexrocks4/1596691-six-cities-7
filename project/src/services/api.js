@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { HttpCode } from '../const';
 
-const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
+const BACKEND_URL = 'https://7.react.pages.academy1/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const onSuccess = (response) => response;
