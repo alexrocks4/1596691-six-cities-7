@@ -18,6 +18,7 @@ const ActionType = {
   FAVORITE_OFFERS_FETCHING_FAILED: 'api/favoriteOffers/fetchingFailed',
   FAVORITE_OFFERS_LOADED: 'api/favoriteOffers/loaded',
   FAVORITE_OFFERS_UPDATED: 'api/favoriteOffers/updated',
+  FAVORITE_OFFERS_CLEARED: 'api/favoriteOffers/cleared',
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
@@ -51,6 +52,7 @@ const favoriteOffersFetchingStarted = createAction(ActionType.FAVORITE_OFFERS_FE
 const favoriteOffersFetchingFailed = createAction(ActionType.FAVORITE_OFFERS_FETCHING_FAILED);
 const favoriteOffersLoaded = createAction(ActionType.FAVORITE_OFFERS_LOADED);
 const favoriteOffersUpdated= createAction(ActionType.FAVORITE_OFFERS_UPDATED);
+const favoriteOffersCleared= createAction(ActionType.FAVORITE_OFFERS_CLEARED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
@@ -92,6 +94,7 @@ export {
   favoriteOffersFetchingFailed,
   favoriteOffersLoaded,
   favoriteOffersUpdated,
+  favoriteOffersCleared,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
   reviewsLoaded,

@@ -8,12 +8,15 @@ import { fetchFavoriteOffers } from '../../store/api-actions';
 import classNames from 'classnames';
 import FavoritesMainContent from '../favorites-main-content/favorites-main-content';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import { favoriteOffersCleared } from '../../store/action';
 
 function Favorites() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers());
+
+    return () => dispatch(favoriteOffersCleared());
   }, [dispatch]);
 
   const favoriteOffers = useSelector(selectFavoriteOffersGroupedByCities);

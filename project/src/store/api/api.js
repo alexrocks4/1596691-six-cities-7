@@ -24,7 +24,8 @@ import {
   favoriteOffersLoaded,
   favoriteOffersUpdated,
   offersCleared,
-  serverStatusUpdated
+  serverStatusUpdated,
+  favoriteOffersCleared
 } from '../action';
 import { APIResourceStatus, ServerStatus } from '../../const';
 
@@ -127,6 +128,9 @@ const api = createReducer(initialState, (builder) => {
           ...action.payload,
         };
       }
+    })
+    .addCase(favoriteOffersCleared, (state) => {
+      state.favoriteOffers = geInitialDataState();
     })
     .addCase(reviewsFetchingStarted, (state) => {
       state.reviews.status = APIResourceStatus.IN_PROGRESS;
