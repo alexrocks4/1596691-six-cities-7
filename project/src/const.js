@@ -119,6 +119,10 @@ const ServerStatus = {
   UNREACHABLE: 'unreachable',
 };
 
+const ErrorMessage = {
+  SERVER_UNREACHABLE: 'Data fetching error. Server unreachable.',
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -131,5 +135,6 @@ export {
   SortingDescription,
   sortingTypes,
   HttpCode,
-  ServerStatus
+  ServerStatus,
+  ErrorMessage
 };
