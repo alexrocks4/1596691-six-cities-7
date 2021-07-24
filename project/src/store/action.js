@@ -73,6 +73,7 @@ const updateOffersNearby = (offer) => (dispatch) => dispatch(offersNearbyUpdated
 const updateFavoriteOffers = (offer) => (dispatch) => dispatch(favoriteOffersUpdated(offer));
 
 export {
+  ActionType,
   cityUpdated,
   sortingTypeUpdated,
   offersFetchingStarted,
