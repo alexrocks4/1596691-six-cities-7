@@ -31,11 +31,9 @@ import {
 } from '../utils/adapter';
 import { batch } from 'react-redux';
 import { onAPIError } from '../utils/util';
-
-const FavoriteStatus = {
-  ACTIVE: 1,
-  INACTIVE: 0,
-};
+import { FavoriteStatus } from '../const';
+// For mocking module inner functions in jest (e.g. updateFavoriteOfferStatus)
+import * as apiActions from './api-actions';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(offersFetchingStarted());
@@ -131,11 +129,11 @@ const updateFavoriteOfferStatus = (offerId, status, action) => (dispatch, _getSt
 };
 
 const setOfferAsFavorite = (offerId, action) => (dispatch) => (
-  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
+  dispatch(apiActions.updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
 );
 
 const unsetOfferAsFavorite = (offerId, action) => (dispatch) => (
-  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
+  dispatch(apiActions.updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -178,5 +176,6 @@ export {
   logout,
   createReview,
   setOfferAsFavorite,
-  unsetOfferAsFavorite
+  unsetOfferAsFavorite,
+  updateFavoriteOfferStatus
 };

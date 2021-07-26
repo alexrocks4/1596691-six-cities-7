@@ -123,6 +123,11 @@ const ErrorMessage = {
   SERVER_UNREACHABLE: 'Data fetching error. Server unreachable.',
 };
 
+const FavoriteStatus = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -136,5 +141,6 @@ export {
   sortingTypes,
   HttpCode,
   ServerStatus,
-  ErrorMessage
+  ErrorMessage,
+  FavoriteStatus
 };
