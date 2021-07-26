@@ -1,5 +1,12 @@
 import { nanoid } from 'nanoid';
 
+const adaptObjectProperty = (object, oldProperty, newProperty) => {
+  if (object && Object.prototype.hasOwnProperty.call(object, oldProperty) && newProperty) {
+    object[newProperty] = object[oldProperty];
+    delete object[oldProperty];
+  }
+};
+
 const adaptGoodsFromServer = (goods) => (
   goods.map((item) => ({
     id: nanoid(),
@@ -8,29 +15,34 @@ const adaptGoodsFromServer = (goods) => (
 );
 
 const adaptOfferFromServer = (offerFromServer) => {
-  const { host } = offerFromServer;
-  const adaptedOffer = {
-    ...offerFromServer,
-    goods: adaptGoodsFromServer(offerFromServer.goods),
-    host: {
-      ...host,
-      avatarUrl: host['avatar_url'],
-      isPro: host['is_pro'],
-    },
-    isFavorite: offerFromServer['is_favorite'],
-    isPremium: offerFromServer['is_premium'],
-    maxAdults: offerFromServer['max_adults'],
-    previewImage: offerFromServer['preview_image'],
-  };
+  if (offerFromServer) {
+    const adaptedOffer = { ...offerFromServer };
+    const { host } = offerFromServer;
 
-  delete adaptedOffer.host['avatar_url'];
-  delete adaptedOffer.host['is_pro'];
-  delete adaptedOffer['is_favorite'];
-  delete adaptedOffer['is_premium'];
-  delete adaptedOffer['max_adults'];
-  delete adaptedOffer['preview_image'];
+    if (offerFromServer.goods) {
+      adaptedOffer.goods = adaptGoodsFromServer(offerFromServer.goods);
+    }
 
-  return adaptedOffer;
+    if (host) {
+      adaptedOffer.host = {
+        ...host,
+        avatarUrl: host['avatar_url'],
+        isPro: host['is_pro'],
+      };
+
+      delete adaptedOffer.host['avatar_url'];
+      delete adaptedOffer.host['is_pro'];
+    }
+
+    adaptObjectProperty(adaptedOffer, 'is_favorite', 'isFavorite');
+    adaptObjectProperty(adaptedOffer, 'is_premium', 'isPremium');
+    adaptObjectProperty(adaptedOffer, 'max_adults', 'maxAdults');
+    adaptObjectProperty(adaptedOffer, 'preview_image', 'previewImage');
+
+    return adaptedOffer;
+  }
+
+  return offerFromServer;
 };
 
 const adaptOffersFromServer = (serverOffers) => serverOffers.map(adaptOfferFromServer);
