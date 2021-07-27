@@ -9,15 +9,11 @@ const onSuccess = (response) => response;
 const onFail = (cb, err) => {
   const {response} = err;
 
-  if (response.status === HttpCode.UNAUTHORIZED) {
+  if (response && response.status === HttpCode.UNAUTHORIZED) {
     cb();
   }
 
-  return Promise.reject({
-    data: response.data,
-    status: response.status,
-    statusText: response.statusText,
-  });
+  return Promise.reject(err);
 };
 
 export const createAPI = (onUnauthorized) => {

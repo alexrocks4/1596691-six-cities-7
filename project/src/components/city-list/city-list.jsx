@@ -23,7 +23,7 @@ function CityList({ onLocationClick }) {
           <a
             className={`locations__item-link tabs__item \
               ${getClassName(cityName.toLowerCase() === currentCity.toLowerCase(), 'tabs__item--active')}`}
-            href="#"
+            href={`#${cityName.toLowerCase()}`}
             onClick={(evt) => handleLocationClick(evt, cityName)}
           >
             <span>{cityName}</span>

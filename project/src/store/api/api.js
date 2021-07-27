@@ -23,9 +23,11 @@ import {
   favoriteOffersFetchingFailed,
   favoriteOffersLoaded,
   favoriteOffersUpdated,
-  offersCleared
+  offersCleared,
+  serverStatusUpdated,
+  favoriteOffersCleared
 } from '../action';
-import { APIResourceStatus } from '../../const';
+import { APIResourceStatus, ServerStatus } from '../../const';
 
 const getInitialFetchingError = () => ({
   data: '',
@@ -47,6 +49,7 @@ const initialState = {
   favoriteOffers: geInitialDataState(),
   createReviewRequest: geInitialDataState(null),
   updateFavoriteOfferStatusRequest: geInitialDataState(null),
+  serverStatus: ServerStatus.IDLE,
 };
 
 const api = createReducer(initialState, (builder) => {
@@ -126,6 +129,9 @@ const api = createReducer(initialState, (builder) => {
         };
       }
     })
+    .addCase(favoriteOffersCleared, (state) => {
+      state.favoriteOffers = geInitialDataState();
+    })
     .addCase(reviewsFetchingStarted, (state) => {
       state.reviews.status = APIResourceStatus.IN_PROGRESS;
     })
@@ -157,6 +163,9 @@ const api = createReducer(initialState, (builder) => {
     })
     .addCase(favoriteOfferStatusUpdated, (state) => {
       state.updateFavoriteOfferStatusRequest.status = APIResourceStatus.SUCCEEDED;
+    })
+    .addCase(serverStatusUpdated, (state, action) => {
+      state.serverStatus = action.payload;
     });
 });
 

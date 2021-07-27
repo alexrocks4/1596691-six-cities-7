@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../rootReducer';
-import { APIResourceStatus, SortingType } from '../../const';
+import { APIResourceStatus, ServerStatus, SortingType } from '../../const';
 import {
   sortOffersByPriceAscending,
   sortOffersByPriceDescending,
@@ -24,6 +24,8 @@ const selectReviews = (state) => state[NameSpace.API].reviews.data;
 const selectReviewsStatus = (state) => state[NameSpace.API].reviews.status;
 const selectCreateReviewRequestStatus = (state) => state[NameSpace.API].createReviewRequest.status;
 const selectFavoriteOffers = (state) => state[NameSpace.API].favoriteOffers.data;
+const selectFavoriteOffersStatus = (state) => state[NameSpace.API].favoriteOffers.status;
+const selectServerStatus = (state) => state[NameSpace.API].serverStatus;
 
 const selectFavoriteOffersGroupedByCities = createSelector(
   selectFavoriteOffers,
@@ -113,6 +115,13 @@ const makeSelectSortedOffers = () => (
   )
 );
 
+const selectIsServerUnreachable = (state) => selectServerStatus(state) === ServerStatus.UNREACHABLE;
+const selectIsFavoriteOffersLoading = (state) => {
+  const status = selectFavoriteOffersStatus(state);
+
+  return status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE;
+};
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -135,5 +144,8 @@ export {
   makeSelectSortedOffers,
   selectReviews,
   selectReviewsStatus,
-  selectIsCreateReviewRequestInProgress
+  selectIsCreateReviewRequestInProgress,
+  selectServerStatus,
+  selectIsServerUnreachable,
+  selectIsFavoriteOffersLoading
 };

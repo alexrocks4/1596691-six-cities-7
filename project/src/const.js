@@ -114,6 +114,20 @@ const HttpCode = {
   NOT_FOUND: 404,
 };
 
+const ServerStatus = {
+  IDLE: 'idle',
+  UNREACHABLE: 'unreachable',
+};
+
+const ErrorMessage = {
+  SERVER_UNREACHABLE: 'Data fetching error. Server unreachable.',
+};
+
+const FavoriteStatus = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -125,5 +139,8 @@ export {
   SortingType,
   SortingDescription,
   sortingTypes,
-  HttpCode
+  HttpCode,
+  ServerStatus,
+  ErrorMessage,
+  FavoriteStatus
 };

@@ -30,11 +30,10 @@ import {
   adaptReviewsFromServer
 } from '../utils/adapter';
 import { batch } from 'react-redux';
-
-const FavoriteStatus = {
-  ACTIVE: 1,
-  INACTIVE: 0,
-};
+import { onAPIError } from '../utils/util';
+import { FavoriteStatus } from '../const';
+// For mocking module inner functions in jest (e.g. updateFavoriteOfferStatus)
+import * as apiActions from './api-actions';
 
 const fetchOffers = () => (dispatch, _getState, api) => {
   dispatch(offersFetchingStarted());
@@ -67,7 +66,9 @@ const fetchOffer = (offerId) => (dispatch, _getState, api) => {
       const adaptedOffer = adaptOfferFromServer(data);
       dispatch(offerLoaded(adaptedOffer));
     })
-    .catch((error) => dispatch(offerFetchingFailed(error)));
+    .catch(onAPIError.bind(null, {
+      onResponse: (response) => dispatch(offerFetchingFailed(response)),
+    }));
 };
 
 const fetchReviews = (offerId) => (dispatch, _getState, api) => {
@@ -79,7 +80,9 @@ const fetchReviews = (offerId) => (dispatch, _getState, api) => {
       const adaptedReviews = adaptReviewsFromServer(data);
       dispatch(reviewsLoaded(adaptedReviews));
     })
-    .catch((error) => dispatch(reviewsFetchingFailed(error)));
+    .catch(onAPIError.bind(null, {
+      onResponse: (response) => dispatch(reviewsFetchingFailed(response)),
+    }));
 };
 
 const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
@@ -91,7 +94,9 @@ const fetchFavoriteOffers = () => (dispatch, _getState, api) => {
       const adaptedOffers = adaptOffersFromServer(data);
       dispatch(favoriteOffersLoaded(adaptedOffers));
     })
-    .catch((error) => dispatch(favoriteOffersFetchingFailed(error)));
+    .catch(onAPIError.bind(null, {
+      onResponse: (response) => dispatch(favoriteOffersFetchingFailed(response)),
+    }));
 };
 
 const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
@@ -103,7 +108,9 @@ const createReview = ({ offerId, review }) => (dispatch, _getState, api) => {
       const adaptedReviews = adaptReviewsFromServer(data);
       dispatch(reviewCreated(adaptedReviews));
     })
-    .catch((error) => dispatch(reviewCreationFailed(error)));
+    .catch(onAPIError.bind(null, {
+      onResponse: (response) => dispatch(reviewCreationFailed(response)),
+    }));
 };
 
 const updateFavoriteOfferStatus = (offerId, status, action) => (dispatch, _getState, api) => {
@@ -116,15 +123,17 @@ const updateFavoriteOfferStatus = (offerId, status, action) => (dispatch, _getSt
       dispatch(action(adaptedOffer));
       dispatch(favoriteOfferStatusUpdated());
     })
-    .catch((error) => dispatch(favoriteOfferStatusUpdatingFailed(error)));
+    .catch(onAPIError.bind(null, {
+      onResponse: (response) => dispatch(favoriteOfferStatusUpdatingFailed(response)),
+    }));
 };
 
 const setOfferAsFavorite = (offerId, action) => (dispatch) => (
-  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
+  dispatch(apiActions.updateFavoriteOfferStatus(offerId, FavoriteStatus.ACTIVE, action))
 );
 
 const unsetOfferAsFavorite = (offerId, action) => (dispatch) => (
-  dispatch(updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
+  dispatch(apiActions.updateFavoriteOfferStatus(offerId, FavoriteStatus.INACTIVE, action))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -167,5 +176,6 @@ export {
   logout,
   createReview,
   setOfferAsFavorite,
-  unsetOfferAsFavorite
+  unsetOfferAsFavorite,
+  updateFavoriteOfferStatus
 };

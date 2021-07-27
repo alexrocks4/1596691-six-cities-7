@@ -3,24 +3,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../header/header';
-import { selectFavoriteOffersGroupedByCities } from '../../store/api/selectors';
+import { selectFavoriteOffersGroupedByCities, selectIsFavoriteOffersLoading } from '../../store/api/selectors';
 import { fetchFavoriteOffers } from '../../store/api-actions';
 import classNames from 'classnames';
 import FavoritesMainContent from '../favorites-main-content/favorites-main-content';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import { favoriteOffersCleared } from '../../store/action';
+import Loading from '../loading/loading';
 
 function Favorites() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers());
+
+    return () => dispatch(favoriteOffersCleared());
   }, [dispatch]);
 
+  const isFavoriteOffersLoading = useSelector(selectIsFavoriteOffersLoading);
   const favoriteOffers = useSelector(selectFavoriteOffersGroupedByCities);
   const isFavoriteOffersEmpty = !favoriteOffers.size;
   let mainContent;
 
-  if (isFavoriteOffersEmpty) {
+  if (isFavoriteOffersLoading) {
+    mainContent = <Loading className="js-loading--stretched" />;
+  } else if (isFavoriteOffersEmpty) {
     mainContent = <FavoritesEmpty />;
   } else {
     mainContent = <FavoritesMainContent favoriteOffers={favoriteOffers} />;

@@ -18,6 +18,7 @@ const ActionType = {
   FAVORITE_OFFERS_FETCHING_FAILED: 'api/favoriteOffers/fetchingFailed',
   FAVORITE_OFFERS_LOADED: 'api/favoriteOffers/loaded',
   FAVORITE_OFFERS_UPDATED: 'api/favoriteOffers/updated',
+  FAVORITE_OFFERS_CLEARED: 'api/favoriteOffers/cleared',
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
@@ -27,6 +28,7 @@ const ActionType = {
   FAVORITE_OFFER_STATUS_UPDATING_STARTED: 'api/favoriteOfferStatus/updatingStarted',
   FAVORITE_OFFER_STATUS_UPDATING_FAILED: 'api/favoriteOfferStatus/updatingFailed',
   FAVORITE_OFFER_STATUS_UPDATED: 'api/favoriteOfferStatus/updated',
+  SERVER_STATUS_UPDATED: 'api/serverStatus/updated',
   LOGGED_IN: 'user/loggedIn',
   LOGGED_OUT: 'user/loggedOut',
   NOT_AUTHORIZED: 'user/notAuthorized',
@@ -50,6 +52,7 @@ const favoriteOffersFetchingStarted = createAction(ActionType.FAVORITE_OFFERS_FE
 const favoriteOffersFetchingFailed = createAction(ActionType.FAVORITE_OFFERS_FETCHING_FAILED);
 const favoriteOffersLoaded = createAction(ActionType.FAVORITE_OFFERS_LOADED);
 const favoriteOffersUpdated= createAction(ActionType.FAVORITE_OFFERS_UPDATED);
+const favoriteOffersCleared= createAction(ActionType.FAVORITE_OFFERS_CLEARED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
@@ -59,6 +62,7 @@ const reviewCreated = createAction(ActionType.REVIEW_CREATED);
 const favoriteOfferStatusUpdatingStarted = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATING_STARTED);
 const favoriteOfferStatusUpdatingFailed = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATING_FAILED);
 const favoriteOfferStatusUpdated = createAction(ActionType.FAVORITE_OFFER_STATUS_UPDATED);
+const serverStatusUpdated = createAction(ActionType.SERVER_STATUS_UPDATED);
 const loggedIn = createAction(ActionType.LOGGED_IN);
 const loggedOut = createAction(ActionType.LOGGED_OUT);
 const notAuthorized = createAction(ActionType.NOT_AUTHORIZED);
@@ -69,6 +73,7 @@ const updateOffersNearby = (offer) => (dispatch) => dispatch(offersNearbyUpdated
 const updateFavoriteOffers = (offer) => (dispatch) => dispatch(favoriteOffersUpdated(offer));
 
 export {
+  ActionType,
   cityUpdated,
   sortingTypeUpdated,
   offersFetchingStarted,
@@ -90,6 +95,7 @@ export {
   favoriteOffersFetchingFailed,
   favoriteOffersLoaded,
   favoriteOffersUpdated,
+  favoriteOffersCleared,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
   reviewsLoaded,
@@ -99,6 +105,7 @@ export {
   favoriteOfferStatusUpdatingStarted,
   favoriteOfferStatusUpdatingFailed,
   favoriteOfferStatusUpdated,
+  serverStatusUpdated,
   updateOffers,
   updateOffer,
   updateOffersNearby,
