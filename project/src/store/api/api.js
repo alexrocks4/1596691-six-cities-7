@@ -12,6 +12,7 @@ import {
 import { APIResourceStatus, ServerStatus } from '../../const';
 import { capitalizeFirstLetter, getResource } from '../../utils/util';
 
+const SLICE_DOMAIN = 'api/';
 const ActionEndingMatcher = {
   STARTED: 'Started',
   LOADED: '/loaded',
@@ -19,10 +20,10 @@ const ActionEndingMatcher = {
   CLEARED: '/cleared',
 };
 
-const isStartedAction = (action) => action.type.endsWith(ActionEndingMatcher.FETCHING_STARTED);
-const isLoadedAction = (action) => action.type.endsWith(ActionEndingMatcher.LOADED);
-const isFailedAction = (action) => action.type.endsWith(ActionEndingMatcher.FAILED);
-const isClearedAction = (action) => action.type.endsWith(ActionEndingMatcher.CLEARED);
+const isStartedAction = (action) => action.type?.startsWith(SLICE_DOMAIN) && action.type?.endsWith(ActionEndingMatcher.STARTED);
+const isLoadedAction = (action) => action.type?.startsWith(SLICE_DOMAIN) && action.type?.endsWith(ActionEndingMatcher.LOADED);
+const isFailedAction = (action) => action.type?.startsWith(SLICE_DOMAIN) && action.type?.endsWith(ActionEndingMatcher.FAILED);
+const isClearedAction = (action) => action.type?.startsWith(SLICE_DOMAIN) && action.type?.endsWith(ActionEndingMatcher.CLEARED);
 
 const geInitialDataState = (data = []) => ({
   data,
