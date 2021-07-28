@@ -9,7 +9,7 @@ import Map from '../map/map';
 import NearPlaces from '../near-places/near-places';
 import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import { updateOffer } from '../../store/action';
-import BookmarkButtonBig from '../bookmark-button-big/bookmark-button-big';
+import BookmarkButtonRoom from '../bookmark-button-room/bookmark-button-room';
 
 const MAX_IMAGES = 6;
 const RatingConfig = {
@@ -41,7 +41,7 @@ function RoomMainContent() {
               <h1 className="property__name">
                 {targetOffer.title}
               </h1>
-              <BookmarkButtonBig offer={targetOffer} onClick={updateOffer} />
+              <BookmarkButtonRoom offer={targetOffer} onClick={updateOffer} />
             </div>
             <Rating
               rating={targetOffer.rating}
