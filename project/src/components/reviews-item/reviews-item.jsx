@@ -38,7 +38,7 @@ function ReviewsItem({ review }) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date.format('YYYY-MM-DD')}>{date.format('MMMM D')}</time>
+        <time className="reviews__time" dateTime={date.format('YYYY-MM-DD')}>{date.format('MMMM YYYY')}</time>
       </div>
     </li>
   );
