@@ -4,7 +4,8 @@ import { APIResourceStatus, ServerStatus, SortingType } from '../../const';
 import {
   sortOffersByPriceAscending,
   sortOffersByPriceDescending,
-  sortOffersByRatingDescending
+  sortOffersByRatingDescending,
+  sortReviewsByDateDescending
 } from '../../application';
 import { selectSortingType } from '../app/selectors';
 import { HttpCode } from '../../const';
@@ -129,6 +130,17 @@ const selectOfferImagesLimitedByCount = createSelector(
   (images, maxCount) => images.length > maxCount ? images.slice(0, maxCount) : images,
 );
 
+const selectReviewsSortedByDateDescending = createSelector(
+  selectReviews,
+  (reviews) => reviews.slice().sort(sortReviewsByDateDescending),
+);
+
+const selectReviewsSortedByDateDescendingLimitedByCount = createSelector(
+  selectReviewsSortedByDateDescending,
+  (_, maxCount) => maxCount,
+  (reviews, maxCount) => reviews.length > maxCount ? reviews.slice(0, maxCount) : reviews,
+);
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -155,5 +167,6 @@ export {
   selectServerStatus,
   selectIsServerUnreachable,
   selectIsFavoriteOffersLoading,
-  selectOfferImagesLimitedByCount
+  selectOfferImagesLimitedByCount,
+  selectReviewsSortedByDateDescendingLimitedByCount
 };
