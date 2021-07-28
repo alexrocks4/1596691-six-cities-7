@@ -88,6 +88,11 @@ const selectIsCreateReviewRequestInProgress = createSelector(
   (status) => status === APIResourceStatus.IN_PROGRESS,
 );
 
+const selectIsCreateReviewRequestFailed = createSelector(
+  selectCreateReviewRequestStatus,
+  (status) => status === APIResourceStatus.FAILED,
+);
+
 const makeSelectOfferById = () => (
   createSelector(
     selectOffers,
@@ -164,6 +169,7 @@ export {
   selectReviews,
   selectReviewsStatus,
   selectIsCreateReviewRequestInProgress,
+  selectIsCreateReviewRequestFailed,
   selectServerStatus,
   selectIsServerUnreachable,
   selectIsFavoriteOffersLoading,

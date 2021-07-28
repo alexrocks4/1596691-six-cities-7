@@ -1,9 +1,11 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { DECIMAL_RADIX } from '../../const';
 import { createReview } from '../../store/api-actions';
-import { selectIsCreateReviewRequestInProgress } from '../../store/api/selectors';
+import { selectIsCreateReviewRequestInProgress, selectIsCreateReviewRequestFailed } from '../../store/api/selectors';
+import './reviews-form.css';
 
 const DEFAULT_RATING = 0;
 const DEFAULT_REVIEW = '';
@@ -16,6 +18,7 @@ function ReviewsForm() {
   const [ review, setReview ] = useState(DEFAULT_REVIEW);
   const { id: offerId } = useParams();
   const isCreateReviewRequestInProgress = useSelector(selectIsCreateReviewRequestInProgress);
+  const isCreateReviewRequestFailed= useSelector(selectIsCreateReviewRequestFailed);
 
   const handleReviewChange = (evt) => {
     setReview(evt.target.value);
@@ -43,7 +46,12 @@ function ReviewsForm() {
   const isSubmitDisbled = !isReviewOk || rating === DEFAULT_RATING || isCreateReviewRequestInProgress;
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form
+      className={classNames('reviews__form form', { 'js-form--swing': isCreateReviewRequestFailed })}
+      action="#"
+      method="post"
+      onSubmit={handleFormSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" defaultValue={5} id="5-stars" type="radio" checked={rating === 5} onChange={handleRatingChange} disabled={isCreateReviewRequestInProgress} />
