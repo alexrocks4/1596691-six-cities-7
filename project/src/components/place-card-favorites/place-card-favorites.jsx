@@ -1,7 +1,7 @@
 import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import { offerProp } from '../../prop-types/offers.prop';
-import { updateFavoriteOffers } from '../../store/action';
+import { deleteFavoriteOffers } from '../../store/action';
 
 const placeCardConfig = {
   className: {
@@ -18,7 +18,7 @@ function PlaceCardFavorites(props) {
   return (
     <PlaceCard
       config={placeCardConfig}
-      onBookmarkButtonClick={updateFavoriteOffers}
+      onBookmarkButtonClick={deleteFavoriteOffers}
       {...props}
     />
   );

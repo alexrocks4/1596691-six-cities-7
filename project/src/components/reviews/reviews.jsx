@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectReviews } from '../../store/api/selectors';
+import { selectReviewsSortedByDateDescendingLimitedByCount } from '../../store/api/selectors';
 import { selectIsUserAuthorized } from '../../store/user/selectors';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsItem from '../reviews-item/reviews-item';
 
+const MAX_REVIEWS = 10;
+
 function Reviews() {
-  const reviews = useSelector(selectReviews);
+  const reviews = useSelector((state) => selectReviewsSortedByDateDescendingLimitedByCount(state, MAX_REVIEWS));
   const isUserAuthorized = useSelector(selectIsUserAuthorized);
 
   return (

@@ -4,7 +4,8 @@ import { APIResourceStatus, ServerStatus, SortingType } from '../../const';
 import {
   sortOffersByPriceAscending,
   sortOffersByPriceDescending,
-  sortOffersByRatingDescending
+  sortOffersByRatingDescending,
+  sortReviewsByDateDescending
 } from '../../application';
 import { selectSortingType } from '../app/selectors';
 import { HttpCode } from '../../const';
@@ -16,6 +17,7 @@ const selectOffersNearby = (state) => state[NameSpace.API].offersNearby.data;
 const selectOffersNearbyStatus = (state) => state[NameSpace.API].offersNearby.status;
 const selectOffersNearbyError = (state) => state[NameSpace.API].offersNearby.error;
 const selectOffer = (state) => state[NameSpace.API].offer.data;
+const selectOfferImages = (state) => state[NameSpace.API].offer.data.images;
 const selectOfferStatus = (state) => state[NameSpace.API].offer.status;
 const selectOfferError = (state) => state[NameSpace.API].offer.error;
 const selectOfferErrorStatusCode = (state) => state[NameSpace.API].offer.error?.status;
@@ -86,6 +88,11 @@ const selectIsCreateReviewRequestInProgress = createSelector(
   (status) => status === APIResourceStatus.IN_PROGRESS,
 );
 
+const selectIsCreateReviewRequestFailed = createSelector(
+  selectCreateReviewRequestStatus,
+  (status) => status === APIResourceStatus.FAILED,
+);
+
 const makeSelectOfferById = () => (
   createSelector(
     selectOffers,
@@ -122,6 +129,23 @@ const selectIsFavoriteOffersLoading = (state) => {
   return status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE;
 };
 
+const selectOfferImagesLimitedByCount = createSelector(
+  selectOfferImages,
+  (_, maxCount) => maxCount,
+  (images, maxCount) => images.length > maxCount ? images.slice(0, maxCount) : images,
+);
+
+const selectReviewsSortedByDateDescending = createSelector(
+  selectReviews,
+  (reviews) => reviews.slice().sort(sortReviewsByDateDescending),
+);
+
+const selectReviewsSortedByDateDescendingLimitedByCount = createSelector(
+  selectReviewsSortedByDateDescending,
+  (_, maxCount) => maxCount,
+  (reviews, maxCount) => reviews.length > maxCount ? reviews.slice(0, maxCount) : reviews,
+);
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -145,7 +169,10 @@ export {
   selectReviews,
   selectReviewsStatus,
   selectIsCreateReviewRequestInProgress,
+  selectIsCreateReviewRequestFailed,
   selectServerStatus,
   selectIsServerUnreachable,
-  selectIsFavoriteOffersLoading
+  selectIsFavoriteOffersLoading,
+  selectOfferImagesLimitedByCount,
+  selectReviewsSortedByDateDescendingLimitedByCount
 };

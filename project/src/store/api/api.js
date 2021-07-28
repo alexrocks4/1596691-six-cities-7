@@ -25,7 +25,8 @@ import {
   favoriteOffersUpdated,
   offersCleared,
   serverStatusUpdated,
-  favoriteOffersCleared
+  favoriteOffersCleared,
+  favoriteOffersDeleted
 } from '../action';
 import { APIResourceStatus, ServerStatus } from '../../const';
 
@@ -128,6 +129,9 @@ const api = createReducer(initialState, (builder) => {
           ...action.payload,
         };
       }
+    })
+    .addCase(favoriteOffersDeleted, (state, action) => {
+      state.favoriteOffers.data = state.favoriteOffers.data.filter((offer) => offer.id !== action.payload.id);
     })
     .addCase(favoriteOffersCleared, (state) => {
       state.favoriteOffers = geInitialDataState();

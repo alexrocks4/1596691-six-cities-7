@@ -16,7 +16,7 @@ const loadingStyle = {
   justifyContent: 'center',
 };
 
-function Places({ onCardMouseEnter, offers }) {
+function Places({ onCardMouseEnter, onCardMouseLeave, offers }) {
   const currentCity = useSelector(selectCity);
   const isLoading = useSelector(selectIsOffersLoading);
 
@@ -42,6 +42,7 @@ function Places({ onCardMouseEnter, offers }) {
             key={offer.id}
             offer={offer}
             onCardMouseEnter={onCardMouseEnter}
+            onCardMouseLeave={onCardMouseLeave}
           />
         )}
       />
@@ -51,6 +52,7 @@ function Places({ onCardMouseEnter, offers }) {
 
 Places.propTypes = {
   onCardMouseEnter: PropTypes.func,
+  onCardMouseLeave: PropTypes.func,
   offers: offersProp,
 };
 

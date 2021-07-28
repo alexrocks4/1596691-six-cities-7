@@ -19,6 +19,7 @@ const ActionType = {
   FAVORITE_OFFERS_LOADED: 'api/favoriteOffers/loaded',
   FAVORITE_OFFERS_UPDATED: 'api/favoriteOffers/updated',
   FAVORITE_OFFERS_CLEARED: 'api/favoriteOffers/cleared',
+  FAVORITE_OFFERS_DELETED: 'api/favoriteOffers/deleted',
   REVIEWS_FETCHING_STARTED: 'api/reviews/fetchingStarted',
   REVIEWS_FETCHING_FAILED: 'api/reviews/fetchingFailed',
   REVIEWS_LOADED: 'api/reviews/loaded',
@@ -53,6 +54,7 @@ const favoriteOffersFetchingFailed = createAction(ActionType.FAVORITE_OFFERS_FET
 const favoriteOffersLoaded = createAction(ActionType.FAVORITE_OFFERS_LOADED);
 const favoriteOffersUpdated= createAction(ActionType.FAVORITE_OFFERS_UPDATED);
 const favoriteOffersCleared= createAction(ActionType.FAVORITE_OFFERS_CLEARED);
+const favoriteOffersDeleted= createAction(ActionType.FAVORITE_OFFERS_DELETED);
 const reviewsFetchingStarted = createAction(ActionType.REVIEWS_FETCHING_STARTED);
 const reviewsFetchingFailed = createAction(ActionType.REVIEWS_FETCHING_FAILED);
 const reviewsLoaded = createAction(ActionType.REVIEWS_LOADED);
@@ -71,6 +73,7 @@ const updateOffers = (offer) => (dispatch) => dispatch(offersUpdated(offer));
 const updateOffer = (offer) => (dispatch) => dispatch(offerUpdated(offer));
 const updateOffersNearby = (offer) => (dispatch) => dispatch(offersNearbyUpdated(offer));
 const updateFavoriteOffers = (offer) => (dispatch) => dispatch(favoriteOffersUpdated(offer));
+const deleteFavoriteOffers = (offer) => (dispatch) => dispatch(favoriteOffersDeleted(offer));
 
 export {
   ActionType,
@@ -96,6 +99,7 @@ export {
   favoriteOffersLoaded,
   favoriteOffersUpdated,
   favoriteOffersCleared,
+  favoriteOffersDeleted,
   reviewsFetchingStarted,
   reviewsFetchingFailed,
   reviewsLoaded,
@@ -109,5 +113,6 @@ export {
   updateOffers,
   updateOffer,
   updateOffersNearby,
-  updateFavoriteOffers
+  updateFavoriteOffers,
+  deleteFavoriteOffers
 };

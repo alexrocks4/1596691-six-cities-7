@@ -11,6 +11,7 @@ function CitiesPlaces(props) {
     currentCity,
     activeOffer,
     onPlacesCardMouseEnter,
+    onPlacesCardMouseLeave,
   } = props;
 
   return (
@@ -18,6 +19,7 @@ function CitiesPlaces(props) {
       <Places
         offers={offers}
         onCardMouseEnter={onPlacesCardMouseEnter}
+        onCardMouseLeave={onPlacesCardMouseLeave}
       >
       </Places>
       <div className="cities__right-section">
@@ -38,6 +40,7 @@ CitiesPlaces.propTypes = {
   currentCity: PropTypes.string.isRequired,
   activeOffer: offerProp,
   onPlacesCardMouseEnter: PropTypes.func.isRequired,
+  onPlacesCardMouseLeave: PropTypes.func.isRequired,
 };
 
 CitiesPlaces.defaultProps = {
