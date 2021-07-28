@@ -16,6 +16,7 @@ const selectOffersNearby = (state) => state[NameSpace.API].offersNearby.data;
 const selectOffersNearbyStatus = (state) => state[NameSpace.API].offersNearby.status;
 const selectOffersNearbyError = (state) => state[NameSpace.API].offersNearby.error;
 const selectOffer = (state) => state[NameSpace.API].offer.data;
+const selectOfferImages = (state) => state[NameSpace.API].offer.data.images;
 const selectOfferStatus = (state) => state[NameSpace.API].offer.status;
 const selectOfferError = (state) => state[NameSpace.API].offer.error;
 const selectOfferErrorStatusCode = (state) => state[NameSpace.API].offer.error?.status;
@@ -122,6 +123,12 @@ const selectIsFavoriteOffersLoading = (state) => {
   return status === APIResourceStatus.IN_PROGRESS || status === APIResourceStatus.IDLE;
 };
 
+const selectOfferImagesLimitedByCount = createSelector(
+  selectOfferImages,
+  (_, maxCount) => maxCount,
+  (images, maxCount) => images.length > maxCount ? images.slice(0, maxCount) : images,
+);
+
 export {
   selectOffers,
   selectOffersStatus,
@@ -147,5 +154,6 @@ export {
   selectIsCreateReviewRequestInProgress,
   selectServerStatus,
   selectIsServerUnreachable,
-  selectIsFavoriteOffersLoading
+  selectIsFavoriteOffersLoading,
+  selectOfferImagesLimitedByCount
 };

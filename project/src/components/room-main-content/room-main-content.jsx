@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectOffer, selectOffersNearby } from '../../store/api/selectors';
+import { selectOffer, selectOfferImagesLimitedByCount, selectOffersNearby } from '../../store/api/selectors';
 import RoomGalleryItem from '../room-gallery-item/room-gallery-item';
 import RoomMark from '../room-mark/room-mark';
 import Rating from '../rating/rating';
@@ -11,6 +11,7 @@ import { capitalizeFirstLetter, pluralize } from '../../utils/util';
 import { updateOffer } from '../../store/action';
 import BookmarkButtonBig from '../bookmark-button-big/bookmark-button-big';
 
+const MAX_IMAGES = 6;
 const RatingConfig = {
   rating: 'property__rating',
   ratingStars: 'property__stars',
@@ -20,13 +21,14 @@ const RatingConfig = {
 function RoomMainContent() {
   const targetOffer = useSelector(selectOffer);
   const offersNearby = useSelector(selectOffersNearby);
+  const images = useSelector((state) => selectOfferImagesLimitedByCount(state, MAX_IMAGES));
 
   return (
     <React.Fragment>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {targetOffer.images.map((url, index) => {
+            {images.map((url, index) => {
               const keyId = `${index}-${url}`;
               return <RoomGalleryItem key={keyId} imageSrc={url} />;
             })}
