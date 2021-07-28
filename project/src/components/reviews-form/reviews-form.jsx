@@ -32,8 +32,11 @@ function ReviewsForm() {
       review: {
         comment: review,
         rating: rating,
-      },
-    }));
+      }}))
+      .then(() => {
+        setRating(DEFAULT_RATING);
+        setReview(DEFAULT_REVIEW);
+      });
   };
 
   const isReviewOk = review.length >= MIN_REVIEW_LENGTH && review.length < MAX_REVIEW_LENGTH;
