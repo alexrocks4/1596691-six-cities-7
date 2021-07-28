@@ -38,6 +38,7 @@ function Main() {
   const isNoOffers = !sortedOffers.length && isOffersLoaded;
 
   const [ activeOffer, setActiveOffer ] = useState(null);
+  const handlePlacesCardMouseLeave = useCallback(() => setActiveOffer(null), []);
   const handlePlacesCardMouseEnter = useCallback((offer) => setActiveOffer(offer), []);
   const handleLocationClick = useCallback(() => setActiveOffer(null), []);
 
@@ -55,6 +56,7 @@ function Main() {
         currentCity={currentCity}
         activeOffer={activeOffer}
         onPlacesCardMouseEnter={handlePlacesCardMouseEnter}
+        onPlacesCardMouseLeave={handlePlacesCardMouseLeave}
       />
     );
   }
