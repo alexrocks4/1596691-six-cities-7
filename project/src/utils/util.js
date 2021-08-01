@@ -17,9 +17,26 @@ const onAPIError = ({ onResponse, onNoResponse }, error) => {
   return Promise.reject(error);
 };
 
+const underscoreUppercase = (inputString) => (
+  inputString
+    .split()
+    .map((character) => {
+      if (character === character.toUpperCase()) {
+        return `_${character}`;
+      }
+
+      return character;
+    })
+    .join('')
+);
+
+const getResource = (actionType) => actionType.split('/')[1];
+
 export {
   capitalizeFirstLetter,
   pluralize,
   getClassName,
-  onAPIError
+  onAPIError,
+  underscoreUppercase,
+  getResource
 };

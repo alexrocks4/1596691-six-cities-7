@@ -25,7 +25,7 @@ const ActionType = {
   REVIEWS_LOADED: 'api/reviews/loaded',
   REVIEW_CREATION_STARTED: 'api/review/creationStarted',
   REVIEW_CREATION_FAILED: 'api/review/creationFailed',
-  REVIEW_CREATED: 'api/review/loaded',
+  REVIEW_CREATED: 'api/review/created',
   FAVORITE_OFFER_STATUS_UPDATING_STARTED: 'api/favoriteOfferStatus/updatingStarted',
   FAVORITE_OFFER_STATUS_UPDATING_FAILED: 'api/favoriteOfferStatus/updatingFailed',
   FAVORITE_OFFER_STATUS_UPDATED: 'api/favoriteOfferStatus/updated',
