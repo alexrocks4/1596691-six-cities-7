@@ -8,6 +8,9 @@ import App from './components/app/app';
 import { createAPI } from './services/api';
 import { checkAuth } from './store/api-actions';
 import { notAuthorized } from './store/action';
+import browserHistory from './browser-history';
+import { Router } from 'react-router-dom';
+
 
 const api = createAPI(() => store.dispatch(notAuthorized()));
 
@@ -27,7 +30,9 @@ store.dispatch(checkAuth());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router history={browserHistory}>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
