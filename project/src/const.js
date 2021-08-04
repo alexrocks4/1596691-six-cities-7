@@ -128,6 +128,14 @@ const FavoriteStatus = {
   INACTIVE: 0,
 };
 
+const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
+
+const EndpointsAbsolutePath = {
+  LOGIN: `${BACKEND_URL}/login`,
+  OFFERS: `${BACKEND_URL}/hotels`,
+  OFFER: `${BACKEND_URL}/hotel/:id`,
+};
+
 export {
   AppRoute,
   DECIMAL_RADIX,
@@ -142,5 +150,7 @@ export {
   HttpCode,
   ServerStatus,
   ErrorMessage,
-  FavoriteStatus
+  FavoriteStatus,
+  BACKEND_URL,
+  EndpointsAbsolutePath
 };
